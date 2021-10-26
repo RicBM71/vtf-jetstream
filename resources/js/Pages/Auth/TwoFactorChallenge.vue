@@ -1,71 +1,85 @@
 <template>
-    <jet-authentication-card>
-        <template #logo>
-            <jet-authentication-card-logo />
-        </template>
+    <v-app>
+        <v-container>
+            <v-row>
+                <v-col cols="12" md="4"></v-col>
+                <v-col cols="12" md="4">
+                    <v-card
+                        class="mx-auto"
+                    >
+                        <v-card-title>
+                            <v-toolbar dark color="primary">
+                                <v-toolbar-title>Enter Auth Code</v-toolbar-title>
+                                <v-spacer></v-spacer>
+                                <inertia-link :href="route('home')" class="text-sm text-gray-700 underline">
+                                    <v-icon>mdi-home-outline</v-icon>
+                                </inertia-link>
+                            </v-toolbar>
+                        </v-card-title>
+                        <v-card-text>
 
-        <div class="mb-4 text-sm text-gray-600">
-            <template v-if="! recovery">
-                Please confirm access to your account by entering the authentication code provided by your authenticator application.
-            </template>
+                            <p v-if="! recovery">
+                                Please confirm access to your account by entering the authentication code provided by your authenticator application.
+                            </p>
 
-            <template v-else>
-                Please confirm access to your account by entering one of your emergency recovery codes.
-            </template>
-        </div>
+                            <p v-else>
+                                Please confirm access to your account by entering one of your emergency recovery codes.
+                            </p>
 
-        <jet-validation-errors class="mb-4" />
 
-        <form @submit.prevent="submit">
-            <div v-if="! recovery">
-                <jet-label for="code" value="Code" />
-                <jet-input ref="code" id="code" type="text" inputmode="numeric" class="mt-1 block w-full" v-model="form.code" autofocus autocomplete="one-time-code" />
-            </div>
 
-            <div v-else>
-                <jet-label for="recovery_code" value="Recovery Code" />
-                <jet-input ref="recovery_code" id="recovery_code" type="text" class="mt-1 block w-full" v-model="form.recovery_code" autocomplete="one-time-code" />
-            </div>
+                                <v-text-field
+                                    ref="code"
+                                    v-if="! recovery"
+                                    v-model="form.code"
+                                    label="Code"
+                                    v-validate="'required|numeric'"
+                                    :error-messages="errors.collect('code')"
+                                    data-vv-name="code"
+                                    data-vv-as="code"
+                                    v-on:keyup.enter="submit"
+                                ></v-text-field>
+                                <v-text-field
+                                    v-else
+                                    ref="recovery_code"
+                                    v-model="form.recovery_code"
+                                    label="Recovery Code"
+                                    v-validate="'required'"
+                                    :error-messages="errors.collect('recovery_code')"
+                                    data-vv-name="recovery_code"
+                                    data-vv-as="recovery_code"
+                                    v-on:keyup.enter="submit"
+                                ></v-text-field>
 
-            <div class="flex items-center justify-end mt-4">
-                <button type="button" class="text-sm text-gray-600 hover:text-gray-900 underline cursor-pointer" @click.prevent="toggleRecovery">
-                    <template v-if="! recovery">
-                        Use a recovery code
-                    </template>
+                                <v-row>
+                                    <v-col cols="9">
+                                        <v-btn text small @click="toggleRecovery" color="primary">
+                                            {{ computedLabel }}
+                                        </v-btn>
+                                    </v-col>
+                                    <v-col cols="2">
+                                        <v-spacer></v-spacer>
+                                        <v-btn small @click="submit" :loading="form.processing">
+                                            Login
+                                        </v-btn>
+                                    </v-col>
+                                </v-row>
 
-                    <template v-else>
-                        Use an authentication code
-                    </template>
-                </button>
-
-                <jet-button class="ml-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                    Login
-                </jet-button>
-            </div>
-        </form>
-    </jet-authentication-card>
+                        </v-card-text>
+                    </v-card>
+                </v-col>
+            </v-row>
+        </v-container>
+    </v-app>
 </template>
 
 <script>
-    import JetAuthenticationCard from '@/Jetstream/AuthenticationCard'
-    import JetAuthenticationCardLogo from '@/Jetstream/AuthenticationCardLogo'
-    import JetButton from '@/Jetstream/Button'
-    import JetInput from '@/Jetstream/Input'
-    import JetLabel from '@/Jetstream/Label'
-    import JetValidationErrors from '@/Jetstream/ValidationErrors'
 
     export default {
-        components: {
-            JetAuthenticationCard,
-            JetAuthenticationCardLogo,
-            JetButton,
-            JetInput,
-            JetLabel,
-            JetValidationErrors,
-        },
 
         data() {
             return {
+
                 recovery: false,
                 form: this.$inertia.form({
                     code: '',
@@ -73,7 +87,14 @@
                 })
             }
         },
+        computed: {
+            computedLabel(){
+                return !this.recovery ? 'Use a recovery code' : 'Use an authentication code';
+            }
+        },
+        mounted(){
 
+        },
         methods: {
             toggleRecovery() {
                 this.recovery ^= true
@@ -81,16 +102,23 @@
                 this.$nextTick(() => {
                     if (this.recovery) {
                         this.$refs.recovery_code.focus()
+                        //this.$nextTick(() => this.$refs.recovery_code.focus())
                         this.form.code = '';
                     } else {
                         this.$refs.code.focus()
+                       // this.$nextTick(() => this.$refs.code.focus())
                         this.form.recovery_code = ''
                     }
                 })
             },
 
             submit() {
-                this.form.post(this.route('two-factor.login'))
+
+                this.$validator.validateAll().then((result) => {
+                    if (result){
+                        this.form.post(this.route('two-factor.login'))
+                    }
+                });
             }
         }
     }

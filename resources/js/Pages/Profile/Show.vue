@@ -1,9 +1,12 @@
 <template>
   <app-layout>
-      <v-container>
-        <template #title>
-        Profile
+      <template #header>
+            <h2>
+                Profile
+            </h2>
         </template>
+
+      <v-container>
         <v-row>
             <v-col cols="12" md="4">
                 <template v-if="$page.props.jetstream.canUpdateProfileInformation">

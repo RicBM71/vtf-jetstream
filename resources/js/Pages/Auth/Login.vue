@@ -1,66 +1,73 @@
 <template>
-    <jet-authentication-card>
-        <template #logo>
-            <jet-authentication-card-logo />
-        </template>
-
-        <jet-validation-errors class="mb-4" />
-
-        <div v-if="status" class="mb-4 font-medium text-sm text-green-600">
-            {{ status }}
-        </div>
-
-        <form>
-            <div>
-                <jet-label for="email" value="Email" />
-                <jet-input id="email" type="email" class="mt-1 block w-full" v-model="form.email" required autofocus />
-            </div>
-
-            <div class="mt-4">
-                <jet-label for="password" value="Password" />
-                <jet-input id="password" type="password" class="mt-1 block w-full" v-model="form.password" required autocomplete="current-password" />
-            </div>
-
-            <div class="block mt-4">
-                <label class="flex items-center">
-                    <jet-checkbox name="remember" v-model="form.remember" />
-                    <span class="ml-2 text-sm text-gray-600">Remember me</span>
-                </label>
-            </div>
-
-            <div class="flex items-center justify-end mt-4">
-                <inertia-link v-if="canResetPassword" :href="route('password.request')" class="mr-2 underline text-sm text-gray-600 hover:text-gray-900">
-                    Forgot your password?
-                </inertia-link>
-
-                <v-btn small @click="submit" :disabled="form.processing">
-                    Login
-                </v-btn>
-            </div>
-        </form>
-    </jet-authentication-card>
+    <v-app>
+        <v-container>
+            <v-row>
+                <v-col cols="12" md="4"></v-col>
+                <v-col cols="12" md="4">
+                    <v-card
+                        class="mx-auto"
+                    >
+                        <v-card-title>
+                            <v-toolbar dark color="primary">
+                                <v-toolbar-title>Credenciales</v-toolbar-title>
+                                <v-spacer></v-spacer>
+                                <inertia-link :href="route('home')" class="text-sm text-gray-700 underline">
+                                    <v-icon>mdi-home-outline</v-icon>
+                                </inertia-link>
+                            </v-toolbar>
+                        </v-card-title>
+                        <v-card-text>
+                            <v-form>
+                                <v-row>
+                                    <v-col cols="12">
+                                        <v-text-field
+                                            v-model="form.email"
+                                            label="Usuario"
+                                            v-validate="'required|min:4'"
+                                            :error-messages="errors.collect('email')"
+                                            data-vv-name="email"
+                                            data-vv-as="email"
+                                            v-on:keyup.enter="submit"
+                                        ></v-text-field>
+                                    </v-col>
+                                    <v-col cols="12">
+                                        <v-text-field
+                                            v-model="form.password"
+                                            label="Password"
+                                            v-validate="'required'"
+                                            :error-messages="errors.collect('password')"
+                                            data-vv-name="password"
+                                            data-vv-as="password"
+                                            type="password"
+                                            v-on:keyup.enter="submit"
+                                        ></v-text-field>
+                                    </v-col>
+                                </v-row>
+                                <v-row>
+                                    <v-col cols="9">
+                                        <inertia-link v-if="canResetPassword" :href="route('password.request')">
+                                            Forgot your password?
+                                        </inertia-link>
+                                    </v-col>
+                                    <v-col cols="2">
+                                        <v-spacer></v-spacer>
+                                        <v-btn small @click="submit" :loading="form.processing">
+                                            Login
+                                        </v-btn>
+                                    </v-col>
+                                </v-row>
+                            </v-form>
+                        </v-card-text>
+                    </v-card>
+                </v-col>
+            </v-row>
+        </v-container>
+    </v-app>
 </template>
 
 <script>
-    import JetAuthenticationCard from '@/Jetstream/AuthenticationCard'
-    import JetAuthenticationCardLogo from '@/Jetstream/AuthenticationCardLogo'
-    import JetButton from '@/Jetstream/Button'
-    import JetInput from '@/Jetstream/Input'
-    import JetCheckbox from '@/Jetstream/Checkbox'
-    import JetLabel from '@/Jetstream/Label'
-    import JetValidationErrors from '@/Jetstream/ValidationErrors'
 
     export default {
-        components: {
-            JetAuthenticationCard,
-            JetAuthenticationCardLogo,
-            JetButton,
-            JetInput,
-            JetCheckbox,
-            JetLabel,
-            JetValidationErrors
-        },
-
         props: {
             canResetPassword: Boolean,
             status: String
@@ -68,6 +75,7 @@
 
         data() {
             return {
+                loading: false,
                 form: this.$inertia.form({
                     email: '',
                     password: '',
@@ -78,15 +86,37 @@
 
         methods: {
             submit() {
-                this.form
-                    .transform(data => ({
-                        ... data,
-                        remember: this.form.remember ? 'on' : ''
-                    }))
-                    .post(this.route('login'), {
-                        onFinish: () => this.form.reset('password'),
-                    })
-            }
+                if (this.loading === false){
+                    this.loading = true;
+
+                    this.$validator.validateAll().then((result) => {
+                        if (result){
+                            this.form
+                                .transform(data => ({
+                                    ... data,
+                                    remember: this.form.remember ? 'on' : ''
+                                }))
+                                .post(this.route('login'), {
+                                    onFinish: () =>  {
+                                        console.log(this.form.errors);
+                                        const msg_valid = this.form.errors;
+                                        for (const prop in msg_valid) {
+                                            this.errors.add({
+                                                field: prop,
+                                                msg: `${msg_valid[prop]}`
+                                            })
+                                        }
+                                        //this.form.reset('password');
+                                        this.loading = false;
+                                    }
+                                })
+                            }
+                        else{
+                            this.loading = false;
+                        }
+                    });
+                }
+            },
         }
     }
 </script>

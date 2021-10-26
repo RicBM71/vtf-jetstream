@@ -41,7 +41,7 @@
         <v-spacer></v-spacer>
 
         <v-btn
-          text
+          small
           @click.native="confirmingPassword = false"
         >
           Nevermind

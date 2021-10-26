@@ -93,11 +93,11 @@
 
 
 
-        <inertia-link v-if="currentRoute" :href="route('dashboard')">
-            <v-btn icon>
-                <v-icon>mdi-home</v-icon>
-            </v-btn>
-        </inertia-link>
+
+        <v-btn v-if="currentRoute" icon @click="dashboard">
+            <v-icon>mdi-home</v-icon>
+        </v-btn>
+
 
         <v-btn @click="profile()" icon v-if="$page.props.jetstream.managesProfilePhotos">
             <v-avatar size="32px">
@@ -236,6 +236,9 @@ export default {
             this.$intertia.get({name: name});
         },
         home(){
+        },
+        dashboard(){
+            this.$inertia.get(route('dashboard'));
         },
         profile(){
             this.$inertia.get(route('profile.show'));

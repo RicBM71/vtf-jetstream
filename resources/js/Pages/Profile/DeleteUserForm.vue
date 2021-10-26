@@ -1,77 +1,87 @@
 <template>
-    <jet-action-section>
-        <template #title>
-            Delete Account
-        </template>
+  <form-card
+    :handleSubmit="confirmUserDeletion"
+    :message="message"
+    submitBtnText="Delete Account"
+  >
+    <template #title>
+      Delete Account
+    </template>
 
-        <template #description>
-            Permanently delete your account.
-        </template>
+    <template #subtitle>
+      Permanently delete your account.
+    </template>
 
-        <template #content>
-            <div class="max-w-xl text-sm text-gray-600">
-                Once your account is deleted, all of its resources and data will be permanently deleted. Before deleting your account, please download any data or information that you wish to retain.
-            </div>
+    <p>
+      Once your account is deleted, all of its resources and data will be permanently deleted. Before deleting your
+      account, please download any data or information that you wish to retain.
+    </p>
 
-            <div class="mt-5">
-                <jet-danger-button @click.native="confirmUserDeletion">
-                    Delete Account
-                </jet-danger-button>
-            </div>
+    <!-- Delete Account Confirmation Modal -->
+    <modal
+      :show="confirmingUserDeletion"
+      @close="confirmingUserDeletion = false"
+    >
+      <template #title>
+        Delete Account
+      </template>
 
-            <!-- Delete Account Confirmation Modal -->
-            <jet-dialog-modal :show="confirmingUserDeletion" @close="closeModal">
-                <template #title>
-                    Delete Account
-                </template>
+      <template #content>
+        <p>
+          Are you sure you want to delete your account? Once your account is deleted, all of its resources and data will
+          be permanently deleted. Please enter your password to confirm you would like to permanently delete your
+          account.
+        </p>
 
-                <template #content>
-                    Are you sure you want to delete your account? Once your account is deleted, all of its resources and data will be permanently deleted. Please enter your password to confirm you would like to permanently delete your account.
+        <!-- Password Field -->
+        <v-text-field
+          outlined
+          label="Password"
+          v-model="form.password"
+          autocomplete="current-password"
+          ref="password"
+          :type="showPassword ? 'text' : 'password'"
+          :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+          :error-messages="form.errors.password"
+          @click:append="showPassword = !showPassword"
+        ></v-text-field>
+      </template>
 
-                    <div class="mt-4">
-                        <jet-input type="password" class="mt-1 block w-3/4" placeholder="Password"
-                                    ref="password"
-                                    v-model="form.password"
-                                    @keyup.enter.native="deleteUser" />
+      <template #footer>
+        <v-spacer></v-spacer>
 
-                        <jet-input-error :message="form.errors.password" class="mt-2" />
-                    </div>
-                </template>
+        <v-btn
+          small
+          @click.native="confirmingUserDeletion = false"
+        >
+          Nevermind
+        </v-btn>
 
-                <template #footer>
-                    <jet-secondary-button @click.native="closeModal">
-                        Nevermind
-                    </jet-secondary-button>
-
-                    <jet-danger-button class="ml-2" @click.native="deleteUser" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                        Delete Account
-                    </jet-danger-button>
-                </template>
-            </jet-dialog-modal>
-        </template>
-    </jet-action-section>
+        <v-btn
+            small
+            color="error"
+            @click.native="deleteUser"
+        >
+          Delete Account
+        </v-btn>
+      </template>
+    </modal>
+  </form-card>
 </template>
 
 <script>
-    import JetActionSection from '@/Jetstream/ActionSection'
-    import JetDialogModal from '@/Jetstream/DialogModal'
-    import JetDangerButton from '@/Jetstream/DangerButton'
-    import JetInput from '@/Jetstream/Input'
-    import JetInputError from '@/Jetstream/InputError'
-    import JetSecondaryButton from '@/Jetstream/SecondaryButton'
+import FormCard from '@/Components/FormCard'
+import Modal from '@/Components/Modal'
 
-    export default {
+        export default {
         components: {
-            JetActionSection,
-            JetDangerButton,
-            JetDialogModal,
-            JetInput,
-            JetInputError,
-            JetSecondaryButton,
+            FormCard,
+            Modal
         },
 
         data() {
             return {
+                showPassword: false,
                 confirmingUserDeletion: false,
 
                 form: this.$inertia.form({
@@ -79,7 +89,15 @@
                 })
             }
         },
-
+        computed: {
+            message () {
+            return {
+                show: this.form.recentlySuccessful,
+                text: 'Done.',
+                type: 'success'
+            }
+            }
+        },
         methods: {
             confirmUserDeletion() {
                 this.confirmingUserDeletion = true;

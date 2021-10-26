@@ -223,7 +223,9 @@
 
             <!-- Page Content -->
             <main>
-                <slot></slot>
+                <v-app>
+                    <slot></slot>
+                </v-app>
             </main>
 
             <!-- Modal Portal -->

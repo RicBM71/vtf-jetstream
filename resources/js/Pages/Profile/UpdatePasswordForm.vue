@@ -1,70 +1,82 @@
 <template>
-    <jet-form-section @submitted="updatePassword">
-        <template #title>
-            Update Password
-        </template>
+  <form-card
+    :handleSubmit="updatePassword"
+    :message="message"
+  >
+    <template #title>
+      Update Password
+    </template>
 
-        <template #description>
-            Ensure your account is using a long, random password to stay secure.
-        </template>
+    <template #subtitle>
+      Ensure your account is using a long, random password to stay secure.
+    </template>
 
-        <template #form>
-            <div class="col-span-6 sm:col-span-4">
-                <jet-label for="current_password" value="Current Password" />
-                <jet-input id="current_password" type="password" class="mt-1 block w-full" v-model="form.current_password" ref="current_password" autocomplete="current-password" />
-                <jet-input-error :message="form.errors.current_password" class="mt-2" />
-            </div>
+     <!-- Current Password Field -->
+      <v-text-field
+        outlined
+        label="Current Password"
+        v-model="form.current_password"
+        autocomplete="current-password"
+        :type="showPassword ? 'text' : 'password'"
+        :append-icon="showCurrentPassword ? 'mdi-eye' : 'mdi-eye-off'"
+        :error-messages="form.errors.current_password"
+        @click:append="showCurrentPassword = !showCurrentPassword"
+      ></v-text-field>
 
-            <div class="col-span-6 sm:col-span-4">
-                <jet-label for="password" value="New Password" />
-                <jet-input id="password" type="password" class="mt-1 block w-full" v-model="form.password" ref="password" autocomplete="new-password" />
-                <jet-input-error :message="form.errors.password" class="mt-2" />
-            </div>
+    <!-- Password Field -->
+    <v-text-field
+      outlined
+      label="Password"
+      v-model="form.password"
+      autocomplete="new-password"
+      hint="Password must be at least 8 characters."
+      :type="showPassword ? 'text' : 'password'"
+      :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+      :error-messages="form.errors.password"
+      @click:append="showPassword = !showPassword"
+    ></v-text-field>
 
-            <div class="col-span-6 sm:col-span-4">
-                <jet-label for="password_confirmation" value="Confirm Password" />
-                <jet-input id="password_confirmation" type="password" class="mt-1 block w-full" v-model="form.password_confirmation" autocomplete="new-password" />
-                <jet-input-error :message="form.errors.password_confirmation" class="mt-2" />
-            </div>
-        </template>
-
-        <template #actions>
-            <jet-action-message :on="form.recentlySuccessful" class="mr-3">
-                Saved.
-            </jet-action-message>
-
-            <jet-button :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                Save
-            </jet-button>
-        </template>
-    </jet-form-section>
+    <!-- Password Confirmation Field -->
+    <v-text-field
+      outlined
+      label="Confirm Password"
+      v-model="form.password_confirmation"
+      autocomplete="new-password"
+      :type="showPasswordConfirmation ? 'text' : 'password'"
+      :error-messages="form.errors.password_confirmation"
+      :append-icon="showPasswordConfirmation ? 'mdi-eye' : 'mdi-eye-off'"
+      @click:append="showPasswordConfirmation = !showPasswordConfirmation"
+    ></v-text-field>
+  </form-card>
 </template>
 
 <script>
-    import JetActionMessage from '@/Jetstream/ActionMessage'
-    import JetButton from '@/Jetstream/Button'
-    import JetFormSection from '@/Jetstream/FormSection'
-    import JetInput from '@/Jetstream/Input'
-    import JetInputError from '@/Jetstream/InputError'
-    import JetLabel from '@/Jetstream/Label'
+import FormCard from '../../Components/FormCard'
 
-    export default {
-        components: {
-            JetActionMessage,
-            JetButton,
-            JetFormSection,
-            JetInput,
-            JetInputError,
-            JetLabel,
-        },
+export default {
+  components: {
+    FormCard
+  },
 
         data() {
             return {
+                showPassword: false,
+                showPasswordConfirmation: false,
+                showCurrentPassword: false,
                 form: this.$inertia.form({
                     current_password: '',
                     password: '',
                     password_confirmation: '',
                 }),
+            }
+        },
+        computed: {
+            message () {
+            return {
+                show: this.form.recentlySuccessful,
+                text: 'Saved',
+                type: 'success'
+            }
             }
         },
 

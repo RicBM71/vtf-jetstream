@@ -1,120 +1,138 @@
 <template>
-    <jet-action-section>
-        <template #title>
-            Browser Sessions
-        </template>
+  <form-card
+    submitBtnText="Logout Other Browser Sessions"
+    :handleSubmit="confirmLogout"
+    :message="message"
+  >
+    <template #title>
+      Browser Sessions
+    </template>
 
-        <template #description>
-            Manage and logout your active sessions on other browsers and devices.
-        </template>
+    <template #subtitle>
+      Manage and logout your active sessions on other browsers and devices.
+    </template>
 
-        <template #content>
-            <div class="max-w-xl text-sm text-gray-600">
-                If necessary, you may logout of all of your other browser sessions across all of your devices. Some of your recent sessions are listed below; however, this list may not be exhaustive. If you feel your account has been compromised, you should also update your password.
-            </div>
+    <p>
+      If necessary, you may logout of all of your other browser sessions across all of your devices. Some of your
+      recent sessions are listed below; however, this list may not be exhaustive. If you feel your account has been
+      compromised, you should also update your password.
+    </p>
 
-            <!-- Other Browser Sessions -->
-            <div class="mt-5 space-y-6" v-if="sessions.length > 0">
-                <div class="flex items-center" v-for="(session, i) in sessions" :key="i">
-                    <div>
-                        <svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor" class="w-8 h-8 text-gray-500" v-if="session.agent.is_desktop">
-                            <path d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
-                        </svg>
+    <!-- Other Browser Sessions -->
+    <v-list v-if="sessions.length > 0">
+      <v-list-item
+        v-for="(session, i) in sessions"
+        :key="i"
+      >
+        <v-list-item-icon>
+          <v-icon v-if="session.agent.is_desktop">
+            mdi-desktop-mac
+          </v-icon>
+          <v-icon v-else>
+            mdi-cellphone-iphone
+          </v-icon>
+        </v-list-item-icon>
 
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8 text-gray-500" v-else>
-                            <path d="M0 0h24v24H0z" stroke="none"></path><rect x="7" y="4" width="10" height="16" rx="1"></rect><path d="M11 5h2M12 17v.01"></path>
-                        </svg>
-                    </div>
+        <v-list-item-content>
+          <v-list-item-title>
+            {{ session.agent.platform }} - {{ session.agent.browser }}
+          </v-list-item-title>
 
-                    <div class="ml-3">
-                        <div class="text-sm text-gray-600">
-                            {{ session.agent.platform }} - {{ session.agent.browser }}
-                        </div>
+          <v-list-item-subtitle>
+            {{ session.ip_address }},
 
-                        <div>
-                            <div class="text-xs text-gray-500">
-                                {{ session.ip_address }},
+            <span
+              class="success--text font-weight-bold"
+              v-if="session.is_current_device"
+            >
+              This device
+            </span>
 
-                                <span class="text-green-500 font-semibold" v-if="session.is_current_device">This device</span>
-                                <span v-else>Last active {{ session.last_active }}</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <template v-else>
+              Last active {{ session.last_active }}
+            </template>
+          </v-list-item-subtitle>
+        </v-list-item-content>
+      </v-list-item>
+    </v-list>
 
-            <div class="flex items-center mt-5">
-                <jet-button @click.native="confirmLogout">
-                    Logout Other Browser Sessions
-                </jet-button>
+    <!-- Logout Other Devices Confirmation Modal -->
+    <modal :show="confirmingLogout" @close="confirmingLogout = false">
+      <template #title>
+        Logout Other Browser Sessions
+      </template>
 
-                <jet-action-message :on="form.recentlySuccessful" class="ml-3">
-                    Done.
-                </jet-action-message>
-            </div>
+      <template #content>
+        <p>
+          Please enter your password to confirm you would like to logout of your other browser sessions across all of
+          your devices.
+        </p>
 
-            <!-- Logout Other Devices Confirmation Modal -->
-            <jet-dialog-modal :show="confirmingLogout" @close="closeModal">
-                <template #title>
-                    Logout Other Browser Sessions
-                </template>
+        <!-- Password Field -->
+        <v-text-field
+          outlined
+          label="Password"
+          v-model="form.password"
+          autocomplete="current-password"
+          ref="password"
+          :type="showPassword ? 'text' : 'password'"
+          :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+          :error-messages="form.errors.password"
+          @click:append="showPassword = !showPassword"
+        ></v-text-field>
+      </template>
 
-                <template #content>
-                    Please enter your password to confirm you would like to logout of your other browser sessions across all of your devices.
+      <template #footer>
+        <v-spacer></v-spacer>
 
-                    <div class="mt-4">
-                        <jet-input type="password" class="mt-1 block w-3/4" placeholder="Password"
-                                    ref="password"
-                                    v-model="form.password"
-                                    @keyup.enter.native="logoutOtherBrowserSessions" />
+        <v-btn
+          small
+          @click.native="confirmingLogout = false"
+        >
+          Nevermind
+        </v-btn>
 
-                        <jet-input-error :message="form.errors.password" class="mt-2" />
-                    </div>
-                </template>
-
-                <template #footer>
-                    <jet-secondary-button @click.native="closeModal">
-                        Nevermind
-                    </jet-secondary-button>
-
-                    <jet-button class="ml-2" @click.native="logoutOtherBrowserSessions" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                        Logout Other Browser Sessions
-                    </jet-button>
-                </template>
-            </jet-dialog-modal>
-        </template>
-    </jet-action-section>
+        <v-btn
+          small
+          @click.native="logoutOtherBrowserSessions"
+        >
+          Logout Other Browser Sessions
+        </v-btn>
+      </template>
+    </modal>
+  </form-card>
 </template>
 
+
 <script>
-    import JetActionMessage from '@/Jetstream/ActionMessage'
-    import JetActionSection from '@/Jetstream/ActionSection'
-    import JetButton from '@/Jetstream/Button'
-    import JetDialogModal from '@/Jetstream/DialogModal'
-    import JetInput from '@/Jetstream/Input'
-    import JetInputError from '@/Jetstream/InputError'
-    import JetSecondaryButton from '@/Jetstream/SecondaryButton'
+import FormCard from '@/Components/FormCard'
+import Modal from '@/Components/Modal'
 
     export default {
         props: ['sessions'],
 
         components: {
-            JetActionMessage,
-            JetActionSection,
-            JetButton,
-            JetDialogModal,
-            JetInput,
-            JetInputError,
-            JetSecondaryButton,
+            FormCard,
+            Modal
         },
 
         data() {
             return {
                 confirmingLogout: false,
+                showPassword: false,
 
                 form: this.$inertia.form({
                     password: '',
                 })
+            }
+        },
+        computed: {
+            message () {
+            return {
+                show: this.form.recentlySuccessful,
+                text: 'Done.',
+                type: 'success'
+            }
             }
         },
 

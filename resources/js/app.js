@@ -6,11 +6,30 @@ import { App as InertiaApp, plugin as InertiaPlugin } from '@inertiajs/inertia-v
 import PortalVue from 'portal-vue';
 //add these two line
 import Vuetify from 'vuetify'
+//import Vuetify from 'vuetify/lib'
 import 'vuetify/dist/vuetify.min.css'
 
 Vue.mixin({ methods: { route } });
 Vue.use(InertiaPlugin);
 Vue.use(PortalVue);
+
+// const opts = {treeShake: true};
+
+// export default new Vuetify(opts)
+
+/*************************
+ * VeeValidate
+ *************************/
+ import VeeValidate from 'vee-validate';
+ import VueValidationEs from 'vee-validate/dist/locale/es';
+ const config = {
+     locale: 'es',
+       dictionary: {
+           es: VueValidationEs
+       }
+ };
+Vue.use(VeeValidate, config);
+
 //also add this line
 Vue.use(Vuetify);
 
@@ -18,7 +37,7 @@ const app = document.getElementById('app');
 
 new Vue({
       //finally add this line
-      vuetify: new Vuetify(), 
+      vuetify: new Vuetify(),
     render: (h) =>
         h(InertiaApp, {
             props: {

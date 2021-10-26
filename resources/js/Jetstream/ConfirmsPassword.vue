@@ -1,46 +1,67 @@
 <template>
-    <span>
-        <span @click="startConfirmingPassword">
-            <slot />
-        </span>
+  <div style="width: 100%;">
+    <v-btn
+      block
+      small
+      @click="startConfirmingPassword"
+    >
+      <slot />
+    </v-btn>
 
-        <jet-dialog-modal :show="confirmingPassword" @close="closeModal">
-            <template #title>
-                {{ title }}
-            </template>
+    <modal
+      :show="confirmingPassword"
+      @close="confirmingPassword = false"
+    >
+      <template #title>
+        {{ title }}
+      </template>
 
-            <template #content>
-                {{ content }}
+      <template #content>
+        <p>
+          {{ content }}
+        </p>
 
-                <div class="mt-4">
-                    <jet-input type="password" class="mt-1 block w-3/4" placeholder="Password"
-                                ref="password"
-                                v-model="form.password"
-                                @keyup.enter.native="confirmPassword" />
+        <!-- Password Field -->
+        <v-text-field
+          outlined
+          ref="password"
+          label="Password"
+          v-model="form.password"
+          autocomplete="current-password"
+          :type="showPassword ? 'text' : 'password'"
+          :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+          :error-messages="form.error"
+          @click:append="showPassword = !showPassword"
+          @keyup.enter.native="confirmPassword"
+        ></v-text-field>
+      </template>
 
-                    <jet-input-error :message="form.error" class="mt-2" />
-                </div>
-            </template>
+      <template #footer>
+        <v-spacer></v-spacer>
 
-            <template #footer>
-                <jet-secondary-button @click.native="closeModal">
-                    Nevermind
-                </jet-secondary-button>
+        <v-btn
+            small
+            text
+            @click.native="confirmingPassword = false"
+        >
+          Nevermind
+        </v-btn>
 
-                <jet-button class="ml-2" @click.native="confirmPassword" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                    {{ button }}
-                </jet-button>
-            </template>
-        </jet-dialog-modal>
-    </span>
+        <v-btn
+          small
+          @click.native="confirmPassword"
+          :disabled="form.processing"
+        >
+          {{ button }}
+        </v-btn>
+      </template>
+    </modal>
+  </div>
 </template>
 
 <script>
-    import JetButton from './Button'
-    import JetDialogModal from './DialogModal'
-    import JetInput from './Input'
-    import JetInputError from './InputError'
-    import JetSecondaryButton from './SecondaryButton'
+alert("pasa");
+import Modal from './Modal'
 
     export default {
         props: {
@@ -54,15 +75,9 @@
                 default: 'Confirm',
             }
         },
-
         components: {
-            JetButton,
-            JetDialogModal,
-            JetInput,
-            JetInputError,
-            JetSecondaryButton,
+            Modal
         },
-
         data() {
             return {
                 confirmingPassword: false,

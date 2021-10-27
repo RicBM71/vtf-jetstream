@@ -75,8 +75,6 @@ export default {
         return this.submitBtnText == 'Delete Account' ? 'red darken-2' : '';
     },
     hasTitle () {
-        console.log(this.$slots);
-        return true;
       return !!this.$slots.title
     },
 

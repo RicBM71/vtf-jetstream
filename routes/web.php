@@ -1,8 +1,9 @@
 <?php
 
-use Illuminate\Foundation\Application;
-use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Foundation\Application;
+use App\Http\Controllers\Admin\UsersController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,3 +28,16 @@ Route::get('/', function () {
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->name('dashboard');
+
+
+Route::group([
+    'prefix' => 'dashboard/admin',
+    // 'namespace' => 'Mto',
+    'middleware' => ['auth','password.confirm']],
+    function (){
+
+        Route::get('users', [App\Http\Controllers\Admin\UsersController::class, 'index']);
+        //Route::resource('facultativos', App\Http\Controllers\Mto\FacultativosController::class);
+    }
+);
+

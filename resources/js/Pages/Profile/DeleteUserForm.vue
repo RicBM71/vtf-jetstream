@@ -4,7 +4,7 @@
         :message="message"
         submitBtnText="Delete Account"
     >
-        <template #title> Delete Account </template>
+        <template #title><h3>Delete Account</h3></template>
 
         <template #subtitle> Permanently delete your account. </template>
 

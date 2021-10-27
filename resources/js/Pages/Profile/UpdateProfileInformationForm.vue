@@ -4,7 +4,7 @@
     :message="message"
   >
     <template #title>
-      Profile Information
+      <h3>Profile Information</h3>
     </template>
 
     <template #subtitle>

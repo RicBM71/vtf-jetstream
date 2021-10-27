@@ -1,68 +1,106 @@
 <template>
-    <jet-authentication-card>
-        <template #logo>
-            <jet-authentication-card-logo />
-        </template>
+    <v-app>
+        <v-container class="mt-12">
+            <v-layout row wrap align-center>
+                <v-flex>
+                    <v-card class="mx-auto" max-width="600">
+                        <v-toolbar color="primary" dark>
+                            <v-toolbar-title
+                                >Forgot your password?</v-toolbar-title
+                            >
+                            <v-spacer></v-spacer>
+                            <v-btn icon @click="home">
+                                <v-icon>mdi-home-outline</v-icon>
+                            </v-btn>
+                        </v-toolbar>
+                        <v-container fluid>
+                            <v-card-text>
+                                 <v-alert
+                                    v-if="status"
+                                    color="green lighten-2"
+                                    dark
+                                >
+                                    {{ status }}
 
-        <div class="mb-4 text-sm text-gray-600">
-            Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.
-        </div>
-
-        <div v-if="status" class="mb-4 font-medium text-sm text-green-600">
-            {{ status }}
-        </div>
-
-        <jet-validation-errors class="mb-4" />
-
-        <form>
-            <div>
-                <jet-label for="email" value="Email" />
-                <jet-input id="email" type="email" class="mt-1 block w-full" v-model="form.email" required autofocus />
-            </div>
-
-            <div class="flex items-center justify-end mt-4">
-                <v-btn small @click="submit" :disabled="form.processing">
-                    Email Password Reset Link
-                </v-btn>
-            </div>
-        </form>
-    </jet-authentication-card>
+                                    </v-alert>
+                                <p v-else>
+                                    Forgot your password? No problem. Just let
+                                    us know your email address and we will email
+                                    you a password reset link that will allow
+                                    you to choose a new one.
+                                </p>
+                                <v-form>
+                                    <v-row>
+                                        <v-col cols="12">
+                                            <v-text-field
+                                                v-model="form.email"
+                                                label="Email"
+                                                v-validate="'required|email'"
+                                                :error-messages="errors.collect('email')"
+                                                data-vv-name="email"
+                                                data-vv-as="email"
+                                                @keyup.enter="submit"
+                                            ></v-text-field>
+                                        </v-col>
+                                    </v-row>
+                                    <v-row>
+                                        <v-col cols="7"> </v-col>
+                                        <v-col cols="4">
+                                            <v-spacer></v-spacer>
+                                            <v-btn
+                                                small
+                                                @click="submit"
+                                                :loading="form.processing"
+                                            >
+                                                Email Password Reset Link
+                                            </v-btn>
+                                        </v-col>
+                                    </v-row>
+                                </v-form>
+                            </v-card-text>
+                        </v-container>
+                    </v-card>
+                </v-flex>
+            </v-layout>
+        </v-container>
+    </v-app>
 </template>
-
 <script>
-    import JetAuthenticationCard from '@/Jetstream/AuthenticationCard'
-    import JetAuthenticationCardLogo from '@/Jetstream/AuthenticationCardLogo'
-    import JetButton from '@/Jetstream/Button'
-    import JetInput from '@/Jetstream/Input'
-    import JetLabel from '@/Jetstream/Label'
-    import JetValidationErrors from '@/Jetstream/ValidationErrors'
+export default {
+    props: {
+        status: String,
+    },
 
-    export default {
-        components: {
-            JetAuthenticationCard,
-            JetAuthenticationCardLogo,
-            JetButton,
-            JetInput,
-            JetLabel,
-            JetValidationErrors
+    data() {
+        return {
+            form: this.$inertia.form({
+                email: "",
+            }),
+        };
+    },
+
+    methods: {
+        home() {
+            this.form.get(this.route("home"));
         },
+        submit() {
+            this.$validator.validateAll().then((result) => {
+                if (result) {
+                    this.form.post(this.route("password.email"), {
+                        onFinish: () => {
 
-        props: {
-            status: String
+                            const msg_valid = this.form.errors;
+                            for (const prop in msg_valid) {
+                                this.errors.add({
+                                    field: prop,
+                                    msg: `${msg_valid[prop]}`,
+                                });
+                            }
+                        },
+                    });
+                }
+            });
         },
-
-        data() {
-            return {
-                form: this.$inertia.form({
-                    email: ''
-                })
-            }
-        },
-
-        methods: {
-            submit() {
-                this.form.post(this.route('password.email'))
-            }
-        }
-    }
+    },
+};
 </script>

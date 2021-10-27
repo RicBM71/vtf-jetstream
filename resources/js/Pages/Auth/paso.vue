@@ -1,106 +1,129 @@
 <template>
     <v-app>
-        <v-container>
-            <v-row>
-                <v-col cols="12" md="4"></v-col>
-                <v-col cols="12" md="4">
-                    <v-card
-                        class="mx-auto"
-                    >
-                        <v-card-title>
-                            <v-toolbar dark color="primary">
-                                <v-toolbar-title>Enter Auth Code</v-toolbar-title>
-                                <v-spacer></v-spacer>
-                                <inertia-link :href="route('home')" class="text-sm text-gray-700 underline">
-                                    <v-icon>mdi-home-outline</v-icon>
-                                </inertia-link>
-                            </v-toolbar>
-                        </v-card-title>
-                        <v-card-text>
-
-                            <p v-if="! recovery">
-                                Please confirm access to your account by entering the authentication code provided by your authenticator application.
-                            </p>
-
-                            <p v-else>
-                                Please confirm access to your account by entering one of your emergency recovery codes.
-                            </p>
-
-
-                            <v-form>
-                                <v-text-field
-                                    v-if="! recovery"
-                                    v-model="form.code"
-                                    label="Code"
-                                    :error-messages="form.errors.code"
-                                    v-on:keyup.enter="submit"
-                                ></v-text-field>
-                                <v-text-field
-                                    v-else
-                                    v-model="form.recovery_code"
-                                    label="Recovery Code"
-                                    :error-messages="form.errors.recovery_code"
-                                    v-on:keyup.enter="submit"
-                                ></v-text-field>
-
+        <v-container class="mt-12">
+            <v-layout row wrap align-center>
+                <v-flex>
+                    <v-card class="mx-auto" max-width="600">
+                        <v-toolbar color="primary" dark>
+                            <v-toolbar-title
+                                >Forgot your password?</v-toolbar-title
+                            >
+                            <v-spacer></v-spacer>
+                            <v-btn icon @click="home">
+                                <v-icon>mdi-home-outline</v-icon>
+                            </v-btn>
+                        </v-toolbar>
+                        <v-container fluid>
+                            <v-card-text>
                                 <v-row>
-                                    <v-col cols="9">
-                                        <v-btn small @click="toggleRecovery" :disabled="form.processing">
-                                            {{ computedLabel }}
-                                        </v-btn>
+                                    <v-col cols="12">
+                                        <v-text-field
+                                            v-model="form.email"
+                                            label="Usuario"
+                                            v-validate="'required|min:4'"
+                                            :error-messages="errors.collect('email')"
+                                            data-vv-name="email"
+                                            data-vv-as="email"
+                                            @keyup.enter="submit"
+                                        ></v-text-field>
                                     </v-col>
-                                    <v-col cols="2">
+                                    <v-col cols="12">
+                                        <v-text-field
+                                            v-model="form.password"
+                                            label="Password"
+                                            v-validate="'required'"
+                                            :error-messages="errors.collect('password')"
+                                            data-vv-name="password"
+                                            data-vv-as="password"
+                                            type="password"
+                                            @keyup.enter="submit"
+                                        ></v-text-field>
+                                    </v-col>
+                                    <v-col cols="12">
+                                        <v-text-field
+                                            v-model="form.password_confirmation"
+                                            label="Confirmn"
+                                            v-validate="'required'"
+                                            :error-messages="errors.collect('password_confirmation')"
+                                            data-vv-name="password_confirmation"
+                                            data-vv-as="password_confirmation"
+                                            type="password"
+                                            @keyup.enter="submit"
+                                        ></v-text-field>
+                                    </v-col>
+                                </v-row>
+                                <v-row>
+                                    <v-col cols="7"> </v-col>
+                                    <v-col cols="4">
                                         <v-spacer></v-spacer>
-                                        <v-btn small @click="submit" :disabled="form.processing">
-                                            Login
+                                        <v-btn
+                                            small
+                                            @click="submit"
+                                            :loading="form.processing"
+                                        >
+                                             Reset Password
                                         </v-btn>
                                     </v-col>
                                 </v-row>
-                            </v-form>
-                        </v-card-text>
+                                </v-form>
+                            </v-card-text>
+                        </v-container>
                     </v-card>
-                </v-col>
-            </v-row>
+                </v-flex>
+            </v-layout>
         </v-container>
     </v-app>
 </template>
 
 <script>
-
     export default {
+        props: {
+            email: String,
+            token: String,
+        },
 
         data() {
             return {
-                recovery: false,
                 form: this.$inertia.form({
-                    code: '',
-                    recovery_code: '',
+                    token: this.token,
+                    email: this.email,
+                    password: '',
+                    password_confirmation: '',
                 })
             }
         },
-        computed: {
-            computedLabel(){
-                return !this.recovery ? 'Use a recovery code' : 'Use an authentication code';
-            }
-        },
+
         methods: {
-            toggleRecovery() {
-                this.recovery ^= true
-
-                this.$nextTick(() => {
-                    if (this.recovery) {
-                        this.$refs.recovery_code.focus()
-                        this.form.code = '';
-                    } else {
-                        this.$refs.code.focus()
-                        this.form.recovery_code = ''
-                    }
-                })
+            home() {
+                this.form.get(this.route("home"));
             },
-
             submit() {
-                this.form.post(this.route('two-factor.login'))
+                this.form.post(this.route('password.update'), {
+                    onFinish: () => this.form.reset('password', 'password_confirmation'),
+                })
             }
-        }
-    }
+            // submit() {
+
+            //     this.$validator.validateAll().then((result) => {
+            //         if (result) {
+            //             this.form.post(this.route("password.update"), {
+            //                 onFinish: () => {
+
+            //                     const msg_valid = this.form.errors;
+            //                     for (const prop in msg_valid) {
+            //                         this.errors.add({
+            //                             field: prop,
+            //                             msg: `${msg_valid[prop]}`,
+            //                         });
+            //                     }
+
+            //                     this.form.reset('password', 'password_confirmation');
+            //                 },
+            //             });
+            //         }
+            //     });
+            // },
+
+    },
+};
 </script>

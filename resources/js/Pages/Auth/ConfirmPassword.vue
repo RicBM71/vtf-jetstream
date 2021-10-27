@@ -11,9 +11,9 @@
                             <v-toolbar dark color="primary">
                                 <v-toolbar-title>Confirm password</v-toolbar-title>
                                 <v-spacer></v-spacer>
-                                <inertia-link :href="route('home')" class="text-sm text-gray-700 underline">
-                                    <v-icon>mdi-home-outline</v-icon>
-                                </inertia-link>
+                                    <v-btn icon @click="home">
+                                        <v-icon>mdi-home-outline</v-icon>
+                                    </v-btn>
                             </v-toolbar>
                         </v-card-title>
                         <v-card-text>
@@ -25,7 +25,7 @@
                                             v-model="form.password"
                                             label="Password"
                                             :error-messages="form.errors.password"
-                                            v-on:keyup.enter="submit"
+                                            @keyup.enter="submit"
                                         ></v-text-field>
                                     </v-col>
                                 </v-row>
@@ -33,7 +33,7 @@
                                     <v-col cols="9"></v-col>
                                     <v-col cols="2">
                                         <v-spacer></v-spacer>
-                                        <v-btn small @click="submit" :disabled="form.processing">
+                                        <v-btn small @click="submit" :loading="form.processing">
                                             Confirm
                                         </v-btn>
                                     </v-col>
@@ -56,13 +56,29 @@
                 })
             }
         },
-
         methods: {
+            home() {
+                this.form.get(this.route("home"));
+            },
             submit() {
-                this.form.post(this.route('password.confirm'), {
-                    onFinish: () => this.form.reset(),
-                })
-            }
-        }
-    }
+                this.$validator.validateAll().then((result) => {
+                    if (result) {
+                        this.form.post(this.route("password.confirm"), {
+                            onFinish: () => {
+
+                                const msg_valid = this.form.errors;
+                                for (const prop in msg_valid) {
+                                    this.errors.add({
+                                        field: prop,
+                                        msg: `${msg_valid[prop]}`,
+                                    });
+                                }
+                            },
+                        });
+                    }
+                });
+            },
+
+    },
+};
 </script>

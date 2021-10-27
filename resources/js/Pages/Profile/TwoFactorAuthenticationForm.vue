@@ -4,18 +4,18 @@
     :message="message"
   >
     <template #title>
-      Two Factor Authentication
+      <h3>Two Factor Authentication</h3>
     </template>
 
     <template #subtitle>
       Add additional security to your account using two factor authentication.
     </template>
 
-    <h3 class="text-lg font-medium text-gray-900" v-if="twoFactorEnabled">
+    <h3 v-if="twoFactorEnabled">
       You have enabled two factor authentication.
     </h3>
 
-    <h3 class="text-lg font-medium text-gray-900" v-else>
+    <h3 v-else>
       You have not enabled two factor authentication.
     </h3>
 

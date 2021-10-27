@@ -4,7 +4,7 @@
         :handleSubmit="confirmLogout"
         :message="message"
     >
-        <template #title> Browser Sessions </template>
+        <template #title><h3>Browser Sessions</h3></template>
 
         <template #subtitle>
             Manage and logout your active sessions on other browsers and

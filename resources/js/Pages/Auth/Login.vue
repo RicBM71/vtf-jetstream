@@ -1,22 +1,21 @@
 <template>
     <v-app>
-        <v-container>
-            <v-row>
-                <v-col cols="12" md="4"></v-col>
-                <v-col cols="12" md="4">
-                    <v-card
-                        class="mx-auto"
-                    >
-                        <v-card-title>
-                            <v-toolbar dark color="primary">
-                                <v-toolbar-title>Credenciales</v-toolbar-title>
-                                <v-spacer></v-spacer>
-                                <inertia-link :href="route('home')" class="text-sm text-gray-700 underline">
-                                    <v-icon>mdi-home-outline</v-icon>
-                                </inertia-link>
-                            </v-toolbar>
-                        </v-card-title>
-                        <v-card-text>
+        <v-container class="mt-12">
+            <v-layout row wrap align-center>
+                <v-flex>
+                    <v-card class="mx-auto" max-width="600">
+                        <v-toolbar color="primary" dark>
+                            <v-toolbar-title
+                                >Forgot your password?</v-toolbar-title
+                            >
+                            <v-spacer></v-spacer>
+                            <v-btn icon @click="home">
+                                <v-icon>mdi-home-outline</v-icon>
+                            </v-btn>
+                        </v-toolbar>
+                        <v-container fluid>
+                            <v-card-text>
+
                             <v-form>
                                 <v-row>
                                     <v-col cols="12">
@@ -57,10 +56,11 @@
                                     </v-col>
                                 </v-row>
                             </v-form>
-                        </v-card-text>
+                            </v-card-text>
+                        </v-container>
                     </v-card>
-                </v-col>
-            </v-row>
+                </v-flex>
+            </v-layout>
         </v-container>
     </v-app>
 </template>
@@ -85,6 +85,9 @@
         },
 
         methods: {
+            home() {
+                this.form.get(this.route("home"));
+            },
             submit() {
                 if (this.loading === false){
                     this.loading = true;
@@ -98,7 +101,6 @@
                                 }))
                                 .post(this.route('login'), {
                                     onFinish: () =>  {
-                                        console.log(this.form.errors);
                                         const msg_valid = this.form.errors;
                                         for (const prop in msg_valid) {
                                             this.errors.add({

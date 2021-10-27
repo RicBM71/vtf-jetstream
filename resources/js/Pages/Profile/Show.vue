@@ -2,7 +2,7 @@
   <app-layout>
       <template #header>
             <h2>
-                Profile
+                User Profile
             </h2>
         </template>
 

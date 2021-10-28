@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class DatabaseSeeder extends Seeder
 {
@@ -15,13 +16,11 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
 
-        User::factory()->withPersonalTeam()->create([
-            'name' => 'Ricardo',
-            'email' => 'rbartolome@sanaval.com',
-          //  'username' => 'ricardo.bm',
-        ]);
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
 
-        User::factory(9)->create();
+        $this->call(UsersSeeder::class);
 
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
     }
+
 }

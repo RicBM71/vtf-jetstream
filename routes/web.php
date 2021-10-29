@@ -29,14 +29,17 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->name('dashboard');
 
+//Route::middleware(['auth:sanctum','verified','password.confirm','role:admin',])->get('users', [App\Http\Controllers\Admin\UsersController::class, 'index'])->name('users.index');
+
 
 Route::group([
     'prefix' => 'dashboard/admin',
     // 'namespace' => 'Mto',
-    'middleware' => ['auth','password.confirm']],
+    'middleware' => ['auth:sanctum','verified','role:admin']],
     function (){
 
-        Route::get('users', [App\Http\Controllers\Admin\UsersController::class, 'index']);
+        //Route::get('users', [App\Http\Controllers\Admin\UsersController::class, 'index'])->name('users.index');
+        Route::middleware('password.confirm')->get('users', [App\Http\Controllers\Admin\UsersController::class, 'index'])->name('users.index');
         //Route::resource('facultativos', App\Http\Controllers\Mto\FacultativosController::class);
     }
 );

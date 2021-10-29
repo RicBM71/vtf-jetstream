@@ -2,8 +2,9 @@
 
 namespace App\Exceptions;
 
-use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
+use Inertia\Inertia;
+use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
 class Handler extends ExceptionHandler
 {
@@ -34,8 +35,26 @@ class Handler extends ExceptionHandler
      */
     public function register()
     {
+        // $this->renderable(function (\Spatie\Permission\Exceptions\UnauthorizedException $e, $request) {
+        //     return response()->json([
+        //         'responseMessage' => __('You do not have the required authorization.'),
+        //         'responseStatus'  => 403,
+        //     ]);
+        // });
+
+        $this->renderable(function (\Spatie\Permission\Exceptions\UnauthorizedException $e, $request) {
+            //dd($e);
+            return Inertia::render('Error',
+                [
+                    'statusCode' => $e->getStatusCode(),
+                    'message' => __($e->getMessage()),
+                ]);
+        });
+
         $this->reportable(function (Throwable $e) {
-            //
+
+
+
         });
     }
 }

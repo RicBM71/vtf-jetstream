@@ -4,7 +4,13 @@
             <h2>Dashboard</h2>
         </template>
 
-        <v-container> Now you're logged in!! </v-container>
+        <v-container> **Now you're logged in!!
+            
+
+            <inertia-link :href="route('users.index')">
+                Usuarios
+            </inertia-link>
+         </v-container>
     </app-layout>
 </template>
 
@@ -17,5 +23,10 @@ export default {
         AppLayout,
         Welcome,
     },
+    methods:{
+        goUsers(){
+            this.$inertia.get(route('users.index'));
+        }
+    }
 };
 </script>

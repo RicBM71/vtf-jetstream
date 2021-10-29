@@ -21,8 +21,8 @@ class UsersSeeder extends Seeder
         Role::truncate();
         User::truncate();
 
-        $rootRole = Role::create(['name'=>'Root']);
-        $adminRole = Role::create(['name'=>'Admin']);
+        $rootRole = Role::create(['name'=>'root']);
+        $adminRole = Role::create(['name'=>'admin']);
         //$supRole = Role::create(['name'=>'Supervisor']);
 
         Permission::create(['name'=>'users','nombre'=>'Acceso a Usuarios']);
@@ -36,7 +36,7 @@ class UsersSeeder extends Seeder
         User::factory(9)->create();
 
         $user->assignRole($rootRole);
-        $user->assignRole($adminRole);
-        $user->givePermissionTo('users');
+        //$user->assignRole($adminRole);
+       // $user->givePermissionTo('users');
     }
 }

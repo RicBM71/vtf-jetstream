@@ -63,7 +63,7 @@
         },
         methods: {
             home() {
-                this.form.get(this.route("dashboard"));
+                this.$inertia.get(route("dashboard"));
             },
             submit() {
                 this.$validator.validateAll().then((result) => {

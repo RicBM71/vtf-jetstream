@@ -81,7 +81,7 @@ export default {
 
     methods: {
         home() {
-            this.form.get(this.route("home"));
+            this.$inertia.get(route("home"));
         },
         submit() {
             this.$validator.validateAll().then((result) => {

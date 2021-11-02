@@ -51,7 +51,7 @@
                                     <v-col cols="2">
                                         <v-spacer></v-spacer>
                                         <v-btn small @click="submit" :loading="form.processing">
-                                            Login
+                                            *Login
                                         </v-btn>
                                     </v-col>
                                 </v-row>
@@ -86,7 +86,7 @@
 
         methods: {
             home() {
-                this.form.get(this.route("home"));
+                this.$inertia.get(route("home"));
             },
             submit() {
                 if (this.loading === false){

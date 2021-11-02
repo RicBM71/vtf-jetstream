@@ -5,7 +5,7 @@
         </template>
 
         <v-container> **Now you're logged in!!
-            
+
 
             <inertia-link :href="route('users.index')">
                 Usuarios
@@ -25,7 +25,8 @@ export default {
     },
     methods:{
         goUsers(){
-            this.$inertia.get(route('users.index'));
+            this.$inertia.get(route('users.index'))
+            onFinish: () => (this.enabling = false)
         }
     }
 };

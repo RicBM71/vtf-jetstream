@@ -111,6 +111,14 @@
 
             <!-- Page Content -->
             <main>
+                <v-snackbar
+                    v-model="snackbar"
+                    color="deep-orange accent-3"
+                    rounded="pill"
+                    top
+                >
+                    <div class="d-flex justify-center">{{ snackbar_text }}</div>
+                </v-snackbar>
                 <slot></slot>
             </main>
 
@@ -128,6 +136,9 @@ export default {
         },
     },
     data: () => ({
+        snackbar: false,
+        snackbar_text: "",
+
         empresa_nombre: "Test Inertia",
         menu: true,
         drawer: false,
@@ -262,8 +273,16 @@ export default {
             this.$inertia.get(route("profile.show"));
         },
         Logout() {
-            //this.$toast.success('Logout, espere...');
-            this.$inertia.post(route("logout"));
+            this.snackbar_text = "Logout...";
+            this.snackbar = true;
+
+            this.$inertia.post(
+                route("logout"),
+                {},
+                {
+                    onFinish: () => (this.snackbar = false),
+                }
+            );
         },
     },
 };

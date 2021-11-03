@@ -22,7 +22,11 @@
         <v-container>
             <v-card class="d-flex justify-center mb-6" flat tile>
                 <v-alert shaped dense outlined type="error">
-                    {{ message }} <br />
+                    Página no encontrada, pulse
+                    <inertia-link :href="route('dashboard')">
+                        aquí
+                    </inertia-link>
+                    para volver a inicio
                 </v-alert>
             </v-card>
             <!-- <div class="d-flex flex-column justify-space-between align-center">

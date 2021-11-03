@@ -47,9 +47,8 @@ class Handler extends ExceptionHandler
 
         $this->renderable(function (HttpException $e, $request) {
 
-            $vista = Auth::check() ? 'Error403' : 'Error503';
 
-            return Inertia::render('Error/'.$vista,
+            return Inertia::render('Error/Error'.$e->getStatusCode(),
                 [
                     'statusCode' => $e->getStatusCode(),
                     'message' => __($e->getMessage()),

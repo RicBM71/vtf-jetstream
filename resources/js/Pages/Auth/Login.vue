@@ -20,9 +20,7 @@
                                                 v-model="form.email"
                                                 label="Usuario"
                                                 v-validate="'required|min:4'"
-                                                :error-messages="
-                                                    errors.collect('email')
-                                                "
+                                                :error-messages="errors.collect('email')"
                                                 data-vv-name="email"
                                                 data-vv-as="email"
                                                 v-on:keyup.enter="submit"
@@ -33,9 +31,7 @@
                                                 v-model="form.password"
                                                 label="Password"
                                                 v-validate="'required'"
-                                                :error-messages="
-                                                    errors.collect('password')
-                                                "
+                                                :error-messages="errors.collect('password')"
                                                 data-vv-name="password"
                                                 data-vv-as="password"
                                                 type="password"

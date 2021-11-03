@@ -1,5 +1,5 @@
 <template>
-    <app-layout>
+    <app-layout :appname="appname">
         <template #header>
             <h2>Dashboard</h2>
         </template>
@@ -19,14 +19,17 @@ import AppLayout from "@/Layouts/AppLayout";
 import Welcome from "@/Jetstream/Welcome";
 
 export default {
+    props:['appname'],
     components: {
         AppLayout,
         Welcome,
     },
+    mounted(){
+
+    },
     methods:{
         goUsers(){
-            this.$inertia.get(route('users.index'))
-            onFinish: () => (this.enabling = false)
+            this.$inertia.get(route('users.index'));
         }
     }
 };

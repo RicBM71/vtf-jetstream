@@ -58,7 +58,7 @@ export default {
     UpdateProfileInformationForm
   },
   beforeMount(){
-      console.log(this.$page);
+      
   }
 }
 </script>

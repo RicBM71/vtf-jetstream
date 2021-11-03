@@ -72,7 +72,7 @@
         >
             <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
             <v-toolbar-title style="width: 300px" class="ml-0 pl-4">
-                <span class="hidden-sm-and-down">{{ empresa_nombre }}</span>
+                <span class="hidden-sm-and-down">{{ appname }}</span>
             </v-toolbar-title>
             <v-spacer />
 
@@ -129,7 +129,7 @@
 </template>
 <script>
 export default {
-    components: {},
+    props:['appname'],
     computed: {
         currentRoute() {
             return !(window.location.pathname == "/dashboard");
@@ -139,7 +139,6 @@ export default {
         snackbar: false,
         snackbar_text: "",
 
-        empresa_nombre: "Test Inertia",
         menu: true,
         drawer: false,
         show: true,
@@ -256,7 +255,7 @@ export default {
         objetivo: 0,
     }),
     mounted() {
-        console.log(window.location.pathname);
+
     },
 
     methods: {

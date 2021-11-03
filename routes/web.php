@@ -25,11 +25,11 @@ Route::get('/', function () {
     ]);
 })->name('home');
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->name('dashboard');
+// Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
+//     return Inertia::render('Dashboard');
+// })->name('dashboard');
 
-//Route::middleware(['auth:sanctum','verified','password.confirm','role:admin',])->get('users', [App\Http\Controllers\Admin\UsersController::class, 'index'])->name('users.index');
+Route::middleware(['auth:sanctum','verified'])->get('dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
 
 
 Route::group([

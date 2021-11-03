@@ -33,7 +33,7 @@ class UsersSeeder extends Seeder
           //  'username' => 'ricardo.bm',
         ]);
 
-        User::factory(9)->create();
+        User::factory(50)->create();
 
         $user->assignRole($rootRole);
         //$user->assignRole($adminRole);

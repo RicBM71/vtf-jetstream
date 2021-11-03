@@ -4,8 +4,9 @@ namespace App\Exceptions;
 
 use Throwable;
 use Inertia\Inertia;
-use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpKernel\Exception\HttpException;
+use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
 class Handler extends ExceptionHandler
 {
@@ -43,26 +44,18 @@ class Handler extends ExceptionHandler
         //     ]);
         // });
 
-        // $this->renderable(function (\Spatie\Permission\Exceptions\UnauthorizedException $e, $request) {
-        //     //dd($e);
-        //     return Inertia::render('Error',
-        //         [
-        //             'statusCode' => $e->getStatusCode(),
-        //             'message' => __($e->getMessage()),
-        //         ]);
-        // });
 
         $this->renderable(function (HttpException $e, $request) {
-            return Inertia::render('Error/Error'.$e->getStatusCode(),
+
+            $vista = Auth::check() ? 'Error403' : 'Error503';
+
+            return Inertia::render('Error/'.$vista,
                 [
                     'statusCode' => $e->getStatusCode(),
                     'message' => __($e->getMessage()),
                     'appname'        => config('app.name')
                 ]);
-            // return response()->view('errors.minimal', [
-            //     'statusCode' => $e->getStatusCode(),
-            //     'message' => __($e->getMessage()),
-            // ], $e->getStatusCode());
+
         });
 
         $this->reportable(function (Throwable $e) {

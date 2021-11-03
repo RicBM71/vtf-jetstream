@@ -23,13 +23,13 @@
 
                 <v-card class="d-flex justify-center mb-6" flat tile>
                 <v-alert shaped dense outlined type="error">
-                    {{ message }}. Realizando tareas de Mantenimiento!!<br/>
+                    {{ message }} <br/>
                 </v-alert>
             </v-card>
-            <div class="d-flex flex-column justify-space-between align-center">
+            <!-- <div class="d-flex flex-column justify-space-between align-center">
                 <v-img  max-width="400" alt="error 503" src="/503.jpg" ></v-img>
 
-            </div>
+            </div> -->
 
         </v-container>
     </error-layout>

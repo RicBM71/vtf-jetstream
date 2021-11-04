@@ -23,12 +23,6 @@
 import AppLayout from "@/Layouts/AppLayout";
 
 export default {
-    // props:{
-    //     users: {
-    //         type: Array,
-    //         required: true
-    //     }
-    // },
     props: ["statusCode", "message","appname"],
     components: {
         AppLayout,

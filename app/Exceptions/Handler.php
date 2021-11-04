@@ -47,14 +47,13 @@ class Handler extends ExceptionHandler
 
         $this->renderable(function (HttpException $e, $request) {
 
-
-            return Inertia::render('Error/Error'.$e->getStatusCode(),
-                [
-                    'statusCode' => $e->getStatusCode(),
-                    'message' => __($e->getMessage()),
-                    'appname'        => config('app.name')
-                ]);
-
+            if (in_array($e->getStatusCode(), [403,404,419,503] ))
+                return Inertia::render('Error/Error'.$e->getStatusCode(),
+                    [
+                        'statusCode' => $e->getStatusCode(),
+                        'message' => __($e->getMessage()),
+                        'appname'        => config('app.name')
+                    ]);
         });
 
         $this->reportable(function (Throwable $e) {

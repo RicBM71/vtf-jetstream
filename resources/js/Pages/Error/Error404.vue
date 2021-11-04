@@ -41,12 +41,6 @@
 import ErrorLayout from "@/Layouts/ErrorLayout";
 
 export default {
-    // props:{
-    //     users: {
-    //         type: Array,
-    //         required: true
-    //     }
-    // },
     props: ["statusCode", "message", "appname"],
     components: {
         ErrorLayout,

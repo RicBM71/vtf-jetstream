@@ -13,6 +13,14 @@ Route::get('/', function () {
     ]);
 })->name('home');
 
+
+Route::get('/test', function () {
+    //return "asfsadf";
+
+    return response('411', 411);
+})->name('test');
+
+
 Route::middleware(['auth:sanctum','verified'])->get('dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
 
 

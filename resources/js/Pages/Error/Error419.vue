@@ -22,7 +22,11 @@
         <v-container>
             <v-card class="d-flex justify-center mb-6" flat tile>
                 <v-alert shaped dense outlined type="error">
-                    {{ message }} <br />
+                    {{ message }}
+                    <inertia-link :href="route('login')">
+                        aquí
+                    </inertia-link>
+                    para volver a iniciar sesión
                 </v-alert>
             </v-card>
             <!-- <div class="d-flex flex-column justify-space-between align-center">

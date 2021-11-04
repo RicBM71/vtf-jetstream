@@ -76,6 +76,8 @@
             </v-toolbar-title>
             <v-spacer />
 
+            {{ input_loading}}
+
             <v-btn v-if="currentRoute" icon @click="dashboard">
                 <v-icon>mdi-home</v-icon>
             </v-btn>
@@ -102,9 +104,23 @@
         </v-app-bar>
 
         <v-main>
+            <v-dialog v-model="show_loading" persistent max-width="290">
+                <v-card color="primary" dark>
+                    <v-card-text class="pb-4">
+                        <br />
+                        <p class="white--text">Procesando, espere...</p>
+                        <v-progress-linear
+                            indeterminate
+                            color="white"
+                            class="mb-0"
+                        ></v-progress-linear>
+                    </v-card-text>
+                </v-card>
+            </v-dialog>
+
             <!-- Page Heading -->
             <header v-if="$slots.header">
-                <div class="my-4 mx-10">
+                <div class="d-flex my-4 mx-10">
                     <slot name="header"></slot>
                 </div>
             </header>
@@ -129,15 +145,20 @@
 </template>
 <script>
 export default {
-    props:['appname'],
-    computed: {
-        currentRoute() {
-            return !(window.location.pathname == "/dashboard");
+    props: {
+        appname: {
+            type: String,
+            default: "",
+        },
+        input_loading: {
+            type: Boolean,
+            default: false,
         },
     },
     data: () => ({
         snackbar: false,
         snackbar_text: "",
+        show_loading: false,
 
         menu: true,
         drawer: false,
@@ -255,9 +276,19 @@ export default {
         objetivo: 0,
     }),
     mounted() {
+        console.log('Applayout');
+    },
+    computed: {
+        currentRoute() {
+            return !(window.location.pathname == "/dashboard");
+        },
 
     },
-
+    watch: {
+        input_loading: function () {
+            this.show_loading = this.input_loading;
+        }
+    },
     methods: {
         abrir(name) {
             //console.log(name);
@@ -266,6 +297,7 @@ export default {
         },
         home() {},
         dashboard() {
+            this.show_loading = true;
             this.$inertia.get(route("dashboard"));
         },
         profile() {

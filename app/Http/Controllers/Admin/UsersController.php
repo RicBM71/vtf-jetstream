@@ -19,4 +19,15 @@ class UsersController extends Controller
             'paginator' => $users
         ]);
     }
+
+    public function edit(User $user){
+
+        $users = User::paginate(10);
+
+        //$users = User::all();
+
+        return Inertia::render('Admin/Users/UserEdit', [
+            'user' => $user
+        ]);
+    }
 }

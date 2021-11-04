@@ -1,11 +1,12 @@
 <template>
-    <app-layout :appname="appname">
+    <app-layout :appname="appname" :input_loading.sync="input_loading">
         <template #header>
             <h2>Dashboard</h2>
         </template>
 
         <v-container> **Now you're logged in!!
 
+            <v-btn @click="goUsers">Users</v-btn>
 
             <inertia-link :href="route('users.index')">
                 Usuarios
@@ -24,11 +25,19 @@ export default {
         AppLayout,
         Welcome,
     },
+    data(){
+        return {
+            input_loading: false,
+        }
+    },
     mounted(){
 
     },
     methods:{
         goUsers(){
+            //this.$emit('input_loading', true);
+            this.input_loading = true;
+
             this.$inertia.get(route('users.index'));
         }
     }

@@ -30,7 +30,9 @@ Route::group([
     'middleware' => ['auth:sanctum','verified']],
     // 'middleware' => ['auth:sanctum','verified','role:admin']],
     function (){
-        Route::middleware('password.confirm')->get('users', [App\Http\Controllers\Admin\UsersController::class, 'index'])->name('users.index');
+
+        //Route::middleware('password.confirm')->get('users', [App\Http\Controllers\Admin\UsersController::class, 'index'])->name('users.index');
+        Route::middleware('password.confirm')->resource('users', App\Http\Controllers\Admin\UsersController::class);
 
     }
 );

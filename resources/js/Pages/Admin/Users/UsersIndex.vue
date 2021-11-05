@@ -101,7 +101,7 @@ export default {
         this.last_page = this.paginator.last_page;
 
         this.loading = false;
-        console.log(this.$page);
+        
 
     },
     watch:{

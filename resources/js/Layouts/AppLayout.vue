@@ -272,7 +272,7 @@ export default {
         objetivo: 0,
     }),
     mounted() {
-        console.log('Applayout');
+
     },
     computed: {
         currentRoute() {

@@ -16,7 +16,7 @@ Route::get('/', function () {
 
 
 Route::get('/test', function () {
-    
+    return auth()->user()->getAllPermissions();
     return Auth::user();
 
 })->name('test');

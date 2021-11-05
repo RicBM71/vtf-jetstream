@@ -58,7 +58,7 @@
 <script>
 
 
-import Auth from "@/Mixins/Auth";
+
 
 import AppLayout from "@/Layouts/AppLayout";
 import Menuope from "./Menuope";
@@ -74,7 +74,6 @@ export default {
         AppLayout,
         Menuope
     },
-    mixins:[Auth],
      data () {
       return {
         loading: true,
@@ -101,7 +100,10 @@ export default {
         this.last_page = this.paginator.last_page;
 
         this.loading = false;
-        
+
+         console.log(this.currentUser);
+        console.log(this.hasRole('admin'));
+
 
     },
     watch:{

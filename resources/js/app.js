@@ -35,6 +35,9 @@ Vue.use(Vuetify);
 
 const app = document.getElementById('app');
 
+import auth from "@/Mixins/Auth";
+Vue.mixin(auth);
+
 new Vue({
       //finally add this line
       vuetify: new Vuetify(),

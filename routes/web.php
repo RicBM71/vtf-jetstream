@@ -16,7 +16,8 @@ Route::get('/', function () {
 
 
 Route::get('/test', function () {
-    return auth()->user()->getAllPermissions();
+    //return auth()->user()->getAllPermissions()->pluck('name');
+    return auth()->user()->getRoleNames();
     return Auth::user();
 
 })->name('test');

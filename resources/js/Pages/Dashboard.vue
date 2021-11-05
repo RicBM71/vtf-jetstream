@@ -8,7 +8,7 @@
 
             <v-btn @click="goUsers">Users</v-btn>
 
-            <inertia-link :href="route('users.index')">
+            <inertia-link v-if="!hasPermiso('excel')" :href="route('users.index')">
                 Usuarios
             </inertia-link>
          </v-container>

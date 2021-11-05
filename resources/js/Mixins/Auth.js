@@ -1,15 +1,16 @@
 let user = document.head.querySelector('meta[name="user"]');
 
+axios.get(route('test')).then((response) => { console.log(response); });
+
 module.exports = {
     methods: {
-        testMixin: function () {
-            return axios.get(route('test')).then(response => response.data)
-        }
+
+
     },
     computed:{
         user(){
-            //return axios.get(route('test')).then(response => response.data)
-            return JSON.parse(user.content);
+
+           // return JSON.parse(user.content);
         }
     }
 

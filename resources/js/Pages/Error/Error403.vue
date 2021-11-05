@@ -1,5 +1,5 @@
 <template>
-    <app-layout :appname="appname">
+    <app-layout>
         <template #header>
             <h2>Error {{statusCode }}!!</h2>
         </template>
@@ -23,7 +23,7 @@
 import AppLayout from "@/Layouts/AppLayout";
 
 export default {
-    props: ["statusCode", "message","appname"],
+    props: ["statusCode", "message"],
     components: {
         AppLayout,
     },

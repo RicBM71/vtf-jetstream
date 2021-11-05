@@ -4,7 +4,7 @@
             <v-app-bar color="blue-grey darken-1" dark>
                 <v-toolbar-title
                     ><h2>
-                        {{ appname }} - Error {{ statusCode }}!!
+                        {{ $page.appName }} - Error {{ statusCode }}!!
                     </h2></v-toolbar-title
                 >
 
@@ -41,7 +41,7 @@
 import ErrorLayout from "@/Layouts/ErrorLayout";
 
 export default {
-    props: ["statusCode", "message", "appname"],
+    props: ["statusCode", "message"],
     components: {
         ErrorLayout,
     },

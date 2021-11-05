@@ -52,7 +52,6 @@ class Handler extends ExceptionHandler
                     [
                         'statusCode' => $e->getStatusCode(),
                         'message' => __($e->getMessage()),
-                        'appname'        => config('app.name')
                     ]);
         });
 

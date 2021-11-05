@@ -72,7 +72,7 @@
         >
             <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
             <v-toolbar-title style="width: 300px" class="ml-0 pl-4">
-                <span class="hidden-sm-and-down">{{ appname }}</span>
+                <span class="hidden-sm-and-down">{{ $page.appName }}</span>
             </v-toolbar-title>
             <v-spacer />
 
@@ -144,7 +144,6 @@
     </v-app>
 </template>
 <script>
-import MixAppName from "@/Mixins/MixAppName";
 export default {
     props: {
         input_loading: {
@@ -152,7 +151,6 @@ export default {
             default: false,
         },
     },
-    mixins:[MixAppName],
     data: () => ({
         snackbar: false,
         snackbar_text: "",

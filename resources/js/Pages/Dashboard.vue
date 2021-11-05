@@ -1,5 +1,5 @@
 <template>
-    <app-layout :appname="appname" :input_loading.sync="input_loading">
+    <app-layout :input_loading.sync="input_loading">
         <template #header>
             <h2>Dashboard</h2>
         </template>
@@ -20,7 +20,6 @@ import AppLayout from "@/Layouts/AppLayout";
 import Welcome from "@/Jetstream/Welcome";
 
 export default {
-    props:['appname'],
     components: {
         AppLayout,
         Welcome,

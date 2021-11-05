@@ -50,11 +50,17 @@
                 ></v-pagination>
             </div>
 
+
+
         </v-container>
     </app-layout>
 </template>
 
 <script>
+
+
+import Auth from "@/Mixins/Auth";
+
 import AppLayout from "@/Layouts/AppLayout";
 import Menuope from "./Menuope";
 
@@ -69,6 +75,7 @@ export default {
         AppLayout,
         Menuope
     },
+    mixins:[Auth],
      data () {
       return {
         loading: true,

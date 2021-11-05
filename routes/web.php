@@ -1,6 +1,7 @@
 <?php
 
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
 
@@ -15,9 +16,9 @@ Route::get('/', function () {
 
 
 Route::get('/test', function () {
-    //return "asfsadf";
+    
+    return Auth::user();
 
-    return response('411', 411);
 })->name('test');
 
 

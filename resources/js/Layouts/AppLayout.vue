@@ -144,17 +144,15 @@
     </v-app>
 </template>
 <script>
+import MixAppName from "@/Mixins/MixAppName";
 export default {
     props: {
-        appname: {
-            type: String,
-            default: "",
-        },
         input_loading: {
             type: Boolean,
             default: false,
         },
     },
+    mixins:[MixAppName],
     data: () => ({
         snackbar: false,
         snackbar_text: "",

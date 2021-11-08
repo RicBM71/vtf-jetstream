@@ -15,7 +15,7 @@
                 :loading="loading"
                 loading-text="Loading... Please wait"
             >
-            <template v-slot:item.id="{ item }">
+            <template v-slot:[`item.id`]="{ item }">
                <v-avatar size="32px">
                     <img
                         class="img-fluid"
@@ -24,7 +24,7 @@
                     />
                 </v-avatar>
                 </template>
-                <template v-slot:item.actions="{ item }">
+                <template v-slot:[`item.actions`]="{ item }">
                         <v-icon
                             small
 

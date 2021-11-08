@@ -39,9 +39,11 @@ class HandleInertiaRequests extends Middleware
         if (auth()->user() === null){
             $roles = $permisos = [];
         }else{
-            
-            $roles = auth()->user()->getRoleNames();
-            $permisos = auth()->user()->getPermissionNames();
+            /** @var \App\Models\User */
+            $user = auth()->user();
+
+            $roles = $user->getRoleNames();
+            $permisos = $user->getPermissionNames();
         }
 
         return array_merge(parent::share($request), [

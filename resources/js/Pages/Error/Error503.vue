@@ -4,7 +4,7 @@
             <v-app-bar color="blue-grey darken-1" dark>
                 <v-toolbar-title
                     ><h2>
-                        {{ $page.appname }} - Error {{ statusCode }}!!
+                        {{ appname }} - Error {{ statusCode }}!!
                     </h2></v-toolbar-title
                 >
 

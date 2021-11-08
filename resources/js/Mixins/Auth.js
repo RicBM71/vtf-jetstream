@@ -9,8 +9,10 @@ module.exports = {
     },
     computed:{
         currentUser(){
-            return "aaa";
-           // return JSON.parse(user.content);
+            return this.$page.props.user;
+        },
+        appName(){
+            return this.$page.props.appName;
         }
     }
 

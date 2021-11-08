@@ -36,10 +36,17 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request)
     {
+        if (auth()->user() === null){
+            $roles = $permisos = [];
+        }else{
+            $roles = auth()->user()->getRoleNames();
+            $permisos = auth()->user()->getAllPermissions()->pluck('name');
+        }
+
         return array_merge(parent::share($request), [
             'appName'  => config('app.name'),
-            'roles'    => auth()->user()->getRoleNames(),
-            'permisos' => auth()->user()->getAllPermissions()->pluck('name'),
+            'roles'    => $roles,
+            'permisos' => $permisos,
         ]);
     }
 }

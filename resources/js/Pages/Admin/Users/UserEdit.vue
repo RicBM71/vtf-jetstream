@@ -3,7 +3,7 @@
         <template #header>
             <h2>Users</h2>
             <v-spacer></v-spacer>
-            <menuope :input_loading.sync="input_loading"></menuope>
+            <menuope :id="user.id" :input_loading.sync="input_loading"></menuope>
         </template>
         <v-container>
             <pre>{{user}}</pre>
@@ -31,7 +31,7 @@ export default {
     },
     mounted(){
 
-        
+
     }
 }
 </script>

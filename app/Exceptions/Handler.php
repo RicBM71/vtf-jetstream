@@ -45,19 +45,54 @@ class Handler extends ExceptionHandler
         // });
 
 
-        $this->renderable(function (HttpException $e, $request) {
+        // $this->renderable(function (HttpException $e, $request) {
 
-            if (in_array($e->getStatusCode(), [403,404,419,503] ))
-                return Inertia::render('Error/Error'.$e->getStatusCode(),
-                    [
-                        'statusCode' => $e->getStatusCode(),
-                        'message' => __($e->getMessage()),
-                    ]);
-        });
+        //     if (in_array($e->getStatusCode(), [403,404,419,503] ))
+        //         return Inertia::render('Error/Error'.$e->getStatusCode(),
+        //             [
+        //                 'statusCode' => $e->getStatusCode(),
+        //                 'message' => __($e->getMessage()),
+        //             ]);
+        // });
 
         $this->reportable(function (Throwable $e) {
 
 
         });
+    }
+
+    /**
+ * Prepare exception for rendering.
+ *
+ * @param  \Throwable  $e
+ * @return \Throwable
+ */
+public function render($request, Throwable $e)
+    {
+
+//     /** @var \Throwable  $response */
+         $response = parent::render($request, $e);
+
+       // dd($e);
+         if ($request->wantsJson())
+             return response()->json([
+                         'message' =>  $e->getMessage(),
+                         'statusCode'  => $e->getStatusCode(),
+                     ], $e->getStatusCode());
+        else{
+
+            //if (!app()->environment(['local', 'testing']) && in_array($response->status(), [500, 503, 419, 404, 403])) {
+            if (in_array($response->status(), [503, 419, 404, 403])) {
+                return Inertia::render('Error/Error'.$e->getStatusCode(),
+                    [
+                        'statusCode' => $e->getStatusCode(),
+                        'message' => __($e->getMessage()),
+                    ])->toResponse($request)
+                    ->setStatusCode($response->status());
+
+                }
+
+            return $response;
+        }
     }
 }

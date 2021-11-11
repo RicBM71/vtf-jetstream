@@ -68,25 +68,20 @@ function getIbanPrint($iban){
 
 }
 
-function esRoot(){
-    return auth()->user()->hasRole('Root');
+function isRoot(){
+    return auth()->user()->hasRole('root');
 }
 
-function esAdmin(){
-    return auth()->user()->hasRole('Admin');
+function isAdmin(){
+    return auth()->user()->hasRole('admin');
 }
 
-function esSupervisor(){
-    return (auth()->user()->hasRole('Supervisor') || auth()->user()->hasRole('Admin'));
+function isSupervisor(){
+    return (auth()->user()->hasRole('supervisor') || auth()->user()->hasRole('admin'));
 }
 
-function esGestor(){
-    return auth()->user()->hasRole('Gestor');
-}
-
-
-function hasHardDel(){
-    return auth()->user()->hasPermissionTo('delete');
+function hasPermiso($permiso){
+    return auth()->user()->hasPermissionTo($permiso);
 }
 
 function esPropietario($obj)

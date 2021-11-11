@@ -1,5 +1,6 @@
 <template>
     <div class="d-flex">
+        <my-dialog :dialog.sync="dialog" @destroyReg="destroyReg"></my-dialog>
         <v-tooltip bottom>
             <template v-slot:activator="{ on }">
                 <v-btn
@@ -45,6 +46,7 @@
     </div>
 </template>
 <script>
+import MyDialog from "@/Layouts/MyDialog";
 export default {
     props:{
         id: {
@@ -56,6 +58,14 @@ export default {
             default: false,
         },
     },
+    components: {
+        MyDialog
+    },
+    data() {
+        return {
+            dialog: false,
+        };
+    },
     computed: {
         computedAdd() {
             return true;
@@ -66,12 +76,34 @@ export default {
 
         },
         goIndex() {
-
+            this.$emit('update:input_loading', true);
+            this.$inertia.get(route('users.index'));
+        },
+        openDialog(){
+            this.dialog = true;
+        },
+        destroyReg() {
+            //this.dialog = false;
+            this.$emit('update:input_loading', true);
+            axios.post("/dashboard/admin/users/" + this.id, {
+                    _method: "delete",
+                })
+                .then((res) => {
+                    this.response = res.data;
+                    this.snackbar = true;
+                })
+                .catch((err) => {
+                    this.response = err.response.data;
+                    this.snackbar = true;
+                })
+                .finally(()=> {
+                    this.$inertia.get(route('users.index'));
+                });
         },
         goBack() {
             this.$emit('update:input_loading', true);
-            console.log(this.input_loading);
-            window.history.back();
+            this.$inertia.get(route('dashboard'));
+            //window.history.back();
         },
     },
 };

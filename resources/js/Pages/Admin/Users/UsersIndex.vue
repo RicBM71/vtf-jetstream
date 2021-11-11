@@ -94,6 +94,7 @@ export default {
                 },
                 { text: "Email", value: "email" },
                 { text: "Creado", value: "created_at" },
+                { text: "UM", value: "huella" },
                 { text: "Acciones", value: "actions" },
             ],
         };

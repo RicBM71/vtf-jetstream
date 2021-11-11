@@ -76,8 +76,6 @@
             </v-toolbar-title>
             <v-spacer />
 
-            {{ input_loading}}
-
             <v-btn v-if="currentRoute" icon @click="dashboard">
                 <v-icon>mdi-home</v-icon>
             </v-btn>

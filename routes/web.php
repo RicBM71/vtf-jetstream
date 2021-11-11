@@ -17,7 +17,9 @@ Route::get('/', function () {
 
 Route::get('/test', function () {
     //return auth()->user()->getAllPermissions()->pluck('name');
-    return auth()->user()->getRoleNames();
+    /** @var \App\Models\User */
+    $user = auth()->user();
+    return $user->getRoleNames();
     return Auth::user();
 
 })->name('test');
@@ -35,6 +37,7 @@ Route::group([
 
         //Route::middleware('password.confirm')->get('users', [App\Http\Controllers\Admin\UsersController::class, 'index'])->name('users.index');
         Route::middleware('password.confirm')->resource('users', App\Http\Controllers\Admin\UsersController::class);
+        Route::middleware('password.confirm')->delete('users/{user}/photo/delete', [App\Http\Controllers\Admin\UsersPhotoController::class, 'destroy'])->name('photo.destroy');
 
     }
 );

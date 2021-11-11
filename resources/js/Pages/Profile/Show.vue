@@ -29,9 +29,9 @@
                 <logout-other-browser-sessions-form :sessions="sessions" />
             </v-col>
 
-            <v-col cols="12" md="4">
+            <!-- <v-col cols="12" md="4">
                 <delete-user-form />
-            </v-col>
+            </v-col> -->
         </v-row>
 
       </v-container>
@@ -58,7 +58,7 @@ export default {
     UpdateProfileInformationForm
   },
   beforeMount(){
-      
+
   }
 }
 </script>

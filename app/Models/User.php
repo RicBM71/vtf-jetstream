@@ -2,16 +2,17 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Laravel\Jetstream\HasTeams;
 use Laravel\Sanctum\HasApiTokens;
 use Laravel\Jetstream\HasProfilePhoto;
+use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
@@ -60,6 +61,17 @@ class User extends Authenticatable
      * @var array
      */
     protected $appends = [
-        'profile_photo_url',
+        'profile_photo_url', 'huella'
     ];
+
+    public function getCreatedAtAttribute($value){
+
+        return Carbon::parse($value)->format('d/m/Y H:m:s');
+
+    }
+
+    public function getHuellaAttribute(){
+        
+        return $this->name.' '.$this->updated_at->format('d/m/Y H:m:s');
+    }
 }

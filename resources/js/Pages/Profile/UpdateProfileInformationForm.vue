@@ -4,11 +4,11 @@
     :message="message"
   >
     <template #title>
-      <h3>Profile Information</h3>
+      <h3>Perfil de usuario</h3>
     </template>
 
     <template #subtitle>
-      Update your account's profile information and email address.
+      Actualiza tu cuenta de usuario, email...
     </template>
 
     <!-- Profile Photo -->
@@ -35,7 +35,7 @@
         x-small
         @click.native.prevent="selectNewPhoto"
       >
-        Select A New Photo
+        Seleccionar Avatar
       </v-btn>
 
       <v-btn
@@ -45,7 +45,7 @@
         color="warning"
         @click.native.prevent="deletePhoto"
       >
-        Remove Photo
+        Borrar Avatar
       </v-btn>
     </template>
 
@@ -53,7 +53,7 @@
     <v-text-field
       outlined
       autocomplete="given-name"
-      label="First Name"
+      label="Nombre"
       v-model="form.name"
       class="mt-8"
     ></v-text-field>
@@ -62,8 +62,8 @@
     <v-text-field
       outlined
       autocomplete="family-name"
-      label="Last Name"
-      v-model="form.last_name"
+      label="Apellidos"
+      v-model="form.lastname"
     ></v-text-field>
 
     <!-- Email -->
@@ -91,6 +91,7 @@ export default {
                 form: this.$inertia.form({
                     _method: 'PUT',
                     name: this.user.name,
+                    lastname: this.user.lastname,
                     email: this.user.email,
                     photo: null,
                 }),

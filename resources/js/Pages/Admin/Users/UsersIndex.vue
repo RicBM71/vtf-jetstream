@@ -32,9 +32,7 @@
                 </template>
                 <template v-slot:item.created_at="{ item }">
                     {{ getFechaHora(item.created_at)}}
-                </template>ç
-
-                getFechaHora
+                </template>
                 <template v-slot:[`item.actions`]="{ item }">
                     <v-icon small @click="editItem(item)"> mdi-pencil </v-icon>
                     <v-icon
@@ -111,6 +109,7 @@ export default {
         this.last_page = this.paginator.last_page;
 
         this.loading = false;
+       // console.log(window.location+''+window.location.pathname);
     },
     watch: {
         current_page(new_val) {
@@ -122,6 +121,12 @@ export default {
     },
     methods: {
         editItem(item) {
+            // console.log(window.location);
+            //   console.log(window.location.href);
+            // const a = window.location+''+window.location.pathname;
+
+            this.setMyHistoryUrl();
+
             this.input_loading = true;
             this.$inertia.get(route("users.edit", { user: item.id }));
         },

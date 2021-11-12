@@ -1,13 +1,13 @@
 <template>
     <v-card>
         <v-card-title class="overline">
-            <h3>Profile Information</h3>
+            <h3>Perfil</h3>
         </v-card-title>
 
         <v-form @submit.prevent="update">
             <v-card-text class="py-0">
                 <v-row>
-                    <v-col cols="12" md="5">
+                    <v-col cols="12">
                         <template
                             v-if="$page.props.jetstream.managesProfilePhotos"
                         >
@@ -44,7 +44,7 @@
                                 x-small
                                 @click.native.prevent="selectNewPhoto"
                             >
-                                Select A New Photo
+                                Selecciona Avatar
                             </v-btn>
 
                             <v-btn
@@ -55,16 +55,16 @@
                                 color="warning"
                                 @click.native.prevent="deletePhoto"
                             >
-                                Remove Photo
+                                Borrar Avatar
                             </v-btn>
                         </template>
                     </v-col>
                 </v-row>
 
                 <v-row>
-                    <v-col cols="12" md="6">
+                    <v-col cols="12" md="2">
                         <v-text-field
-                            label="First Name"
+                            label="Nombre"
                             dense
                             v-model="form.name"
                             v-validate="'required|min:3'"
@@ -73,16 +73,21 @@
                             data-vv-as="name"
                         ></v-text-field>
                     </v-col>
-                    <v-col cols="12" md="6">
+                    <v-col cols="12" md="4">
                         <v-text-field
-                            label="Last Name"
+                            label="Apellidos"
                             dense
-                            v-model="form.last_name"
+                            v-model="form.lastname"
                         ></v-text-field>
                     </v-col>
-                </v-row>
-                <v-row>
-                    <v-col cols="12" md="6">
+                    <v-col cols="12" md="2">
+                        <v-text-field
+                            label="Usuario"
+                            dense
+                            v-model="form.username"
+                        ></v-text-field>
+                    </v-col>
+                    <v-col cols="12" md="4">
                         <v-text-field
                             label="Email"
                             dense
@@ -93,18 +98,38 @@
                             data-vv-as="email"
                         ></v-text-field>
                     </v-col>
-                    <v-col cols="12" md="6">
+                </v-row>
+                <v-row>
+                    <v-col cols="12" md="2">
+                        <v-switch
+                        class="mt-2"
+                            dense
+                            v-model="form.blocked"
+                            label="Bloqueado"
+                        ></v-switch>
+                    </v-col>
+                    <v-col cols="12" md="4">
                         <v-text-field
                             readonly
                             dense
-                            v-model="computedHuella"
+                            :label="user.username"
+                            v-model="computedUpdatedAt"
                         ></v-text-field>
                     </v-col>
-                    <v-col cols="12" md="3" offset-md="9">
+                    <v-col cols="12" md="4">
+                        <v-text-field
+                            readonly
+                            dense
+                            label="Creado"
+                            v-model="computedCreatedAt"
+                        ></v-text-field>
+                    </v-col>
+                    <v-col cols="12" md="2">
                         <v-btn block small type="submit" :loading="loading">
-                            Save
+                            Guardar
                         </v-btn>
                     </v-col>
+                    <v-btn @click="roles">roles</v-btn>
                 </v-row>
             </v-card-text>
         </v-form>
@@ -126,6 +151,8 @@ export default {
             form: this.$inertia.form({
                 _method: "PUT",
                 name: this.user.name,
+                username: this.user.username,
+                lastname: this.user.lastname,
                 email: this.user.email,
                 photo: null,
             }),
@@ -138,14 +165,19 @@ export default {
 
     computed: {
         computedHuella() {
-
             return (
-                "admin.rbm " +
+                this.user.username_umod +
                 this.$moment(this.user.updated_at).format("D/MM/YYYY H:mm:ss") +
                 " # Creado: " +
                 this.$moment(this.user.created_at).format("D/MM/YYYY")
             );
         },
+        computedUpdatedAt(){
+            return this.getFechaHora(this.user.updated_at);
+        },
+        computedCreatedAt(){
+            return this.getFechaHora(this.user.created_at);
+        }
     },
 
     methods: {
@@ -199,6 +231,10 @@ export default {
                 onFinish: () => (this.loading_photo = false),
             });
         },
+        roles(){
+             this.setMyHistoryUrl();
+            this.$inertia.get(route('roles.index'));
+        }
     },
 };
 </script>

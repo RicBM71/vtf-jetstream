@@ -31,7 +31,7 @@ class UsersSeeder extends Seeder
         $user = User::factory()->withPersonalTeam()->create([
             'name' => 'Ricardo',
             'email' => 'rbartolome@sanaval.com',
-          //  'username' => 'ricardo.bm',
+            'username' => 'ricardo.bm',
         ]);
 
         User::factory(50)->create();

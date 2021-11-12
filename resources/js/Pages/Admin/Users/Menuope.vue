@@ -103,7 +103,8 @@ export default {
         },
         goBack() {
             this.$emit('update:input_loading', true);
-            this.$inertia.get(route('dashboard'));
+            this.goBackUrl();
+
             //window.history.back();
         },
     },

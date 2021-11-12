@@ -2,7 +2,7 @@
   <app-layout>
       <template #header>
             <h2>
-                User Profile
+                Perfil {{$page.props.user.username}}
             </h2>
         </template>
 

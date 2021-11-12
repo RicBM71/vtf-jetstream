@@ -39,6 +39,8 @@ Route::group([
         Route::middleware('password.confirm')->resource('users', App\Http\Controllers\Admin\UsersController::class);
         Route::middleware('password.confirm')->delete('users/{user}/photo/delete', [App\Http\Controllers\Admin\UsersPhotoController::class, 'destroy'])->name('photo.destroy');
 
+        Route::middleware('password.confirm')->resource('roles', App\Http\Controllers\Admin\RolesController::class);
+
     }
 );
 

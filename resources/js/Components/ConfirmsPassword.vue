@@ -44,7 +44,7 @@
           small
           @click.native="confirmingPassword = false"
         >
-          Nevermind
+          Cancelar
         </v-btn>
 
         <v-btn

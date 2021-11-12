@@ -2,7 +2,7 @@
     <app-layout :input_loading.sync="input_loading">
 
         <template #header>
-            <h2>Users</h2>
+            <h2>Usuarios</h2>
             <v-spacer></v-spacer>
             <menuope
                 :id="user.id"
@@ -22,7 +22,7 @@
                 </v-tab>
                 <v-tab-item>
 
-                    <v-col cols="12" md="6" offset-md="6">
+                    <v-col cols="12" md="7">
                         <update-user-information :user="user" />
                         <br/>
                     </v-col>
@@ -55,7 +55,7 @@ export default {
         },
     },
     mounted() {
-
+        console.log(this.getUltUrl);
     },
     methods: {
         openDialog(){

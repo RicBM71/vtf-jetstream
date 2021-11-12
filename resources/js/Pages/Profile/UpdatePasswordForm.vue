@@ -1,11 +1,11 @@
 <template>
     <form-card :handleSubmit="updatePassword" :message="message">
         <template #title>
-            <h3>Update Password</h3>
+            <h3>Cambiar Password</h3>
         </template>
 
         <template #subtitle>
-            Ensure your account is using a long, random password to stay secure.
+            La contraseña require de 8 caracteres, mayúscula, minúscula y símbolo ($%!@#?...
         </template>
 
         <!-- Current Password Field -->

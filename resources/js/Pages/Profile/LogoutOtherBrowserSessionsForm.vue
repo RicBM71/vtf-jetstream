@@ -1,21 +1,21 @@
 <template>
     <form-card
-        submitBtnText="Logout Other Browser Sessions"
+        submitBtnText="Cerrar sesiones otros navegadores"
         :handleSubmit="confirmLogout"
         :message="message"
     >
-        <template #title><h3>Browser Sessions</h3></template>
+        <template #title><h3>Sesiones Navegador</h3></template>
 
         <template #subtitle>
-            Manage and logout your active sessions on other browsers and
-            devices.
+            Desactiva y cierra la sessión de otros navegadores y dispositivos
         </template>
 
         <p>
-            If necessary, you may logout of all of your other browser sessions
-            across all of your devices. Some of your recent sessions are listed
-            below; however, this list may not be exhaustive. If you feel your
-            account has been compromised, you should also update your password.
+            Si es necesario, podrías cerrar el resto de sesiones abiertas en otros
+            navegadores en otros dispositivos. Se listan la sesiones más recientes, sin
+            embargo podrían no mostrarse todas ellas.
+            Si crees que tu cuenta se ha visto comprometida, cierra todas las sesiones
+            y restaura tu password.
         </p>
 
         <!-- Other Browser Sessions -->
@@ -41,11 +41,11 @@
                             class="success--text font-weight-bold"
                             v-if="session.is_current_device"
                         >
-                            This device
+                            Este dispositivo
                         </span>
 
                         <template v-else>
-                            Last active {{ session.last_active }}
+                            Última activa {{ session.last_active }}
                         </template>
                     </v-list-item-subtitle>
                 </v-list-item-content>
@@ -54,13 +54,12 @@
 
         <!-- Logout Other Devices Confirmation Modal -->
         <modal :show="confirmingLogout" @close="confirmingLogout = false">
-            <template #title> Logout Other Browser Sessions </template>
+            <template #title> Cerrar sesiones </template>
 
             <template #content>
                 <p>
-                    Please enter your password to confirm you would like to
-                    logout of your other browser sessions across all of your
-                    devices.
+                    Por favor, introduce tu password actual para confirmar
+                    el cierre de todas las sessiones.
                 </p>
 
                 <!-- Password Field -->
@@ -82,7 +81,7 @@
                 <v-spacer></v-spacer>
 
                 <v-btn small @click.native="confirmingLogout = false">
-                    Nevermind
+                    Cancelar
                 </v-btn>
 
                 <v-btn
@@ -90,7 +89,7 @@
                     @click.native="logoutOtherBrowserSessions"
                     :loading="form.processing"
                 >
-                    Logout Other Browser Sessions
+                    Logout
                 </v-btn>
             </template>
         </modal>
@@ -124,7 +123,7 @@ export default {
         message() {
             return {
                 show: this.form.recentlySuccessful,
-                text: "Done.",
+                text: "Ok.",
                 type: "success",
             };
         },

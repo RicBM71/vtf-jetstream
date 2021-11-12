@@ -31,8 +31,10 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password','username','lastname','blocked','login_at','username_umod'
     ];
+
+    protected $dates =['login_at'];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -72,6 +74,6 @@ class User extends Authenticatable
 
     public function getHuellaAttribute(){
 
-        return $this->name.' '.$this->updated_at->format('d/m/Y H:m:s');
+        return $this->username_umod.' '.$this->updated_at->format('d/m/Y H:m:s');
     }
 }

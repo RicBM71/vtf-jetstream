@@ -17,12 +17,12 @@
                                     <v-row>
                                         <v-col cols="12">
                                             <v-text-field
-                                                v-model="form.email"
+                                                v-model="form.username"
                                                 label="Usuario"
                                                 v-validate="'required|min:4'"
-                                                :error-messages="errors.collect('email')"
-                                                data-vv-name="email"
-                                                data-vv-as="email"
+                                                :error-messages="errors.collect('username')"
+                                                data-vv-name="username"
+                                                data-vv-as="username"
                                                 v-on:keyup.enter="submit"
                                             ></v-text-field>
                                         </v-col>
@@ -80,7 +80,7 @@ export default {
         return {
             loading: false,
             form: this.$inertia.form({
-                email: "",
+                username: "",
                 password: "",
                 remember: false,
             }),

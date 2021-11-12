@@ -46,6 +46,8 @@ class UsersController extends Controller
             $user->updateProfilePhoto($input['photo']);
         }
 
+        $input['username_umod'] = auth()->user()->username;
+
         $user->update($input);
 
         //return response(['user'=>$user,'status'=>200]);

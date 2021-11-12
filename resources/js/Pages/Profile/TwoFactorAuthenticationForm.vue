@@ -4,24 +4,24 @@
     :message="message"
   >
     <template #title>
-      <h3>Two Factor Authentication</h3>
+      <h3>Autenticación doble factor</h3>
     </template>
 
     <template #subtitle>
-      Add additional security to your account using two factor authentication.
+      Aplica una capa adicional de seguridad a tu cuenta de usuario.
     </template>
 
     <h3 v-if="twoFactorEnabled">
-      You have enabled two factor authentication.
+      Tienes <span class="green--text">ACTIVADA</span> la Autenticación de doble factor.
     </h3>
 
     <h3 v-else>
-      You have not enabled two factor authentication.
+      Tienes <span class="red--text">DESACTIVADA</span> la Autenticación de doble factor.
     </h3>
 
     <p>
-      When two factor authentication is enabled, you will be prompted for a secure, random token during
-      authentication. You may retrieve this token from your phone's Google Authenticator application.
+        Cuando actives la Autenticación de doble factor, necesitarás de un código aleatorio que podrás obtener
+        a través de tu teléfono y la aplicación Google Authenticator.
     </p>
 
     <template v-if="twoFactorEnabled">
@@ -60,7 +60,7 @@
         v-if="!twoFactorEnabled"
         @confirmed="enableTwoFactorAuthentication"
       >
-        Enable
+        Activar
       </confirms-password>
 
       <template v-else>
@@ -68,20 +68,20 @@
           v-if="recoveryCodes.length > 0"
           @confirmed="regenerateRecoveryCodes"
         >
-          Regenerate Recovery Codes
+          Regenerar códigos
         </confirms-password>
 
         <confirms-password
           v-if="recoveryCodes.length == 0"
           @confirmed="showRecoveryCodes"
         >
-          Show Recovery Codes
+          Mostrar códigos
         </confirms-password>
 
         <confirms-password
           @confirmed="disableTwoFactorAuthentication"
         >
-          Disable
+          Desactivar
         </confirms-password>
       </template>
     </template>

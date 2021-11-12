@@ -19,7 +19,7 @@
             :show="confirmingUserDeletion"
             @close="confirmingUserDeletion = false"
         >
-            <template #title> Delete Account </template>
+            <template #title> Borrar Cuenta </template>
 
             <template #content>
                 <p>
@@ -48,7 +48,7 @@
                 <v-spacer></v-spacer>
 
                 <v-btn small @click.native="confirmingUserDeletion = false">
-                    Nevermind
+                    Cancelar
                 </v-btn>
 
                 <v-btn
@@ -57,7 +57,7 @@
                     :loading="form.processing"
                     @click="deleteUser"
                 >
-                    Delete Account
+                    Borrar Cuenta
                 </v-btn>
             </template>
         </modal>
@@ -88,7 +88,7 @@ export default {
         message() {
             return {
                 show: this.form.recentlySuccessful,
-                text: "Done.",
+                text: "Ok",
                 type: "success",
             };
         },

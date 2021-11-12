@@ -72,7 +72,7 @@ export default {
 
   computed: {
     computedColor(){
-        return this.submitBtnText == 'Delete Account' ? 'red darken-2' : '';
+        return this.submitBtnText == 'Borrar Cuenta' ? 'red darken-2' : '';
     },
     hasTitle () {
       return !!this.$slots.title

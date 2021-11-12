@@ -8,7 +8,7 @@
         ></toast>
 
         <template #header>
-            <h2>Users</h2>
+            <h2>Usuarios</h2>
             <v-spacer></v-spacer>
             <menuope :input_loading.sync="input_loading"></menuope>
         </template>
@@ -30,9 +30,15 @@
                         />
                     </v-avatar>
                 </template>
+                <template v-slot:item.created_at="{ item }">
+                    {{ getFechaHora(item.created_at)}}
+                </template>ç
+
+                getFechaHora
                 <template v-slot:[`item.actions`]="{ item }">
                     <v-icon small @click="editItem(item)"> mdi-pencil </v-icon>
                     <v-icon
+                        :disabled="!hasPermiso('root')"
                         small
                         color="red darken-4"
                         @click="openDialog(item)"
@@ -58,6 +64,7 @@ import AppLayout from "@/Layouts/AppLayout";
 import Menuope from "./Menuope";
 import MyDialog from "@/Layouts/MyDialog";
 import Toast from "@/Layouts/Toast";
+
 
 export default {
     props: {

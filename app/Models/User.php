@@ -64,14 +64,14 @@ class User extends Authenticatable
         'profile_photo_url', 'huella'
     ];
 
-    public function getCreatedAtAttribute($value){
+    // public function getCreatedAtAttribute($value){
 
-        return Carbon::parse($value)->format('d/m/Y H:m:s');
+    //     return Carbon::parse($value)->format('d/m/Y H:m:s');
 
-    }
+    // }
 
     public function getHuellaAttribute(){
-        
+
         return $this->name.' '.$this->updated_at->format('d/m/Y H:m:s');
     }
 }

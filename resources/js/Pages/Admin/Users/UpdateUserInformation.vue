@@ -112,7 +112,6 @@
 </template>
 
 <script>
-import moment from "moment";
 import FormCard from "../../../Components/FormCard";
 
 export default {
@@ -139,12 +138,12 @@ export default {
 
     computed: {
         computedHuella() {
-            moment.locale("es");
+
             return (
                 "admin.rbm " +
-                moment(this.user.updated_at).format("D/MM/YYYY H:mm:ss") +
+                this.$moment(this.user.updated_at).format("D/MM/YYYY H:mm:ss") +
                 " # Creado: " +
-                moment(this.user.created_at).format("D/MM/YYYY")
+                this.$moment(this.user.created_at).format("D/MM/YYYY")
             );
         },
     },

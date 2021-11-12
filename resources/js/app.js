@@ -38,6 +38,12 @@ const app = document.getElementById('app');
 import auth from "@/Mixins/Auth";
 Vue.mixin(auth);
 
+import comun from "@/Mixins/Comun";
+Vue.mixin(comun);
+
+import moment from 'moment'
+Object.defineProperty(Vue.prototype, '$moment', {value: moment})
+
 new Vue({
       //finally add this line
       vuetify: new Vuetify(),

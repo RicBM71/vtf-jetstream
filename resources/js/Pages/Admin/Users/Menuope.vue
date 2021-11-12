@@ -18,6 +18,7 @@
         <v-tooltip bottom v-if="id > 0">
             <template v-slot:activator="{ on }">
                 <v-btn
+                    :disabled="!hasPermiso('root')"
                     class="mr-1"
                     v-on="on"
                     x-small

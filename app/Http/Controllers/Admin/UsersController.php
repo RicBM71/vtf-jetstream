@@ -4,9 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\User;
 use Inertia\Inertia;
-use Spatie\Permission\Models\Role;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\UpdateUserRequest;
+use Illuminate\Support\Facades\Hash;
+use App\Http\Requests\Admin\UserStoreRequest;
+use App\Http\Requests\Admin\UserUpdateRequest;
 
 class UsersController extends Controller
 {
@@ -21,6 +22,33 @@ class UsersController extends Controller
         ]);
     }
 
+    public function create(){
+
+        $this->authorize('update', New User);
+
+        return Inertia::render('Admin/Users/UserCreate');
+    }
+
+    public function store(UserStoreRequest $request, User $user)
+    {
+
+        $this->authorize('update', $user);
+
+        $input = $request->validated();
+
+        $input['username_umod'] = $request->user()->username;
+        $input['password'] = Hash::make('password');
+
+        $user = User::create($input);
+
+        return Inertia::render('Admin/Users/UserEdit', [
+            'usuario' => $user,
+        ]);
+
+
+
+    }
+
     public function edit(User $user){
 
         if ($user->id == 1 && !isRoot()){
@@ -32,7 +60,7 @@ class UsersController extends Controller
         ]);
     }
 
-    public function update(UpdateUserRequest $request, User $user)
+    public function update(UserUpdateRequest $request, User $user)
     {
 
         $this->authorize('update', $user);

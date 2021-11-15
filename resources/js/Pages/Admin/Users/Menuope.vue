@@ -68,7 +68,7 @@ export default {
         };
     },
     mounted(){
-        
+
     },
     computed: {
         computedAdd() {
@@ -77,7 +77,8 @@ export default {
     },
     methods: {
         goCreate() {
-
+            this.$emit('update:input_loading', true);
+            this.$inertia.get(route('users.create'));
         },
         goIndex() {
             this.$emit('update:input_loading', true);

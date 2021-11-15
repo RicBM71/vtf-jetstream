@@ -73,7 +73,7 @@ function isRoot(){
 }
 
 function isAdmin(){
-    return auth()->user()->hasRole('admin');
+    return auth()->user()->hasRole('admin') || auth()->user()->hasRole('root');
 }
 
 function isSupervisor(){

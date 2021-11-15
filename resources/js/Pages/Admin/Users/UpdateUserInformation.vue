@@ -85,6 +85,10 @@
                             label="Usuario"
                             dense
                             v-model="form.username"
+                            v-validate="'required'"
+                            :error-messages="errors.collect('username')"
+                            data-vv-name="username"
+                            data-vv-as="username"
                         ></v-text-field>
                     </v-col>
                     <v-col cols="12" md="4">

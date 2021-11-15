@@ -1,5 +1,5 @@
 <template>
-    <v-card class="mb-2">
+    <v-card class="ma-2">
         <v-card-title class="overline">
             <h3>Perfil</h3>
         </v-card-title>
@@ -116,7 +116,7 @@
                         <v-text-field
                             readonly
                             dense
-                            :label="user.username"
+                            :label="user.username_umod"
                             v-model="computedUpdatedAt"
                         ></v-text-field>
                     </v-col>
@@ -153,7 +153,6 @@ export default {
     data() {
         return {
             form: this.$inertia.form({
-                _method: "PUT",
                 name: this.user.name,
                 username: this.user.username,
                 lastname: this.user.lastname,
@@ -193,7 +192,27 @@ export default {
 
             this.$validator.validateAll().then((result) => {
                 if (result) {
-                    this.form.post(route("users.update", { user: this.user }), {
+                        console.log(this.user);
+
+                    // axios.put("/admin/users/" + this.user.id,  this.user )
+                    //             .then((res) => {
+                    //                 this.user = res.data.user;
+                    //             })
+                    //             .catch((err) => {
+                    //                 console.log(err.request);
+                    //                 const msg_valid = err.errors;
+                    //                 for (const prop in msg_valid) {
+                    //                     this.errors.add({
+                    //                         field: prop,
+                    //                         msg: `${msg_valid[prop]}`,
+                    //                     });
+                    //                 }
+                    //             })
+                    //             .finally(() => {
+                    //                 this.loading = false;
+                    //             });
+
+                    this.form.put(route("users.update", { user: this.user }), {
                         errorBag: "updateProfileInformation",
                         preserveScroll: true,
                         onFinish: () => {

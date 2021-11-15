@@ -1,6 +1,6 @@
 <template>
     <div>
-        <v-card class="mr-4">
+        <v-card class="mr-4 mt-2">
             <v-card-title class="overline">
                 <h3>Roles</h3>
             </v-card-title>
@@ -37,8 +37,8 @@
         </v-card>
         <user-permisos
             :user_id="user_id"
-            :permisos_heredados.sync="permisos_heredados"
-            :permisos_usr="permisos_usr"
+            :from_role_permisos_heredados="permisos_heredados"
+            :from_role_permisos_usr="permisos_usr"
         ></user-permisos>
     </div>
 </template>

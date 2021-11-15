@@ -37,25 +37,35 @@
 <script>
 export default {
     components: {},
-    data() {
-        return {
-            permisos: [],
-            loading: false,
-        };
-    },
     props: {
         user_id: {
             type: Number,
             required: true,
         },
-        permisos_heredados: {
+        from_role_permisos_heredados: {
             type: Array,
             required: true,
         },
-        permisos_usr: {
+        from_role_permisos_usr: {
             type: Array,
             required: true,
         },
+    },
+    data() {
+        return {
+            permisos: [],
+            permisos_usr: [],
+            permisos_heredados:[],
+            loading: false,
+        };
+    },
+    watch:{
+        from_role_permisos_usr: function () {
+            this.permisos_usr = this.from_role_permisos_usr;
+        },
+        from_role_permisos_heredados: function () {
+            this.permisos_heredados = this.from_role_permisos_heredados;
+        }
     },
     mounted() {
         axios

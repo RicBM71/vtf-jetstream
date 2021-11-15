@@ -42,7 +42,7 @@ class UsersSeeder extends Seeder
         $user->assignRole($adminRole);
 
         $adminRole->givePermissionTo('excel');
-        $adminRole->givePermissionTo('accesos');
+        $adminRole->givePermissionTo('users');
          $user->givePermissionTo('users');
         // $user->givePermissionTo('excel');
     }

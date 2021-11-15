@@ -4,16 +4,15 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\User;
 use Inertia\Inertia;
-use Illuminate\Validation\Rule;
+use Spatie\Permission\Models\Role;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\Admin\UpdateUserRequest;
 
 class UsersController extends Controller
 {
     public function index(){
 
-        $users = User::paginate(10);
+        $users = User::permitidos()->paginate(10);
 
         //$users = User::all();
 
@@ -24,8 +23,12 @@ class UsersController extends Controller
 
     public function edit(User $user){
 
+        if ($user->id == 1 && !isRoot()){
+            return abort(403, 'No dispones de los permisos necesarios');
+        }
+
         return Inertia::render('Admin/Users/UserEdit', [
-            'user' => $user
+            'usuario' => $user,
         ]);
     }
 

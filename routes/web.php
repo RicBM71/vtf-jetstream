@@ -29,7 +29,7 @@ Route::middleware(['auth:sanctum','verified'])->get('dashboard', [App\Http\Contr
 
 
 Route::group([
-    'prefix' => 'dashboard/admin',
+    'prefix' => 'admin',
     // 'namespace' => 'Mto',
     'middleware' => ['auth:sanctum','verified']],
     // 'middleware' => ['auth:sanctum','verified','role:admin']],
@@ -38,6 +38,11 @@ Route::group([
         //Route::middleware('password.confirm')->get('users', [App\Http\Controllers\Admin\UsersController::class, 'index'])->name('users.index');
         Route::middleware('password.confirm')->resource('users', App\Http\Controllers\Admin\UsersController::class);
         Route::middleware('password.confirm')->delete('users/{user}/photo/delete', [App\Http\Controllers\Admin\UsersPhotoController::class, 'destroy'])->name('photo.destroy');
+
+        Route::get('users/{user}/roles', [App\Http\Controllers\Admin\UsersRolesController::class, 'show']);
+        Route::put('users/{user}/roles', [App\Http\Controllers\Admin\UsersRolesController::class, 'update'])->name('user.roles.update');
+        Route::get('users/{user}/permission', [App\Http\Controllers\Admin\UsersPermissionsController::class, 'show']);
+        Route::put('users/{user}/permission', [App\Http\Controllers\Admin\UsersPermissionsController::class, 'update']);
 
         Route::middleware('password.confirm')->resource('roles', App\Http\Controllers\Admin\RolesController::class);
 

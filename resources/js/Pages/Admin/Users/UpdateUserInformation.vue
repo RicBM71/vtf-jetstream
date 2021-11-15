@@ -1,5 +1,5 @@
 <template>
-    <v-card>
+    <v-card class="mb-2">
         <v-card-title class="overline">
             <h3>Perfil</h3>
         </v-card-title>
@@ -129,7 +129,7 @@
                             Guardar
                         </v-btn>
                     </v-col>
-                    <v-btn @click="roles">roles</v-btn>
+
                 </v-row>
             </v-card-text>
         </v-form>

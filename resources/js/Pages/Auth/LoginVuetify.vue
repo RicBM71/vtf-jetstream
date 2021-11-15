@@ -98,7 +98,7 @@
                                 }))
                                 .post(this.route('login'), {
                                     onFinish: () =>  {
-                                        console.log(this.form.errors);
+                                        
                                         const msg_valid = this.form.errors;
                                         for (const prop in msg_valid) {
                                             this.errors.add({

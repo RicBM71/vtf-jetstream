@@ -30,11 +30,11 @@ export default {
         }
     },
     mounted(){
-
     },
     methods:{
         goUsers(){
             //this.$emit('input_loading', true);
+            this.setMyHistoryUrl();
             this.input_loading = true;
 
             this.$inertia.get(route('users.index'));

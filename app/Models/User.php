@@ -76,4 +76,13 @@ class User extends Authenticatable
 
         return $this->username_umod.' '.$this->updated_at->format('d/m/Y H:m:s');
     }
+
+    public function scopePermitidos($query)
+    {
+
+        if (!isRoot())
+            return $query->where('id', '>', 1);
+
+        return $query;
+    }
 }

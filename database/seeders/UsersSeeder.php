@@ -23,10 +23,12 @@ class UsersSeeder extends Seeder
 
         $rootRole = Role::create(['name'=>'root']);
         $adminRole = Role::create(['name'=>'admin']);
-        //$supRole = Role::create(['name'=>'Supervisor']);
+        $supRole = Role::create(['name'=>'supervisor']);
 
         Permission::create(['name'=>'users','nombre'=>'Acceso a Usuarios']);
         Permission::create(['name'=>'excel','nombre'=>'Excel']);
+        Permission::create(['name'=>'caja','nombre'=>'Caja']);
+        Permission::create(['name'=>'accesos','nombre'=>'Accesos']);
 
         $user = User::factory()->withPersonalTeam()->create([
             'name' => 'Ricardo',
@@ -40,6 +42,7 @@ class UsersSeeder extends Seeder
         $user->assignRole($adminRole);
 
         $adminRole->givePermissionTo('excel');
+        $adminRole->givePermissionTo('accesos');
          $user->givePermissionTo('users');
         // $user->givePermissionTo('excel');
     }

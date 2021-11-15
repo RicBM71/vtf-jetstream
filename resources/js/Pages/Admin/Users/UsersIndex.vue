@@ -105,11 +105,12 @@ export default {
         };
     },
     mounted() {
+
         this.current_page = this.paginator.current_page;
         this.last_page = this.paginator.last_page;
 
         this.loading = false;
-       // console.log(window.location+''+window.location.pathname);
+
     },
     watch: {
         current_page(new_val) {
@@ -121,12 +122,8 @@ export default {
     },
     methods: {
         editItem(item) {
-            // console.log(window.location);
-            //   console.log(window.location.href);
-            // const a = window.location+''+window.location.pathname;
 
             this.setMyHistoryUrl();
-
             this.input_loading = true;
             this.$inertia.get(route("users.edit", { user: item.id }));
         },

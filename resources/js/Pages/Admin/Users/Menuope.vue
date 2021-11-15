@@ -18,7 +18,7 @@
         <v-tooltip bottom v-if="id > 0">
             <template v-slot:activator="{ on }">
                 <v-btn
-                    :disabled="!hasPermiso('root')"
+                    :disabled="!hasRole('root')"
                     class="mr-1"
                     v-on="on"
                     x-small
@@ -66,6 +66,9 @@ export default {
         return {
             dialog: false,
         };
+    },
+    mounted(){
+        
     },
     computed: {
         computedAdd() {

@@ -7,10 +7,17 @@ module.exports = {
         setMyHistoryUrl(url){
             historico_urls.unshift(window.location.href);
         },
+        ressetMyHistoryUrl(url){
+            historico_urls = [];
+        },
         goBackUrl(){
-            const url = historico_urls[0];
-            historico_urls.shift();
-            this.$inertia.get(url);
+            if (historico_urls.length == 0)
+                this.$inertia.get(route('dashboard'));
+            else{
+                const url = historico_urls[0];
+                historico_urls.shift();
+                this.$inertia.get(url);
+            }
         }
     },
     computed:{

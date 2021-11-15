@@ -270,7 +270,7 @@ export default {
         objetivo: 0,
     }),
     mounted() {
-
+        
     },
     computed: {
         currentRoute() {
@@ -291,6 +291,7 @@ export default {
         },
         home() {},
         dashboard() {
+            this.ressetMyHistoryUrl();
             this.show_loading = true;
             this.$inertia.get(route("dashboard"));
         },
@@ -298,6 +299,7 @@ export default {
             this.$inertia.get(route("profile.show"));
         },
         Logout() {
+            this.ressetMyHistoryUrl();
             this.snackbar_text = "Logout...";
             this.snackbar = true;
 

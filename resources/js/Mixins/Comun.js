@@ -18,6 +18,9 @@ module.exports = {
                 historico_urls.shift();
                 this.$inertia.get(url);
             }
+        },
+        allUrl(){
+            console.log(historico_urls);
         }
     },
     computed:{

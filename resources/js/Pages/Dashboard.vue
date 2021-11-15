@@ -4,13 +4,10 @@
             <h2>Dashboard</h2>
         </template>
 
-        <v-container> **Now you're logged in!!
+        <v-container> **Estás logado!!
 
-            <v-btn @click="goUsers">Users</v-btn>
+            <v-btn text @click="goUsers">Test Usuarios</v-btn>
 
-            <inertia-link v-if="!hasPermiso('excel')" :href="route('users.index')">
-                Usuarios
-            </inertia-link>
          </v-container>
     </app-layout>
 </template>

@@ -1,5 +1,5 @@
 <template>
-    <div class="d-flex">
+    <div>
         <my-dialog :dialog.sync="dialog" @destroyReg="destroyReg"></my-dialog>
         <v-tooltip bottom>
             <template v-slot:activator="{ on }">
@@ -7,10 +7,11 @@
                     class="mr-1"
                     v-show="computedAdd"
                     v-on="on"
-                    x-small
+                    small
+                    icon
                     @click="goCreate"
                 >
-                    Nuevo
+                    <v-icon color="primary">mdi-plus</v-icon>
                 </v-btn>
             </template>
             <span>Crear un nuevo registro</span>
@@ -21,35 +22,37 @@
                     :disabled="!hasRole('root')"
                     class="mr-1"
                     v-on="on"
-                    x-small
+                    small
+                    icon
                     @click="openDialog"
                 >
-                    Borrar
+                    <v-icon color="primary">mdi-delete</v-icon>
                 </v-btn>
             </template>
             <span>Borrar Registro actual</span>
         </v-tooltip>
         <v-tooltip bottom v-if="id > 0">
             <template v-slot:activator="{ on }">
-                <v-btn class="mr-1"
-                     v-on="on" x-small @click="goIndex">
-                    Lista
+                <v-btn class="mr-1" v-on="on" icon small @click="goIndex">
+                    <v-icon color="primary">mdi-format-list-bulleted</v-icon>
                 </v-btn>
             </template>
             <span>Volver a la lista de resultados</span>
         </v-tooltip>
-
-        <v-btn class="mr-1" x-small @click="goBack">
-            Volver
-        </v-btn>
-
-
+        <v-tooltip bottom>
+            <template v-slot:activator="{ on }">
+                <v-btn class="mr-1" v-on="on" small icon @click="goBack">
+                    <v-icon color="primary">mdi-subdirectory-arrow-left</v-icon>
+                </v-btn>
+            </template>
+            <span>Volver</span>
+        </v-tooltip>
     </div>
 </template>
 <script>
 import MyDialog from "@/Layouts/MyDialog";
 export default {
-    props:{
+    props: {
         id: {
             type: Number,
             default: 0,
@@ -60,16 +63,14 @@ export default {
         },
     },
     components: {
-        MyDialog
+        MyDialog,
     },
     data() {
         return {
             dialog: false,
         };
     },
-    mounted(){
-
-    },
+    mounted() {},
     computed: {
         computedAdd() {
             return true;
@@ -77,20 +78,22 @@ export default {
     },
     methods: {
         goCreate() {
-            this.$emit('update:input_loading', true);
-            this.$inertia.get(route('users.create'));
+            this.setMyHistoryUrl();
+            this.$emit("update:input_loading", true);
+            this.$inertia.get(route("users.create"));
         },
         goIndex() {
-            this.$emit('update:input_loading', true);
-            this.$inertia.get(route('users.index'));
+            this.$emit("update:input_loading", true);
+            this.$inertia.get(route("users.index"));
         },
-        openDialog(){
+        openDialog() {
             this.dialog = true;
         },
         destroyReg() {
             //this.dialog = false;
-            this.$emit('update:input_loading', true);
-            axios.post("/dashboard/admin/users/" + this.id, {
+            this.$emit("update:input_loading", true);
+            axios
+                .post("/dashboard/admin/users/" + this.id, {
                     _method: "delete",
                 })
                 .then((res) => {
@@ -101,12 +104,12 @@ export default {
                     this.response = err.response.data;
                     this.snackbar = true;
                 })
-                .finally(()=> {
-                    this.$inertia.get(route('users.index'));
+                .finally(() => {
+                    this.$inertia.get(route("users.index"));
                 });
         },
         goBack() {
-            this.$emit('update:input_loading', true);
+            this.$emit("update:input_loading", true);
             this.goBackUrl();
 
             //window.history.back();

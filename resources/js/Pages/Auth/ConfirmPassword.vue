@@ -6,7 +6,7 @@
                     <v-card class="mx-auto" max-width="600">
                         <v-toolbar color="primary" dark>
                             <v-toolbar-title
-                                >Confirm password</v-toolbar-title
+                                >Confirmar password</v-toolbar-title
                             >
                             <v-spacer></v-spacer>
                             <v-btn icon @click="home">
@@ -14,8 +14,11 @@
                             </v-btn>
                         </v-toolbar>
                         <v-container fluid>
-                        <v-card-text>
-                            <p>This is a secure area of the application. Please confirm your password before continuing.</p>
+                            <v-card-text>
+                                <p>
+                                    Este es un area seguro de la aplicación. Por
+                                    favor, confirma tu password para continuar.
+                                </p>
 
                                 <v-row>
                                     <v-col cols="12">
@@ -27,7 +30,9 @@
                                             v-model="form.password"
                                             label="Password"
                                             type="password"
-                                            :error-messages="form.errors.password"
+                                            :error-messages="
+                                                form.errors.password
+                                            "
                                             @keyup.enter="submit"
                                         ></v-text-field>
                                     </v-col>
@@ -36,13 +41,16 @@
                                     <v-col cols="9"></v-col>
                                     <v-col cols="2">
                                         <v-spacer></v-spacer>
-                                        <v-btn small @click="submit" :loading="form.processing">
-                                            Confirm
+                                        <v-btn
+                                            small
+                                            @click="submit"
+                                            :loading="form.processing"
+                                        >
+                                            Confirmar
                                         </v-btn>
                                     </v-col>
                                 </v-row>
-
-                        </v-card-text>
+                            </v-card-text>
                         </v-container>
                     </v-card>
                 </v-flex>
@@ -51,39 +59,36 @@
     </v-app>
 </template>
 <script>
-    export default {
-
-        data() {
-            return {
-                show: false,
-                form: this.$inertia.form({
-                    password: '',
-                })
-            }
+export default {
+    data() {
+        return {
+            show: false,
+            form: this.$inertia.form({
+                password: "",
+            }),
+        };
+    },
+    methods: {
+        home() {
+            this.$inertia.get(route("dashboard"));
         },
-        methods: {
-            home() {
-                this.$inertia.get(route("dashboard"));
-            },
-            submit() {
-                this.$validator.validateAll().then((result) => {
-                    if (result) {
-                        this.form.post(this.route("password.confirm"), {
-                            onFinish: () => {
-
-                                const msg_valid = this.form.errors;
-                                for (const prop in msg_valid) {
-                                    this.errors.add({
-                                        field: prop,
-                                        msg: `${msg_valid[prop]}`,
-                                    });
-                                }
-                            },
-                        });
-                    }
-                });
-            },
-
+        submit() {
+            this.$validator.validateAll().then((result) => {
+                if (result) {
+                    this.form.post(this.route("password.confirm"), {
+                        onFinish: () => {
+                            const msg_valid = this.form.errors;
+                            for (const prop in msg_valid) {
+                                this.errors.add({
+                                    field: prop,
+                                    msg: `${msg_valid[prop]}`,
+                                });
+                            }
+                        },
+                    });
+                }
+            });
+        },
     },
 };
 </script>

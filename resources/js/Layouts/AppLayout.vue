@@ -127,7 +127,7 @@
             <main>
                 <v-snackbar
                     v-model="snackbar"
-                    color="deep-orange accent-3"
+                    color="green darken-3"
                     rounded="pill"
                     top
                 >
@@ -270,7 +270,7 @@ export default {
         objetivo: 0,
     }),
     mounted() {
-        
+
     },
     computed: {
         currentRoute() {

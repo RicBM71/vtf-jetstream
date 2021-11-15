@@ -5,7 +5,7 @@
                 <v-flex>
                     <v-card class="mx-auto" max-width="600">
                         <v-toolbar color="primary" dark>
-                            <v-toolbar-title>Credentials</v-toolbar-title>
+                            <v-toolbar-title>Credenciales</v-toolbar-title>
                             <v-spacer></v-spacer>
                             <v-btn icon @click="home">
                                 <v-icon>mdi-home-outline</v-icon>
@@ -45,7 +45,7 @@
                                                 v-if="canResetPassword"
                                                 :href="route('password.request')"
                                             >
-                                                Forgot your password?
+                                                Olvidaste tu contraseña?
                                             </inertia-link>
                                         </v-col>
                                         <v-col cols="2">

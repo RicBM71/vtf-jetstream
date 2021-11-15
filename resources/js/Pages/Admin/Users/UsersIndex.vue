@@ -8,9 +8,11 @@
         ></toast>
 
         <template #header>
+            <v-toolbar dense elevation="1">
             <h2>Usuarios</h2>
             <v-spacer></v-spacer>
             <menuope :input_loading.sync="input_loading"></menuope>
+            </v-toolbar>
         </template>
         <v-container>
             <v-data-table

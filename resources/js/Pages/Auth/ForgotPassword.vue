@@ -6,7 +6,7 @@
                     <v-card class="mx-auto" max-width="600">
                         <v-toolbar color="primary" dark>
                             <v-toolbar-title
-                                >Forgot your password?</v-toolbar-title
+                                >Olvidaste tu contraseña?</v-toolbar-title
                             >
                             <v-spacer></v-spacer>
                             <v-btn icon @click="home">
@@ -24,10 +24,8 @@
 
                                     </v-alert>
                                 <p v-else>
-                                    Forgot your password? No problem. Just let
-                                    us know your email address and we will email
-                                    you a password reset link that will allow
-                                    you to choose a new one.
+                                    Introduce tu email de registro y te proporcionaremos
+                                    un link para establecer una nueva contraseña...
                                 </p>
                                 <v-form>
                                     <v-row>
@@ -52,7 +50,7 @@
                                                 @click="submit"
                                                 :loading="form.processing"
                                             >
-                                                Email Password Reset Link
+                                                Enviar link
                                             </v-btn>
                                         </v-col>
                                     </v-row>

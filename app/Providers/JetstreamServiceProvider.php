@@ -2,15 +2,19 @@
 
 namespace App\Providers;
 
-use App\Actions\Jetstream\AddTeamMember;
+use App\Models\User;
+use Illuminate\Http\Request;
+use Laravel\Fortify\Fortify;
+use Laravel\Jetstream\Jetstream;
+use Illuminate\Support\Facades\Hash;
 use App\Actions\Jetstream\CreateTeam;
 use App\Actions\Jetstream\DeleteTeam;
 use App\Actions\Jetstream\DeleteUser;
+use Illuminate\Support\ServiceProvider;
+use App\Actions\Jetstream\AddTeamMember;
+use App\Actions\Jetstream\UpdateTeamName;
 use App\Actions\Jetstream\InviteTeamMember;
 use App\Actions\Jetstream\RemoveTeamMember;
-use App\Actions\Jetstream\UpdateTeamName;
-use Illuminate\Support\ServiceProvider;
-use Laravel\Jetstream\Jetstream;
 
 class JetstreamServiceProvider extends ServiceProvider
 {
@@ -40,6 +44,28 @@ class JetstreamServiceProvider extends ServiceProvider
         Jetstream::removeTeamMembersUsing(RemoveTeamMember::class);
         Jetstream::deleteTeamsUsing(DeleteTeam::class);
         Jetstream::deleteUsersUsing(DeleteUser::class);
+
+        Fortify::authenticateUsing(function (Request $request) {
+
+            $user = User::where('username', $request->username)->first();
+
+            if ($user &&
+                Hash::check($request->password, $user->password)) {
+
+                activity()
+                    ->causedBy($user)
+                    ->withProperties([
+                        'username' => $user->username,
+                        'ip' => $request->ip()
+                    ])
+                    ->log('Login');
+
+                $data['login_at'] = date('Y-m-d H:i:s');
+                $user->update($data);
+
+                return $user;
+            }
+        });
     }
 
     /**

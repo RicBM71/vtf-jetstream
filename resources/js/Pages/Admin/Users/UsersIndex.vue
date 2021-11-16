@@ -32,8 +32,8 @@
                         />
                     </v-avatar>
                 </template>
-                <template v-slot:item.created_at="{ item }">
-                    {{ getFechaHora(item.created_at)}}
+                <template v-slot:item.login_at="{ item }">
+                    {{ getFechaHora(item.login_at)}}
                 </template>
                 <template v-slot:[`item.actions`]="{ item }">
                     <v-icon small @click="editItem(item)"> mdi-pencil </v-icon>
@@ -96,21 +96,19 @@ export default {
                 {
                     text: "Username",
                     align: "start",
-                    sortable: false,
                     value: "username",
                 },
                 {
                     text: "Nombre",
                     align: "start",
-                    sortable: false,
                     value: "name",
                 },
                 {
                     text: "Apellidos",
                     align: "start",
-                    sortable: false,
                     value: "lastname",
                 },
+                { text: "Login", value: "login_at" },
                 { text: "Email", value: "email" },
                 { text: "UM", value: "huella" },
                 { text: "Acciones", value: "actions" },

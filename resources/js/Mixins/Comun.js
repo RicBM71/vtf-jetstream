@@ -2,7 +2,7 @@ var historico_urls = [];
 module.exports = {
     methods: {
         getFechaHora: function (value) {
-            return this.$moment(value).format("D/MM/YYYY H:mm:ss");
+            return value == null ? '' : this.$moment(value).format("D/MM/YYYY H:mm:ss");
           },
         setMyHistoryUrl(url){
             historico_urls.unshift(window.location.href);

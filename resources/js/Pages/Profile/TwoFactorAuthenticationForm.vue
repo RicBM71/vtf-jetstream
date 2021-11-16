@@ -156,7 +156,7 @@ export default {
             message () {
                 return {
                     show: false,
-                    text: 'Saved',
+                    text: 'Guardado',
                     type: 'success'
                 }
             },

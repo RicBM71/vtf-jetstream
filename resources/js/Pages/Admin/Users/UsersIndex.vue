@@ -94,13 +94,24 @@ export default {
             headers: [
                 { text: "A", value: "id" },
                 {
-                    text: "Name",
+                    text: "Username",
+                    align: "start",
+                    sortable: false,
+                    value: "username",
+                },
+                {
+                    text: "Nombre",
                     align: "start",
                     sortable: false,
                     value: "name",
                 },
+                {
+                    text: "Apellidos",
+                    align: "start",
+                    sortable: false,
+                    value: "lastname",
+                },
                 { text: "Email", value: "email" },
-                { text: "Creado", value: "created_at" },
                 { text: "UM", value: "huella" },
                 { text: "Acciones", value: "actions" },
             ],

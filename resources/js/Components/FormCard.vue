@@ -66,7 +66,7 @@ export default {
     },
     submitBtnText: {
       type: String,
-      default: 'Save'
+      default: 'Guardar'
     }
   },
 

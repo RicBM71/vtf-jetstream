@@ -70,7 +70,7 @@ export default {
         message() {
             return {
                 show: this.form.recentlySuccessful,
-                text: "Saved",
+                text: "Guardado",
                 type: "success",
             };
         },

@@ -28,8 +28,7 @@
       <div v-if="qrCode">
         <div class="mt-4 max-w-xl text-sm text-gray-600">
           <p class="font-semibold">
-            Two factor authentication is now enabled. Scan the following QR code using your phone's authenticator
-            application.
+              La autenticación de dos factores está ACTIVADA. Scanea el siguiente código QR para activarlo en tu App Authenticator.
           </p>
         </div>
 
@@ -40,8 +39,8 @@
       <div v-if="recoveryCodes.length > 0">
         <div class="mt-4 max-w-xl text-sm text-gray-600">
           <p class="font-semibold">
-            Store these recovery codes in a secure password manager. They can be used to recover access to your
-            account if your two factor authentication device is lost.
+              Guarda estos códigos de recuperación en una App de passwords. Los podrás utilizar para acceder a tu cuenta en
+              caso de pérdida de tu dispositivo móvil.
           </p>
         </div>
 

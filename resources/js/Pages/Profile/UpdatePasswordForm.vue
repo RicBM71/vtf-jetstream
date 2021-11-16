@@ -11,10 +11,10 @@
         <!-- Current Password Field -->
         <v-text-field
             outlined
-            label="Current Password"
+            label="Password Actual"
             v-model="form.current_password"
             autocomplete="current-password"
-            :type="showPassword ? 'text' : 'password'"
+            :type="showCurrentPassword ? 'text' : 'password'"
             :append-icon="showCurrentPassword ? 'mdi-eye' : 'mdi-eye-off'"
             :error-messages="form.errors.current_password"
             @click:append="showCurrentPassword = !showCurrentPassword"
@@ -26,7 +26,6 @@
             label="Password"
             v-model="form.password"
             autocomplete="new-password"
-            hint="Password must be at least 8 characters."
             :type="showPassword ? 'text' : 'password'"
             :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
             :error-messages="form.errors.password"
@@ -36,7 +35,7 @@
         <!-- Password Confirmation Field -->
         <v-text-field
             outlined
-            label="Confirm Password"
+            label="Confirmar Password"
             v-model="form.password_confirmation"
             autocomplete="new-password"
             :type="showPasswordConfirmation ? 'text' : 'password'"

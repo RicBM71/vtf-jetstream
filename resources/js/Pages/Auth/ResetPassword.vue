@@ -6,7 +6,7 @@
                     <v-card class="mx-auto" max-width="600">
                         <v-toolbar color="primary" dark>
                             <v-toolbar-title
-                                >Forgot your password?</v-toolbar-title
+                                >Olvidaste tu contraseña?</v-toolbar-title
                             >
                             <v-spacer></v-spacer>
                             <v-btn icon @click="home">

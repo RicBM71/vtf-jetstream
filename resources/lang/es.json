@@ -92,6 +92,15 @@
     "Once your account is deleted, all of its resources and data will be permanently deleted. Before deleting your account, please download any data or information that you wish to retain.": "Una vez que se elimine su cuenta, todos sus recursos y datos se eliminarán permanentemente. Antes de eliminar su cuenta, descargue cualquier dato o información que desee conservar.",
     "Are you sure you want to delete your account? Once your account is deleted, all of its resources and data will be permanently deleted. Please enter your password to confirm you would like to permanently delete your account.": "¿Estás seguro de que deseas eliminar tu cuenta? Una vez que se elimine su cuenta, todos sus recursos y datos se eliminarán permanentemente. Ingrese su contraseña para confirmar que desea eliminar permanentemente su cuenta.",
     "Username": "Usuario",
-    "User does not have the right roles.": "El usuario no tiene los permisos apropiados",
-    "User does not have the right permissions.": "El usuario no tiene los permisos apropiados"
+    "User does not have the right roles.": "El usuario no tiene los permisos apropiados.",
+    "User does not have the right permissions.": "El usuario no tiene los permisos apropiados.",
+    "The provided password does not match your current password.": "La password proporcionada no coincide con la actual.",
+    "The :attribute must be at least :length characters and contain at least one uppercase character.":"El campo :attribute requiere :length caracteres y contener una mayúscula.",
+    "The :attribute must be at least :length characters and contain at least one number.":"El campo :attribute requiere :length caracteres y contener un número.",
+    "The :attribute must be at least :length characters and contain at least one special character.":"El campo :attribute requiere :length caracteres y contener un número.",
+    "The :attribute must be at least :length characters and contain at least one uppercase character and one number.":"El campo :attribute requiere :length caracteres y contener un número y una letra.",
+    "The :attribute must be at least :length characters and contain at least one uppercase character and one special character.":"El campo :attribute requiere :length caracteres y contener un caracter especial.",
+    "The :attribute must be at least :length characters and contain at least one uppercase character, one number, and one special character.":"El campo :attribute requiere :length caracteres y contener una letra, un número y un carácter especial.",
+    "The :attribute must be at least :length characters and contain at least one special character and one number.":"El campo :attribute requiere :length caracteres y contener un carácter especial.",
+    "The :attribute must be at least :length characters.":"El campo :attribute requiere :length caracteres"
 }

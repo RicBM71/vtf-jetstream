@@ -17,11 +17,11 @@
                             <v-card-text>
 
                             <p v-if="! recovery">
-                                Please confirm access to your account by entering the authentication code provided by your authenticator application.
+                                Por favor, confirma el acceso a tu cuenta e indica el codigo de autenticación (App Authenticator)
                             </p>
 
                             <p v-else>
-                                Please confirm access to your account by entering one of your emergency recovery codes.
+                                Confirma el acceso a tu cuenta indicando uno de tus códigos de emergencia de recuperación
                             </p>
 
 
@@ -87,7 +87,7 @@
         },
         computed: {
             computedLabel(){
-                return !this.recovery ? 'Use a recovery code' : 'Use an authentication code';
+                return !this.recovery ? 'Usar un recovery code' : 'Usar un authentication code';
             }
         },
         mounted(){

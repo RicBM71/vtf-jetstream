@@ -16,7 +16,7 @@
                         <v-container fluid>
                             <v-card-text>
                                 <p>
-                                    Este es un area seguro de la aplicación. Por
+                                    Este es un area segura de la aplicación. Por
                                     favor, confirma tu password para continuar.
                                 </p>
 

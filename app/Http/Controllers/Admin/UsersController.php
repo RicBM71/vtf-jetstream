@@ -44,11 +44,7 @@ class UsersController extends Controller
 
         $user = User::create($input);
 
-        return Inertia::render('Admin/Users/UserEdit', [
-            'usuario' => $user,
-        ]);
-
-
+        return Redirect::route('users.edit', $user->id);
 
     }
 
@@ -57,7 +53,7 @@ class UsersController extends Controller
     }
 
     public function edit(User $user){
-        
+
         $this->authorize('update', $user);
 
         if ($user->id == 1 && !isRoot()){
@@ -84,16 +80,7 @@ class UsersController extends Controller
 
         $user->update($input);
 
-       // return ['user' => $user];
-
-        // return Redirect::route('users.index');
-       //   return Redirect::route('users.edit', $user->id);
-
-
-        return Inertia::render('Admin/Users/UserEdit', [
-            'usuario' => $user
-        ]);
-
+        return Redirect::route('users.edit', $user->id);
     }
 
 

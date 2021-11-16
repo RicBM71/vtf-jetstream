@@ -14,9 +14,13 @@ class UsersRolesController extends Controller
 
     public function show(Request $request, User $user){
 
+        $roles = Role::when(!isRoot(), function ($query) {
+            $query->where('name', '<>', 'root');
+        })->get()->pluck('name');
+
         if ($request->wantsJson())
             return [
-                'roles' => Role::all()->pluck('name'),
+                'roles' => $roles,
                 'roles_usr' => $user->getRoleNames(),
                 'permisos_usr' => $user->getAllPermissions()->pluck('name'),
                 'permisos_heredados'=> $user->getPermissionsViaRoles()->unique('name')->sortBy('nombre')->values()->pluck('name')

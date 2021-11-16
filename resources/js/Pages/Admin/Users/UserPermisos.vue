@@ -93,8 +93,8 @@ export default {
                     permisos: this.permisos_usr,
                 })
                 .then((res) => {
-                    this.permisos_heredados = res.data.permisos_heredados;
-                    this.permisos_usr = res.data.permisos_usr;
+                    // this.permisos_heredados = res.data.permisos_heredados;
+                    // this.permisos_usr = res.data.permisos_usr;
                 })
                 .catch((err) => {
                     console.log(err.response);

@@ -31,7 +31,7 @@ export default {
 
     }),
     mounted() {
-        console.log(window.location.pathname);
+        
     },
 
     methods: {

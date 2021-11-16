@@ -192,25 +192,6 @@ export default {
 
             this.$validator.validateAll().then((result) => {
                 if (result) {
-                        console.log(this.user);
-
-                    // axios.put("/admin/users/" + this.user.id,  this.user )
-                    //             .then((res) => {
-                    //                 this.user = res.data.user;
-                    //             })
-                    //             .catch((err) => {
-                    //                 console.log(err.request);
-                    //                 const msg_valid = err.errors;
-                    //                 for (const prop in msg_valid) {
-                    //                     this.errors.add({
-                    //                         field: prop,
-                    //                         msg: `${msg_valid[prop]}`,
-                    //                     });
-                    //                 }
-                    //             })
-                    //             .finally(() => {
-                    //                 this.loading = false;
-                    //             });
 
                     this.form.put(route("users.update", { user: this.user }), {
                         errorBag: "updateProfileInformation",

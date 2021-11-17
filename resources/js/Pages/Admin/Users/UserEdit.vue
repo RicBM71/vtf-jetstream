@@ -1,14 +1,14 @@
 <template>
     <app-layout :input_loading.sync="input_loading">
         <template #header>
-        <v-toolbar dense elevation="1">
-            <h2>{{usuario.username}}</h2>
-            <v-spacer></v-spacer>
-            <menuope
-                :id="usuario.id"
-                :input_loading.sync="input_loading"
-            ></menuope>
-        </v-toolbar>
+            <v-toolbar dense elevation="1">
+                <h2>{{ usuario.username }}</h2>
+                <v-spacer></v-spacer>
+                <menuope
+                    :id="usuario.id"
+                    :input_loading.sync="input_loading"
+                ></menuope>
+            </v-toolbar>
         </template>
 
         <v-container>
@@ -57,9 +57,7 @@ export default {
             required: true,
         },
     },
-    mounted() {
-        
-    },
+    mounted() {},
     methods: {
         openDialog() {},
     },

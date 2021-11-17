@@ -118,7 +118,7 @@
 
             <!-- Page Heading -->
             <header v-if="$slots.header">
-                <div class="d-flex my-4 mx-10">
+                <div class="d-flex my-2 mx-4">
                     <slot name="header"></slot>
                 </div>
             </header>
@@ -137,7 +137,7 @@
             </main>
 
             <!-- Modal Portal -->
-            <portal-target name="modal" multiple> </portal-target>
+            <!-- <portal-target name="modal" multiple> </portal-target> -->
         </v-main>
     </v-app>
 </template>
@@ -270,7 +270,7 @@ export default {
         objetivo: 0,
     }),
     mounted() {
-
+        console.log(this.$slots);
     },
     computed: {
         currentRoute() {

@@ -102,5 +102,6 @@
     "The :attribute must be at least :length characters and contain at least one uppercase character and one special character.":"El campo :attribute requiere :length caracteres y contener un caracter especial.",
     "The :attribute must be at least :length characters and contain at least one uppercase character, one number, and one special character.":"El campo :attribute requiere :length caracteres y contener una letra, un número y un carácter especial.",
     "The :attribute must be at least :length characters and contain at least one special character and one number.":"El campo :attribute requiere :length caracteres y contener un carácter especial.",
-    "The :attribute must be at least :length characters.":"El campo :attribute requiere :length caracteres"
+    "The :attribute must be at least :length characters.":"El campo :attribute requiere :length caracteres",
+    "The given :attribute has appeared in a data leak. Please choose a different :attribute.":"La password ha aparecido en una filtración de datos, elige una nueva."
 }

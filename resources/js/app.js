@@ -33,6 +33,18 @@ Vue.use(VeeValidate, config);
 //also add this line
 Vue.use(Vuetify);
 
+import es from 'vuetify/src/locale/es.ts'
+
+const opts = {
+    lang: {
+        locales: { es },
+        current: 'es',
+      },
+
+}
+
+export default new Vuetify(opts)
+
 const app = document.getElementById('app');
 
 import auth from "@/Mixins/Auth";

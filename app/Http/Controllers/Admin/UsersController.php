@@ -80,7 +80,15 @@ class UsersController extends Controller
 
         $user->update($input);
 
-        return Redirect::route('users.edit', $user->id);
+        return Inertia::render('Admin/Users/UserEdit', [
+            'usuario' => $user,
+        ]);
+
+            return Redirect::route('users.edit', $user->id);
+
+        // if (config('app.env')=='local')
+        //     return Inertia::location('/'); //CORS
+
     }
 
 

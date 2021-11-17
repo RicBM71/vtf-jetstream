@@ -1,6 +1,7 @@
 <?php
 
 use Inertia\Inertia;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
@@ -16,6 +17,7 @@ Route::get('/', function () {
 
 
 Route::get('/test', function () {
+    dd(config('app.env'));
     //return auth()->user()->getAllPermissions()->pluck('name');
     /** @var \App\Models\User */
     $user = auth()->user();

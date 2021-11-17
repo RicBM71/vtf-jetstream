@@ -228,20 +228,20 @@ export default {
                 ],
             },
             {
-                icon: "mdi-chevron-up",
-                "icon-alt": "mdi-chevron-down",
-                text: "Administración",
+                icon: "mdi-cog",
+                "icon-alt": "mdi-cog",
+                text: "Configuración",
                 model: false,
                 children: [
                     {
                         icon: "mdi-circle-medium",
-                        text: "Empresas",
-                        name: "empresa.index",
+                        text: "Usuarios",
+                        name: "users.index",
                     },
                     {
                         icon: "mdi-circle-medium",
-                        text: "Usuarios",
-                        name: "users.index",
+                        text: "Roles",
+                        name: "roles.index",
                     },
                     {
                         icon: "mdi-circle-medium",
@@ -270,7 +270,7 @@ export default {
         objetivo: 0,
     }),
     mounted() {
-        console.log(this.$slots);
+
     },
     computed: {
         currentRoute() {
@@ -285,11 +285,11 @@ export default {
     },
     methods: {
         abrir(name) {
-            //console.log(name);
             //this.drawer = false;
-            this.$intertia.get({ name: name });
+            this.ressetMyHistoryUrl()
+            this.show_loading = true;
+            this.$inertia.get(route(name));
         },
-        home() {},
         dashboard() {
             this.ressetMyHistoryUrl();
             this.show_loading = true;

@@ -8,10 +8,40 @@
         ></toast>
 
         <template #header>
+            <v-toolbar dense elevation="1">
             <h2>Roles</h2>
             <v-spacer></v-spacer>
             <menuope :input_loading.sync="input_loading"></menuope>
+            </v-toolbar>
         </template>
+        <v-container>
+            <v-data-table
+                :headers="headers"
+                :items="items"
+                :items-per-page="10"
+                class="elevation-1"
+                :loading="loading"
+            >
+
+                <template v-slot:item.permissions="{ item }">
+                    {{ getPermisos(item.permissions)}}
+                </template>
+                <template v-slot:item.updated_at="{ item }">
+                    {{ getFechaHora(item.updated_at)}}
+                </template>
+                <template v-slot:[`item.actions`]="{ item }">
+                    <v-icon small @click="editItem(item)"> mdi-pencil </v-icon>
+                    <v-icon
+                        :disabled="!hasPermiso('root')"
+                        small
+                        color="red darken-4"
+                        @click="openDialog(item)"
+                    >
+                        mdi-delete
+                    </v-icon>
+                </template>
+            </v-data-table>
+        </v-container>
 
     </app-layout>
 </template>
@@ -25,8 +55,8 @@ import Toast from "@/Layouts/Toast";
 
 export default {
     props: {
-        paginator: {
-            type: Object,
+        items: {
+            type: Array,
             required: true,
         },
     },
@@ -44,63 +74,49 @@ export default {
             item: {},
             loading: true,
             input_loading: false,
-            current_page: 0,
-            last_page: 0,
+
+            roles: [],
             dialog: false,
             editedIndex: -1,
             headers: [
-                { text: "A", value: "id" },
                 {
-                    text: "Name",
+                    text: "Role",
                     align: "start",
-                    sortable: false,
                     value: "name",
                 },
-                { text: "Email", value: "email" },
-                { text: "Creado", value: "created_at" },
-                { text: "UM", value: "huella" },
+                { text: "Permisos", value: "permissions", sortable: false },
+                { text: "UM", value: "updated_at" },
                 { text: "Acciones", value: "actions" },
             ],
         };
     },
-    mounted() {
-
-
-        this.loading = false;
-       // console.log(window.location+''+window.location.pathname);
+    beforeMount(){
+        this.roles = this.items;
     },
-    watch: {
-        current_page(new_val) {
-            if (new_val != this.paginator.current_page) {
-                this.loading = true;
-                this.$inertia.get("users", { page: new_val });
-            }
-        },
+    mounted() {
+        this.loading = false;
+        //console.log(this.roles);
     },
     methods: {
+        getPermisos(item){
+            return _.replace(_.toString(_.map(item, 'nombre')),',',', ');
+        },
         editItem(item) {
-            // console.log(window.location);
-            //   console.log(window.location.href);
-            // const a = window.location+''+window.location.pathname;
-
             this.setMyHistoryUrl();
 
             this.input_loading = true;
-            this.$inertia.get(route("users.edit", { user: item.id }));
+            this.$inertia.get(route("roles.edit", { user: item.id }));
         },
         openDialog(item) {
             this.dialog = true;
             this.item = item;
-        },
-        doThing(x){
-            alert(x);
         },
         destroyReg() {
             //this.dialog = false;
             this.input_loading = true;
             // this.$inertia.delete(route("users.destroy", {user: this.item.id}), {
             //     onSuccess: () => {
-            //          this.paginator.data.splice(this.editedIndex, 1);
+            //          this.items.splice(this.editedIndex, 1);
             //         },
             //     onError: () => {
             //         return Promise.all([
@@ -109,7 +125,7 @@ export default {
             //     onFinish: () => this.input_loading = false,
             // });
             // this.input_loading = false;
-            this.editedIndex = this.paginator.data.indexOf(this.item);
+            this.editedIndex = this.items.indexOf(this.item);
 
             // console.log("destory");
 
@@ -117,7 +133,7 @@ export default {
                     _method: "delete",
                 })
                 .then((res) => {
-                    this.paginator.data.splice(this.editedIndex, 1);
+                    this.items.splice(this.editedIndex, 1);
                     this.response = res.data;
                     this.snackbar = true;
                 })

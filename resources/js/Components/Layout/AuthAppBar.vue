@@ -1,43 +1,47 @@
 <template>
-    <v-app-bar app dense clipped right dark flat color="primary">
-        <v-app-bar-nav-icon @click.stop="closeDrawer()" />
-        <v-toolbar-title style="width: 300px" class="ml-0 pl-4">
-            <span class="hidden-sm-and-down">{{ appName }}</span>
-        </v-toolbar-title>
-        <v-spacer />
-
-        <v-btn v-if="currentRoute" icon @click="dashboard">
-            <v-icon>mdi-home</v-icon>
-        </v-btn>
-
-        <v-btn
-            @click="profile()"
-            icon
-            v-if="$page.props.jetstream.managesProfilePhotos"
+<v-app-bar
+            dense
+            :clipped-left="$vuetify.breakpoint.lgAndUp"
+            app
+            color="primary"
+            dark
         >
-            <v-avatar size="32px">
-                <img
-                    class="img-fluid"
-                    :src="$page.props.user.profile_photo_url"
-                    :alt="$page.props.user.name"
-                />
-            </v-avatar>
-        </v-btn>
+            <v-app-bar-nav-icon @click.stop="closeDrawer()" />
+            <v-toolbar-title style="width: 300px" class="ml-0 pl-4">
+                <span class="hidden-sm-and-down">{{ appName }}</span>
+            </v-toolbar-title>
+            <v-spacer />
 
-        <v-btn icon @click="Logout">
-            <v-avatar size="32px" tile>
-                <v-icon>mdi-exit-to-app</v-icon>
-            </v-avatar>
-        </v-btn>
-    </v-app-bar>
+            <v-btn v-if="currentRoute" icon @click="dashboard">
+                <v-icon>mdi-home</v-icon>
+            </v-btn>
+
+            <v-btn
+                @click="profile()"
+                icon
+                v-if="$page.props.jetstream.managesProfilePhotos"
+            >
+                <v-avatar size="32px">
+                    <img
+                        class="img-fluid"
+                        :src="$page.props.user.profile_photo_url"
+                        :alt="$page.props.user.name"
+                    />
+                </v-avatar>
+            </v-btn>
+
+            <v-btn icon @click="Logout">
+                <v-avatar size="32px" tile>
+                    <v-icon>mdi-exit-to-app</v-icon>
+                </v-avatar>
+            </v-btn>
+        </v-app-bar>
 </template>
 
 <script>
 export default {
     props: {
-        user: Object,
         drawer: Boolean,
-        toggleNav: Function,
     },
     computed: {
         currentRoute() {

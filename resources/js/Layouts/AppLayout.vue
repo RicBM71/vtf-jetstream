@@ -1,87 +1,77 @@
 <template>
-  <v-app id="inspire">
+    <v-app id="inspire">
+        <navigation-drawer :drawer.sync="drawer"></navigation-drawer>
 
-    <navigation-drawer :drawer.sync="drawer"></navigation-drawer>
-    <app-bar
-      :drawer.sync="drawer"
-      :toggleNav="toggleNav"
-      :user="$page.props.user"
-    />
+        <auth-app-bar :drawer.sync="drawer"></auth-app-bar>
 
-    <v-main class="grey lighten-4">
-      <v-container class="py-10">
-        <!-- Headings -->
-        <headings :hasTitle="hasTitle" :hasSubtitle="hasSubtitle">
-          <template v-if="hasTitle" #title>
-            <slot name="title"></slot>
-          </template>
-          <template v-if="hasSubtitle" #subtitle>
-            <slot name="subtitle"></slot>
-          </template>
-        </headings>
+        <v-main class="grey lighten-4">
+            <v-container>
+                <!-- Headings -->
+                <!-- <headings :hasTitle="hasTitle" :hasSubtitle="hasSubtitle">
+                    <template v-if="hasTitle" #title>
+                        <slot name="title"></slot>
+                    </template>
+                    <template v-if="hasSubtitle" #subtitle>
+                        <slot name="subtitle"></slot>
+                    </template>
+                </headings> -->
+                 <header v-if="$slots.header">
+                <div class="d-flex">
+                    <slot name="header"></slot>
+                </div>
+            </header>
 
-        <slot></slot>
-      </v-container>
-    </v-main>
 
-    <!-- Modal Portal -->
-    <portal-target name="modal" multiple></portal-target>
-  </v-app>
+                <slot></slot>
+            </v-container>
+        </v-main>
+
+        <!-- Modal Portal -->
+        <portal-target name="modal" multiple></portal-target>
+    </v-app>
 </template>
 
 <script>
-import AppBar from '@/Components/Layout/AuthAppBar'
-import Headings from '@/Components/Headings'
-import NavigationDrawer from '@/Components/Layout/NavigationDrawer'
+import AuthAppBar from "@/Components/Layout/AuthAppBar";
+import Headings from "@/Components/Headings";
+import NavigationDrawer from "@/Components/Layout/NavigationDrawer";
 
 export default {
-  components: {
-    AppBar,
-    Headings,
-    NavigationDrawer
-  },
-
-  data () {
-    return {
-      showingNavigationDropdown: false,
-      drawer: true
-    }
-  },
-
-  computed: {
-    hasTitle () {
-      return !!this.$slots.title
+    components: {
+        AuthAppBar,
+        Headings,
+        NavigationDrawer,
     },
 
-    hasSubtitle () {
-      return !!this.$slots.subtitle
-    }
-  },
-
-  watch: {
-    drawer (val) {
-      return val
-    }
-  },
-
-  methods: {
-    switchToTeam (team) {
-      this.$inertia.put(route('current-team.update'), {
-        team_id: team.id
-      }, {
-        preserveState: false
-      })
+    data() {
+        return {
+            showingNavigationDropdown: false,
+            drawer: false,
+        };
     },
 
-    logout () {
-      axios.post(route('logout').url()).then(response => {
-        window.location = '/'
-      })
+    computed: {
+        hasTitle() {
+            return !!this.$slots.title;
+        },
+
+        hasSubtitle() {
+            return !!this.$slots.subtitle;
+        },
     },
 
-    toggleNav () {
-      this.drawer = !this.drawer
-    }
-  }
-}
+    watch: {
+        drawer(val) {
+            return val;
+        },
+    },
+
+    methods: {
+        logout() {
+            axios.post(route("logout").url()).then((response) => {
+                window.location = "/";
+            });
+        },
+    },
+};
 </script>

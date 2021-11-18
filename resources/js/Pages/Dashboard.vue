@@ -1,41 +1,47 @@
 <template>
     <app-layout :input_loading.sync="input_loading">
-        <template #header>
-            <h2>Dashboard</h2>
+           <template #header>
+            <v-toolbar dense elevation="1">
+            <h2>dashboard</h2>
+
+            </v-toolbar>
         </template>
 
-        <v-container> **Estás logado!!
+            <v-card  class="my-1">
+                 <v-card-text>
+                <v-row>
+                    <v-col>
 
-            <v-btn text @click="goUsers">Test Usuarios</v-btn>
+                <v-btn small @click="goUsers">Test Usuarios</v-btn>
+                    </v-col>
+                </v-row>
+                 </v-card-text>
+            </v-card>
 
-         </v-container>
     </app-layout>
 </template>
 
 <script>
 import AppLayout from "@/Layouts/AppLayout";
-import Welcome from "@/Jetstream/Welcome";
 
 export default {
     components: {
         AppLayout,
-        Welcome,
     },
-    data(){
+    data() {
         return {
             input_loading: false,
-        }
+        };
     },
-    mounted(){
-    },
-    methods:{
-        goUsers(){
+    mounted() {},
+    methods: {
+        goUsers() {
             //this.$emit('input_loading', true);
             this.setMyHistoryUrl();
             this.input_loading = true;
 
-            this.$inertia.get(route('users.index'));
-        }
-    }
+            this.$inertia.get(route("users.index"));
+        },
+    },
 };
 </script>

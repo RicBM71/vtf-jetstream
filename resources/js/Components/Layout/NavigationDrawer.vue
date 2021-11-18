@@ -1,9 +1,6 @@
 <template>
     <v-navigation-drawer
         v-model="drawer"
-        clipped
-        floating
-        rigth
         :clipped="$vuetify.breakpoint.lgAndUp"
         app
     >
@@ -79,7 +76,7 @@ export default {
             {
                 icon: "mdi-chevron-up",
                 "icon-alt": "mdi-chevron-down",
-                text: "Mantenimmientos",
+                text: "Mantenimientos",
                 model: false,
                 children: [
                     { icon: "mdi-plus", text: "Areas", name: "area.index" },
@@ -173,7 +170,9 @@ export default {
             ],
         },
     }),
-    mounted() {},
+    mounted() {
+        console.log(this.items);
+    },
     computed: {
         currentRoute() {
             return !(window.location.pathname == "/dashboard");

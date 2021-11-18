@@ -105,7 +105,7 @@ export default {
             this.setMyHistoryUrl();
 
             this.input_loading = true;
-            this.$inertia.get(route("roles.edit", { user: item.id }));
+            this.$inertia.get(route("roles.edit", { role: item.id }));
         },
         openDialog(item) {
             this.dialog = true;

@@ -25,7 +25,9 @@
                         v-else-if="item.children"
                         :key="item.text"
                         v-model="item.model"
-                        :prepend-icon="item.model ? item.icon : item['icon-alt']"
+                        :prepend-icon="
+                            item.model ? item.icon : item['icon-alt']
+                        "
                     >
                         <template v-slot:activator>
                             <v-list-item-content>
@@ -70,7 +72,7 @@
             :color="bar_color"
             dark
         >
-            <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
+            <v-app-bar-nav-icon @click.stop="closeDrawer()" />
             <v-toolbar-title style="width: 300px" class="ml-0 pl-4">
                 <span class="hidden-sm-and-down">{{ appName }}</span>
             </v-toolbar-title>
@@ -153,11 +155,10 @@ export default {
         snackbar: false,
         snackbar_text: "",
         show_loading: false,
+        drawer: false,
 
         menu: true,
-        drawer: false,
         show: true,
-        user: {},
 
         bar_color: "blue darken-3",
 
@@ -269,24 +270,27 @@ export default {
         expired: false,
         objetivo: 0,
     }),
-    mounted() {
+    mounted(){
 
     },
     computed: {
         currentRoute() {
             return !(window.location.pathname == "/dashboard");
         },
-
     },
     watch: {
         input_loading: function () {
             this.show_loading = this.input_loading;
-        }
+        },
     },
     methods: {
+        closeDrawer(){
+
+            this.drawer = !this.drawer;
+        },
         abrir(name) {
             //this.drawer = false;
-            this.ressetMyHistoryUrl()
+            this.ressetMyHistoryUrl();
             this.show_loading = true;
             this.$inertia.get(route(name));
         },

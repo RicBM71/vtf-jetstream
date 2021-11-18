@@ -53,7 +53,7 @@ class Handler extends ExceptionHandler
                             'statusCode'  => $e->getStatusCode(),
                         ], $e->getStatusCode());
 
-            if (in_array($e->getStatusCode(), [403,404,419,503] ))
+            if (in_array($e->getStatusCode(), [403,404,419,500,503] ))
                 return Inertia::render('Error/Error'.$e->getStatusCode(),
                     [
                         'statusCode' => $e->getStatusCode(),

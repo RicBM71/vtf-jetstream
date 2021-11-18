@@ -1,4 +1,5 @@
 var historico_urls = [];
+var drawer= false;
 module.exports = {
     methods: {
         getFechaHora: function (value) {
@@ -21,13 +22,18 @@ module.exports = {
         },
         allUrl(){
             console.log(historico_urls);
+        },
+        setDrawer(value){
+            drawer = value;
         }
+
     },
     computed:{
         getUltUrl(){
             return historico_urls[0];
         },
-
-
+        getDrawer(){
+            return drawer;
+        }
     }
 }

@@ -15,4 +15,16 @@ class RolesController extends Controller
             'items' => Role::with('permissions')->get()
         ]);
     }
+
+    public function edit(Role $role){
+
+        $this->authorize('update', $role);
+
+        dd($role);
+
+        return Inertia::render('Admin/Users/UserEdit', [
+            'usuario' => $role,
+        ]);
+    }
+
 }

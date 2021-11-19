@@ -36,9 +36,13 @@
                     {{ getFechaHora(item.login_at)}}
                 </template>
                 <template v-slot:[`item.actions`]="{ item }">
-                    <v-icon small @click="editItem(item)"> mdi-pencil </v-icon>
                     <v-icon
-                        :disabled="!hasPermiso('root')"
+                        small
+                        color="black"
+                        @click="editItem(item)"
+                    > mdi-pencil </v-icon>
+                    <v-icon
+                        :disabled="!hasRole('root')"
                         small
                         color="red darken-4"
                         @click="openDialog(item)"
@@ -126,7 +130,7 @@ export default {
     watch: {
         current_page(new_val) {
             if (new_val != this.paginator.current_page) {
-                this.loading = true;
+                this.setMyHistoryUrl();
                 this.$inertia.get("users", { page: new_val });
             }
         },
@@ -141,10 +145,8 @@ export default {
             this.dialog = true;
             this.item = item;
         },
-        doThing(x){
-            alert(x);
-        },
         destroyReg() {
+            this.editedIndex = this.paginator.data.indexOf(this.item);
             //this.dialog = false;
             // this.$inertia.delete(route("users.destroy", {user: this.item.id}), {
             //     onSuccess: () => {
@@ -157,14 +159,14 @@ export default {
             //     onFinish: () => this.input_loading = false,
             // });
             // this.input_loading = false;
-            this.editedIndex = this.paginator.data.indexOf(this.item);
 
             // console.log("destory");
 
-            axios.post("/dashboard/admin/users/" + this.item.id, {
+            axios.post("/admin/users/" + this.item.id, {
                     _method: "delete",
                 })
                 .then((res) => {
+                    console.log(res);
                     this.paginator.data.splice(this.editedIndex, 1);
                     this.response = res.data;
                     this.snackbar = true;

@@ -30,9 +30,13 @@
                     {{ getFechaHora(item.updated_at)}}
                 </template>
                 <template v-slot:[`item.actions`]="{ item }">
-                    <v-icon small @click="editItem(item)"> mdi-pencil </v-icon>
                     <v-icon
-                        :disabled="!hasPermiso('root')"
+                        small
+                        color="black"
+                        @click="editItem(item)"
+                    > mdi-pencil </v-icon>
+                    <v-icon
+                        :disabled="!hasRole('root')"
                         small
                         color="red darken-4"
                         @click="openDialog(item)"

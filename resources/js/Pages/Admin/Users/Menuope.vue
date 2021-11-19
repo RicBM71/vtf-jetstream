@@ -24,9 +24,10 @@
                     v-on="on"
                     small
                     icon
+                    color="red darken-4"
                     @click="openDialog"
                 >
-                    <v-icon color="primary">mdi-delete</v-icon>
+                    <v-icon>mdi-delete</v-icon>
                 </v-btn>
             </template>
             <span>Borrar Registro actual</span>
@@ -86,7 +87,7 @@ export default {
         destroyReg() {
 
             axios
-                .post("/dashboard/admin/users/" + this.id, {
+                .post("/admin/users/" + this.id, {
                     _method: "delete",
                 })
                 .then((res) => {
@@ -98,14 +99,11 @@ export default {
                     this.snackbar = true;
                 })
                 .finally(() => {
-                    this.$inertia.get(route("users.index"));
+                    this.goBackUrl();
                 });
         },
         goBack() {
-
             this.goBackUrl();
-
-            //window.history.back();
         },
     },
 };

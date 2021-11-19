@@ -1,5 +1,5 @@
 <template>
-    <app-layout :input_loading.sync="input_loading">
+    <div>
         <my-dialog :dialog.sync="dialog" @destroyReg="destroyReg"></my-dialog>
         <toast
             :snackbar.sync="snackbar"
@@ -7,13 +7,13 @@
             :data="response"
         ></toast>
 
-        <template #header>
+
             <v-toolbar dense elevation="1">
             <h2>Roles</h2>
             <v-spacer></v-spacer>
             <menuope :input_loading.sync="input_loading"></menuope>
             </v-toolbar>
-        </template>
+
         <v-container>
             <v-data-table
                 :headers="headers"
@@ -43,7 +43,7 @@
             </v-data-table>
         </v-container>
 
-    </app-layout>
+    </div>
 </template>
 
 <script>
@@ -54,6 +54,7 @@ import Toast from "@/Layouts/Toast";
 
 
 export default {
+    layout: AppLayout,
     props: {
         items: {
             type: Array,

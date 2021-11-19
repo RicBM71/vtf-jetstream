@@ -1,10 +1,11 @@
 <template>
-    <app-layout :input_loading.sync="input_loading">
-        <template #header>
+    <div>
+
+        <v-toolbar dense elevation="1">
             <h2>Crear Usuario</h2>
             <v-spacer></v-spacer>
             <menuope :input_loading.sync="input_loading"></menuope>
-        </template>
+        </v-toolbar>
         <v-container>
             <v-card>
                 <v-card-title color="indigo"> </v-card-title>
@@ -59,7 +60,7 @@
                 </v-form>
             </v-card>
         </v-container>
-    </app-layout>
+    </div>
 </template>
 <script>
 import AppLayout from "@/Layouts/AppLayout";
@@ -70,6 +71,7 @@ export default {
         AppLayout,
         Menuope,
     },
+    layout: AppLayout,
     data() {
         return {
             form: this.$inertia.form({

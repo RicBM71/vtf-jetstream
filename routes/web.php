@@ -33,8 +33,8 @@ Route::middleware(['auth:sanctum','verified'])->get('dashboard', [App\Http\Contr
 Route::group([
     'prefix' => 'admin',
     // 'namespace' => 'Mto',
-    //'middleware' => ['auth:sanctum','verified']],
-    'middleware' => ['auth:sanctum','verified','password.confirm','role:root']],
+    //'middleware' => ['auth:sanctum','verified','password.confirm']],
+    'middleware' => ['auth:sanctum','verified','role:root']],
     function (){
 
 

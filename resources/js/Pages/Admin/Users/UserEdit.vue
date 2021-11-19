@@ -1,15 +1,13 @@
 <template>
-    <app-layout :input_loading.sync="input_loading">
-        <template #header>
-            <v-toolbar dense elevation="1">
-                <h2>{{ usuario.username }}</h2>
-                <v-spacer></v-spacer>
-                <menuope
-                    :id="usuario.id"
-                    :input_loading.sync="input_loading"
-                ></menuope>
-            </v-toolbar>
-        </template>
+    <div>
+        <v-toolbar dense elevation="1">
+            <h2>{{ usuario.username }}</h2>
+            <v-spacer></v-spacer>
+            <menuope
+                :id="usuario.id"
+                :input_loading.sync="input_loading"
+            ></menuope>
+        </v-toolbar>
 
         <v-container>
             <v-card>
@@ -31,7 +29,7 @@
                 </v-tabs>
             </v-card>
         </v-container>
-    </app-layout>
+    </div>
 </template>
 <script>
 import AppLayout from "@/Layouts/AppLayout";
@@ -46,6 +44,7 @@ export default {
         UpdateUserInformation,
         UserRoles,
     },
+    layout: AppLayout,
     data() {
         return {
             input_loading: false,

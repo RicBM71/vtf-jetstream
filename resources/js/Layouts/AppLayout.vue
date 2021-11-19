@@ -15,11 +15,6 @@
                         <slot name="subtitle"></slot>
                     </template>
                 </headings> -->
-                 <header v-if="$slots.header">
-                <div class="d-flex">
-                    <slot name="header"></slot>
-                </div>
-            </header>
 
 
                 <slot></slot>

@@ -5,7 +5,6 @@
             <v-spacer></v-spacer>
             <menuope
                 :id="usuario.id"
-                :input_loading.sync="input_loading"
             ></menuope>
         </v-toolbar>
 
@@ -47,7 +46,6 @@ export default {
     layout: AppLayout,
     data() {
         return {
-            input_loading: false,
         };
     },
     props: {

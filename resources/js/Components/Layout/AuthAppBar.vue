@@ -48,11 +48,6 @@ export default {
             return !(window.location.pathname == "/dashboard");
         },
     },
-    watch: {
-        input_loading: function () {
-            this.show_loading = this.input_loading;
-        },
-    },
     methods: {
         closeDrawer() {
             this.$emit('update:drawer', !this.drawer)

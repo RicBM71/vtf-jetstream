@@ -4,7 +4,7 @@
         <v-toolbar dense elevation="1">
             <h2>Crear Usuario</h2>
             <v-spacer></v-spacer>
-            <menuope :input_loading.sync="input_loading"></menuope>
+            <menuope></menuope>
         </v-toolbar>
         <v-container>
             <v-card>
@@ -83,12 +83,11 @@ export default {
 
             photoPreview: null,
             loading: false,
-            input_loading: true,
         };
     },
     mounted(){
 
-        this.input_loading = false;
+        
     },
     methods: {
         store() {

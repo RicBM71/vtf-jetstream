@@ -11,7 +11,7 @@
             <v-toolbar dense elevation="1">
             <h2>Roles</h2>
             <v-spacer></v-spacer>
-            <menuope :input_loading.sync="input_loading"></menuope>
+            <menuope></menuope>
             </v-toolbar>
 
         <v-container>
@@ -74,7 +74,6 @@ export default {
             snackbar: false,
             item: {},
             loading: true,
-            input_loading: false,
 
             roles: [],
             dialog: false,
@@ -105,7 +104,6 @@ export default {
         editItem(item) {
             this.setMyHistoryUrl();
 
-            this.input_loading = true;
             this.$inertia.get(route("roles.edit", { role: item.id }));
         },
         openDialog(item) {
@@ -114,7 +112,7 @@ export default {
         },
         destroyReg() {
             //this.dialog = false;
-            this.input_loading = true;
+
             // this.$inertia.delete(route("users.destroy", {user: this.item.id}), {
             //     onSuccess: () => {
             //          this.items.splice(this.editedIndex, 1);
@@ -143,7 +141,7 @@ export default {
                     this.snackbar = true;
                 })
                 .finally(()=> {
-                    this.input_loading = false;
+
                 });
         },
     },

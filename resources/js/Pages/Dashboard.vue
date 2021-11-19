@@ -1,5 +1,5 @@
 <template>
-    <app-layout :input_loading.sync="input_loading">
+    <app-layout>
            <template #header>
             <v-toolbar dense elevation="1">
             <h2>dashboard</h2>
@@ -30,15 +30,14 @@ export default {
     },
     data() {
         return {
-            input_loading: false,
+
         };
     },
     mounted() {},
     methods: {
         goUsers() {
-            //this.$emit('input_loading', true);
+
             this.setMyHistoryUrl();
-            this.input_loading = true;
 
             this.$inertia.get(route("users.index"));
         },

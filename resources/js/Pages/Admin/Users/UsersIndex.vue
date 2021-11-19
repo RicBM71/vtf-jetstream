@@ -7,13 +7,13 @@
             :data="response"
         ></toast>
 
-        
+
             <v-toolbar dense elevation="1">
             <h2>Usuarios</h2>
             <v-spacer></v-spacer>
-            <menuope :input_loading.sync="input_loading"></menuope>
+            <menuope></menuope>
             </v-toolbar>
-        
+
         <v-container>
             <v-data-table
                 :headers="headers"
@@ -87,7 +87,6 @@ export default {
             snackbar: false,
             item: {},
             loading: true,
-            input_loading: false,
             current_page: 0,
             last_page: 0,
             dialog: false,
@@ -136,7 +135,6 @@ export default {
         editItem(item) {
 
             this.setMyHistoryUrl();
-            this.input_loading = true;
             this.$inertia.get(route("users.edit", { user: item.id }));
         },
         openDialog(item) {
@@ -148,7 +146,6 @@ export default {
         },
         destroyReg() {
             //this.dialog = false;
-            this.input_loading = true;
             // this.$inertia.delete(route("users.destroy", {user: this.item.id}), {
             //     onSuccess: () => {
             //          this.paginator.data.splice(this.editedIndex, 1);
@@ -177,7 +174,6 @@ export default {
                     this.snackbar = true;
                 })
                 .finally(()=> {
-                    this.input_loading = false;
                 });
         },
     },

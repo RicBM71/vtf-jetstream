@@ -56,6 +56,15 @@ Vue.mixin(comun);
 import moment from 'moment'
 Object.defineProperty(Vue.prototype, '$moment', {value: moment})
 
+import NProgress from 'nprogress';
+import { InertiaProgress } from '@inertiajs/progress';
+
+NProgress.configure({ parent: '#container' });
+InertiaProgress.init({
+    color: '#37474F',
+    }
+);
+
 new Vue({
       //finally add this line
       vuetify: new Vuetify(),

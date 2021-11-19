@@ -5,7 +5,7 @@
         <auth-app-bar :drawer.sync="drawer"></auth-app-bar>
 
         <v-main class="grey lighten-4">
-            <v-container>
+            <v-container id="container">
                 <!-- Headings -->
                 <!-- <headings :hasTitle="hasTitle" :hasSubtitle="hasSubtitle">
                     <template v-if="hasTitle" #title>

@@ -146,10 +146,6 @@
 <script>
 export default {
     props: {
-        input_loading: {
-            type: Boolean,
-            default: false,
-        },
     },
     data: () => ({
         snackbar: false,
@@ -276,11 +272,6 @@ export default {
     computed: {
         currentRoute() {
             return !(window.location.pathname == "/dashboard");
-        },
-    },
-    watch: {
-        input_loading: function () {
-            this.show_loading = this.input_loading;
         },
     },
     methods: {

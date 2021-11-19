@@ -54,10 +54,6 @@ export default {
             type: Number,
             default: 0,
         },
-        input_loading: {
-            type: Boolean,
-            default: false,
-        },
     },
     components: {
         MyDialog
@@ -77,15 +73,13 @@ export default {
 
         },
         goIndex() {
-            this.$emit('update:input_loading', true);
             this.$inertia.get(route('users.index'));
         },
         openDialog(){
             this.dialog = true;
         },
         destroyReg() {
-            //this.dialog = false;
-            this.$emit('update:input_loading', true);
+
             axios.post("/dashboard/admin/users/" + this.id, {
                     _method: "delete",
                 })
@@ -102,7 +96,7 @@ export default {
                 });
         },
         goBack() {
-            this.$emit('update:input_loading', true);
+
             this.goBackUrl();
 
             //window.history.back();

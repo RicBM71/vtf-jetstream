@@ -120,6 +120,11 @@ export default {
         };
     },
     mounted() {
+        console.log(this.$page.props.errors);
+        if (this.$page.props.errors.message != null){
+            this.response = this.$page.props.errors;
+            this.snackbar = true;
+        }
 
         this.current_page = this.paginator.current_page;
         this.last_page = this.paginator.last_page;
@@ -146,38 +151,45 @@ export default {
             this.dialog = true;
             this.item = item;
         },
+        doThing(){
+
+            console.log("pasa");
+        },
         destroyReg() {
             this.editedIndex = this.paginator.data.indexOf(this.item);
             //this.dialog = false;
-            // this.$inertia.delete(route("users.destroy", {user: this.item.id}), {
-            //     onSuccess: () => {
-            //          this.paginator.data.splice(this.editedIndex, 1);
-            //         },
-            //     onError: () => {
-            //         return Promise.all([
-            //             this.doThing('errir'),
-            //             ])},
-            //     onFinish: () => this.input_loading = false,
-            // });
+            this.$inertia.delete(route("users.destroy", {user: this.item.id}), {
+                onSuccess: () => {
+                    return Promise.all([
+                        this.doThing('errir'),
+                ])},
+                //     this.paginator.data.splice(this.editedIndex, 1);
+
+                onError: () => {
+                    this.response = this.$page.props.errors;
+                    this.snackbar = true;
+                },
+                onFinish: () => this.input_loading = false,
+            });
             // this.input_loading = false;
 
             // console.log("destory");
 
-            axios.post("/admin/users/" + this.item.id, {
-                    _method: "delete",
-                })
-                .then((res) => {
-                    console.log(res);
-                    this.paginator.data.splice(this.editedIndex, 1);
-                    this.response = res.data;
-                    this.snackbar = true;
-                })
-                .catch((err) => {
-                    this.response = err.response.data;
-                    this.snackbar = true;
-                })
-                .finally(()=> {
-                });
+            // axios.post("/admin/users/" + this.item.id, {
+            //         _method: "delete",
+            //     })
+            //     .then((res) => {
+            //         console.log(res);
+            //         this.paginator.data.splice(this.editedIndex, 1);
+            //         this.response = res.data;
+            //         this.snackbar = true;
+            //     })
+            //     .catch((err) => {
+            //         this.response = err.response.data;
+            //         this.snackbar = true;
+            //     })
+            //     .finally(()=> {
+            //     });
         },
     },
 };

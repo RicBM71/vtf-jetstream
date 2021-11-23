@@ -97,22 +97,28 @@ export default {
             this.dialog = true;
         },
         destroyReg() {
+            this.$inertia.delete(route("users.destroy", {user: this.id}), {
+                onError: () => {
+                    this.response = this.$page.props.errors;
+                    this.snackbar = true;
+                }
+            });
 
-            axios
-                .post("/admin/users/" + this.id, {
-                    _method: "delete",
-                })
-                .then((res) => {
-                    this.response = res.data;
-                    this.snackbar = true;
-                })
-                .catch((err) => {
-                    this.response = err.response.data;
-                    this.snackbar = true;
-                })
-                .finally(() => {
-                    this.goBackUrl();
-                });
+            // axios
+            //     .post("/admin/users/" + this.id, {
+            //         _method: "delete",
+            //     })
+            //     .then((res) => {
+            //         this.response = res.data;
+            //         this.snackbar = true;
+            //     })
+            //     .catch((err) => {
+            //         this.response = err.response.data;
+            //         this.snackbar = true;
+            //     })
+            //     .finally(() => {
+            //         this.goBackUrl();
+            //     });
         },
         goBack() {
             this.goBackUrl();

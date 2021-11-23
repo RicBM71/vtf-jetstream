@@ -17,6 +17,8 @@ class UserPolicy
 
     public function update(User $authUser, User $user)
     {
+        
+
         return isRoot() || hasPermiso('users') ?: abort(403, __('User does not have the right permissions.'));
     }
 

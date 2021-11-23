@@ -105,8 +105,10 @@ class UsersController extends Controller
         // ]);
 
         //return Inertia::location(route('users.index'));
+        return Redirect::route('users.index');
 
-        return response(['message'=>'Usuario Borrado','status'=>200]);
+
+        //return response(['message'=>'Usuario Borrado','status'=>200]);
 
     }
 

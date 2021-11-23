@@ -1,41 +1,41 @@
 <template>
-<v-app-bar
-            dense
-            :clipped-left="$vuetify.breakpoint.lgAndUp"
-            app
-            color="primary"
-            dark
+    <v-app-bar
+        dense
+        :clipped-left="$vuetify.breakpoint.lgAndUp"
+        app
+        color="primary"
+        dark
+    >
+        <v-app-bar-nav-icon @click.stop="closeDrawer()" />
+        <v-toolbar-title style="width: 300px" class="ml-0 pl-4">
+            <span class="hidden-sm-and-down">{{ appName }}</span>
+        </v-toolbar-title>
+        <v-spacer />
+
+        <v-btn icon @click="dashboard">
+            <v-icon>mdi-home</v-icon>
+        </v-btn>
+
+        <v-btn
+            @click="profile()"
+            icon
+            v-if="$page.props.jetstream.managesProfilePhotos"
         >
-            <v-app-bar-nav-icon @click.stop="closeDrawer()" />
-            <v-toolbar-title style="width: 300px" class="ml-0 pl-4">
-                <span class="hidden-sm-and-down">{{ appName }}</span>
-            </v-toolbar-title>
-            <v-spacer />
+            <v-avatar size="32px">
+                <img
+                    class="img-fluid"
+                    :src="$page.props.user.profile_photo_url"
+                    :alt="$page.props.user.name"
+                />
+            </v-avatar>
+        </v-btn>
 
-            <v-btn v-if="currentRoute" icon @click="dashboard">
-                <v-icon>mdi-home</v-icon>
-            </v-btn>
-
-            <v-btn
-                @click="profile()"
-                icon
-                v-if="$page.props.jetstream.managesProfilePhotos"
-            >
-                <v-avatar size="32px">
-                    <img
-                        class="img-fluid"
-                        :src="$page.props.user.profile_photo_url"
-                        :alt="$page.props.user.name"
-                    />
-                </v-avatar>
-            </v-btn>
-
-            <v-btn icon @click="Logout">
-                <v-avatar size="32px" tile>
-                    <v-icon>mdi-exit-to-app</v-icon>
-                </v-avatar>
-            </v-btn>
-        </v-app-bar>
+        <v-btn icon @click="Logout">
+            <v-avatar size="32px" tile>
+                <v-icon>mdi-exit-to-app</v-icon>
+            </v-avatar>
+        </v-btn>
+    </v-app-bar>
 </template>
 
 <script>
@@ -45,12 +45,13 @@ export default {
     },
     computed: {
         currentRoute() {
-            return !(window.location.pathname == "/dashboard");
+            console.log(this.$inertia.page.url);
+            return !(this.$inertia.page.url == "/dashboard");
         },
     },
     methods: {
         closeDrawer() {
-            this.$emit('update:drawer', !this.drawer)
+            this.$emit("update:drawer", !this.drawer);
         },
         abrir(name) {
             //this.drawer = false;

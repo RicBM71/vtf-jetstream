@@ -32,6 +32,14 @@
             </template>
             <span>Borrar Registro actual</span>
         </v-tooltip>
+        <v-tooltip bottom>
+            <template v-slot:activator="{ on }">
+                <v-btn class="mr-1" v-on="on" small icon @click="goRoles">
+                    <v-icon color="primary">mdi-hammer-screwdriver</v-icon>
+                </v-btn>
+            </template>
+            <span>Roles</span>
+        </v-tooltip>
         <v-tooltip bottom v-if="id > 0">
             <template v-slot:activator="{ on }">
                 <v-btn class="mr-1" v-on="on" icon small @click="goIndex">
@@ -77,6 +85,10 @@ export default {
         goCreate() {
             this.setMyHistoryUrl();
             this.$inertia.get(route("users.create"));
+        },
+        goRoles() {
+            this.setMyHistoryUrl();
+            this.$inertia.get(route("roles.index"));
         },
         goIndex() {
             this.$inertia.get(route("users.index"));

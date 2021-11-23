@@ -25,7 +25,6 @@
 
 
 export default {
-    layout: null,
     components: {
 
     },

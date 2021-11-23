@@ -22,18 +22,11 @@ module.exports = {
         },
         allUrl(){
             console.log(historico_urls);
-        },
-        setDrawer(value){
-            drawer = value;
         }
-
     },
     computed:{
         getUltUrl(){
             return historico_urls[0];
-        },
-        getDrawer(){
-            return drawer;
         }
     }
 }

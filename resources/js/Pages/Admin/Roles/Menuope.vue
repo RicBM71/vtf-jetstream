@@ -97,9 +97,10 @@ export default {
         },
         goBack() {
 
+
             this.goBackUrl();
 
-            //window.history.back();
+
         },
     },
 };

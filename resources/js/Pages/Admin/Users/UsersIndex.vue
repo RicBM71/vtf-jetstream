@@ -139,6 +139,7 @@ export default {
         editItem(item) {
 
             this.setMyHistoryUrl();
+
             this.$inertia.get(route("users.edit", { user: item.id }));
         },
         openDialog(item) {

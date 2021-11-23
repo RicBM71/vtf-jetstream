@@ -13,7 +13,7 @@
                                 <v-icon>mdi-home-outline</v-icon>
                             </v-btn>
                         </v-toolbar>
-                        <v-container fluid>
+                        <v-container fluid id="container">
                             <v-card-text>
                                  <v-alert
                                     v-if="status"
@@ -64,11 +64,13 @@
     </v-app>
 </template>
 <script>
+import HomeLayout from '@/Components/Layout/HomeLayout'
 export default {
     props: {
         status: String,
     },
-
+    components:{HomeLayout},
+    layout: HomeLayout,
     data() {
         return {
             form: this.$inertia.form({

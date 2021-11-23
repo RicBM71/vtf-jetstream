@@ -12,7 +12,7 @@
                             </v-btn>
                         </v-toolbar>
                         <v-container fluid>
-                            <v-card-text>
+                            <v-card-text id="container">
                                 <v-form>
                                     <v-row>
                                         <v-col cols="12">
@@ -70,12 +70,14 @@
 </template>
 
 <script>
+import HomeLayout from '@/Components/Layout/HomeLayout'
 export default {
+    components:{HomeLayout},
+    layout: HomeLayout,
     props: {
         canResetPassword: Boolean,
         status: String,
     },
-
     data() {
         return {
             loading: false,

@@ -3,7 +3,7 @@
         <v-main>
             <v-container>
                 <v-row>
-                    <v-col cols="12" md="8" offset-md="8" v-if="canLogin">
+                    <v-col  id="container" cols="12" md="8" offset-md="8" v-if="canLogin">
                         <v-btn
                             v-if="$page.props.user"
                             text
@@ -37,16 +37,17 @@
         </v-main>
     </v-app>
 </template>
-
-
 <script>
+import HomeLayout from '@/Components/Layout/HomeLayout'
     export default {
+        components: {HomeLayout},
         props: {
             canLogin: Boolean,
             canRegister: Boolean,
             laravelVersion: String,
             phpVersion: String,
         },
+        layout: HomeLayout,
         methods: {
             login(){
                 this.$inertia.get(route('login'));

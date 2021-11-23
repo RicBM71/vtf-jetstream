@@ -171,12 +171,7 @@ export default {
         },
     }),
     mounted() {
-        console.log(this.items);
-    },
-    computed: {
-        currentRoute() {
-            return !(window.location.pathname == "/dashboard");
-        },
+      //  console.log(this.items);
     },
     methods: {
         abrir(name) {

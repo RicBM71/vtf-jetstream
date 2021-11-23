@@ -77,7 +77,9 @@ new Vue({
                 initialPage: JSON.parse(app.dataset.page),
                 resolveComponent: function (name){
                     const page = require(`./Pages/${name}`).default
-                    page.layout = page.layout || AppLayout
+                    //console.log(page.layout);
+                    if (page.layout != null || page.layout == undefined)
+                        page.layout = page.layout || AppLayout
                     return page
                   }
                 //resolveComponent: (name) => require(`./Pages/${name}`).default,

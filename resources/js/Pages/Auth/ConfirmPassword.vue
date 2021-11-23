@@ -13,7 +13,7 @@
                                 <v-icon>mdi-home-outline</v-icon>
                             </v-btn>
                         </v-toolbar>
-                        <v-container fluid>
+                        <v-container fluid id="container">
                             <v-card-text>
                                 <p>
                                     Este es un area segura de la aplicación. Por
@@ -59,7 +59,10 @@
     </v-app>
 </template>
 <script>
+import HomeLayout from '@/Components/Layout/HomeLayout'
 export default {
+    components:{HomeLayout},
+    layout: HomeLayout,
     data() {
         return {
             show: false,

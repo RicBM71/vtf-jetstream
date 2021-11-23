@@ -65,6 +65,9 @@ InertiaProgress.init({
     }
 );
 
+//import Layout from './Layout';
+import AppLayout from "@/Layouts/AppLayout";
+
 new Vue({
       //finally add this line
       vuetify: new Vuetify(),
@@ -72,7 +75,12 @@ new Vue({
         h(InertiaApp, {
             props: {
                 initialPage: JSON.parse(app.dataset.page),
-                resolveComponent: (name) => require(`./Pages/${name}`).default,
+                resolveComponent: function (name){
+                    const page = require(`./Pages/${name}`).default
+                    page.layout = page.layout || AppLayout
+                    return page
+                  }
+                //resolveComponent: (name) => require(`./Pages/${name}`).default,
             },
         }),
 }).$mount(app);

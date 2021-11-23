@@ -51,14 +51,14 @@
 </template>
 
 <script>
-import AppLayout from "@/Layouts/AppLayout";
+
 import Menuope from "./Menuope";
 import MyDialog from "@/Layouts/MyDialog";
 import Toast from "@/Layouts/Toast";
 
 
 export default {
-    layout: AppLayout,
+    layout: null,
     props: {
         items: {
             type: Array,
@@ -66,7 +66,7 @@ export default {
         },
     },
     components: {
-        AppLayout,
+
         Menuope,
         MyDialog,
         Toast,

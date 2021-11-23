@@ -1,11 +1,11 @@
 <template>
-    <app-layout>
-           <template #header>
+    <div>
+
             <v-toolbar dense elevation="1">
             <h2>dashboard</h2>
 
             </v-toolbar>
-        </template>
+
 
             <v-card  class="my-1">
                  <v-card-text>
@@ -18,15 +18,16 @@
                  </v-card-text>
             </v-card>
 
-    </app-layout>
+    </div>
 </template>
 
 <script>
-import AppLayout from "@/Layouts/AppLayout";
+
 
 export default {
+    layout: null,
     components: {
-        AppLayout,
+
     },
     data() {
         return {

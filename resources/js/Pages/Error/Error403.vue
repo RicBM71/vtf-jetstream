@@ -1,8 +1,8 @@
 <template>
-    <app-layout>
-        <template #header>
+    <div>
+
             <h2>Error {{statusCode }}!!</h2>
-        </template>
+
         <v-container>
 
             <v-card class="d-flex justify-center mb-6" flat tile>
@@ -16,16 +16,13 @@
 
             </v-card>
         </v-container>
-    </app-layout>
+    </div>
 </template>
 
 <script>
-import AppLayout from "@/Layouts/AppLayout";
-
 export default {
     props: ["statusCode", "message"],
     components: {
-        AppLayout,
     },
     data() {
         return {};

@@ -1,6 +1,6 @@
 <template>
 
-        <v-dialog v-model="dialog" persistent max-width="420">
+    <v-dialog v-model="dialog" persistent max-width="420">
         <v-card>
             <v-card-title class="headline">Aviso</v-card-title>
             <v-card-text>{{message}}</v-card-text>
@@ -15,7 +15,6 @@
 </template>
 
 <script>
-import AppLayout from "@/Layouts/AppLayout";
 
 export default {
     props:{
@@ -30,7 +29,6 @@ export default {
 
     },
     components: {
-        AppLayout,
     },
     data() {
         return {};

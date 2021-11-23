@@ -1,10 +1,10 @@
 <template>
-  <app-layout>
-      <template #header>
+  <div>
+
             <h2>
                 {{$page.props.user.username}}
             </h2>
-        </template>
+
 
       <v-container>
         <v-row>
@@ -35,11 +35,11 @@
         </v-row>
 
       </v-container>
-  </app-layout>
+  </div>
 </template>
 
 <script>
-import AppLayout from '@/Layouts/AppLayout'
+
 import DeleteUserForm from './DeleteUserForm'
 import LogoutOtherBrowserSessionsForm from './LogoutOtherBrowserSessionsForm'
 import TwoFactorAuthenticationForm from './TwoFactorAuthenticationForm'
@@ -50,7 +50,6 @@ export default {
   props: ['sessions'],
 
   components: {
-    AppLayout,
     DeleteUserForm,
     LogoutOtherBrowserSessionsForm,
     TwoFactorAuthenticationForm,

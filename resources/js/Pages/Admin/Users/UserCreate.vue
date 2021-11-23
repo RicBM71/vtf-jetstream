@@ -63,15 +63,12 @@
     </div>
 </template>
 <script>
-import AppLayout from "@/Layouts/AppLayout";
-import Menuope from "./Menuope";
 
+import Menuope from "./Menuope";
 export default {
     components: {
-        AppLayout,
         Menuope,
     },
-    layout: AppLayout,
     data() {
         return {
             form: this.$inertia.form({
@@ -87,7 +84,7 @@ export default {
     },
     mounted(){
 
-        
+
     },
     methods: {
         store() {

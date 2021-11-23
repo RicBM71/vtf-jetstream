@@ -31,19 +31,17 @@
     </div>
 </template>
 <script>
-import AppLayout from "@/Layouts/AppLayout";
+
 import Menuope from "./Menuope";
 import UpdateUserInformation from "./UpdateUserInformation";
 import UserRoles from "./UserRoles";
 
 export default {
     components: {
-        AppLayout,
         Menuope,
         UpdateUserInformation,
         UserRoles,
     },
-    layout: AppLayout,
     data() {
         return {
         };

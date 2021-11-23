@@ -64,14 +64,14 @@
 </template>
 
 <script>
-import AppLayout from "@/Layouts/AppLayout";
+
 import Menuope from "./Menuope";
 import MyDialog from "@/Layouts/MyDialog";
 import Toast from "@/Layouts/Toast";
 
 
 export default {
-    layout: AppLayout,
+    layout: null,
     props: {
         paginator: {
             type: Object,
@@ -79,7 +79,7 @@ export default {
         },
     },
     components: {
-        AppLayout,
+
         Menuope,
         MyDialog,
         Toast,

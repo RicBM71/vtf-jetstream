@@ -16,7 +16,7 @@ class UsersController extends Controller
 
         $this->authorize('view', New User);
 
-        $users = User::permitidos()->paginate(10);
+        $users = User::permitidos()->paginate(10)->withQueryString(); // L18 - Laracast, conservar search
 
         //$users = User::all();
 
@@ -80,11 +80,11 @@ class UsersController extends Controller
 
         $user->update($input);
 
-        return Inertia::render('Admin/Users/UserEdit', [
-            'usuario' => $user,
-        ]);
+        // return Inertia::render('Admin/Users/UserEdit', [
+        //     'usuario' => $user,
+        // ]);
 
-            return Redirect::route('users.edit', $user->id);
+        return Redirect::route('users.edit', $user->id);
 
         // if (config('app.env')=='local')
         //     return Inertia::location('/'); //CORS

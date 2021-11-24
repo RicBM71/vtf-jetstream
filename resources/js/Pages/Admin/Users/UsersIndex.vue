@@ -4,7 +4,7 @@
         <toast
             :snackbar.sync="snackbar"
             :message="snack_message"
-            :data="response"
+            :data="snack_response"
         ></toast>
 
 
@@ -86,7 +86,7 @@ export default {
     },
     data() {
         return {
-            response: { message: "", status: 200 },
+            snack_response: { message: "", status: 200 },
             snack_message: "",
             snackbar: false,
             item: {},
@@ -122,7 +122,7 @@ export default {
     mounted() {
         console.log(this.$page.props.errors);
         if (this.$page.props.errors.message != null){
-            this.response = this.$page.props.errors;
+            this.snack_response = this.$page.props.errors;
             this.snackbar = true;
         }
 
@@ -167,7 +167,7 @@ export default {
 
                 onError: () => {
                     //this.$toast/(this.$page.props.errors);
-                    this.response = this.$page.props.errors;
+                    this.snack_response = this.$page.props.errors;
                     this.snackbar = true;
                 },
                 onFinish: () => this.input_loading = false,

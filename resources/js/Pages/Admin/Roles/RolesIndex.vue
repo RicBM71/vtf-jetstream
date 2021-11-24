@@ -1,18 +1,11 @@
 <template>
     <div>
         <my-dialog :dialog.sync="dialog" @destroyReg="destroyReg"></my-dialog>
-        <toast
-            :snackbar.sync="snackbar"
-            :message="snack_message"
-            :data="response"
-        ></toast>
-
-
-            <v-toolbar dense elevation="1">
+        <v-toolbar dense elevation="1">
             <h2>Roles</h2>
             <v-spacer></v-spacer>
             <menuope></menuope>
-            </v-toolbar>
+        </v-toolbar>
 
         <v-container>
             <v-data-table
@@ -20,21 +13,17 @@
                 :items="items"
                 :items-per-page="10"
                 class="elevation-1"
-                :loading="loading"
             >
-
                 <template v-slot:item.permissions="{ item }">
-                    {{ getPermisos(item.permissions)}}
+                    {{ getPermisos(item.permissions) }}
                 </template>
                 <template v-slot:item.updated_at="{ item }">
-                    {{ getFechaHora(item.updated_at)}}
+                    {{ getFechaHora(item.updated_at) }}
                 </template>
                 <template v-slot:[`item.actions`]="{ item }">
-                    <v-icon
-                        small
-                        color="black"
-                        @click="editItem(item)"
-                    > mdi-pencil </v-icon>
+                    <v-icon small color="black" @click="editItem(item)">
+                        mdi-pencil
+                    </v-icon>
                     <v-icon
                         :disabled="!hasRole('root')"
                         small
@@ -46,16 +35,12 @@
                 </template>
             </v-data-table>
         </v-container>
-
     </div>
 </template>
 
 <script>
-
 import Menuope from "./Menuope";
 import MyDialog from "@/Shared/MyDialog";
-import Toast from "@/Shared/Toast";
-
 
 export default {
     layout: null,
@@ -66,19 +51,12 @@ export default {
         },
     },
     components: {
-
         Menuope,
         MyDialog,
-        Toast,
     },
     data() {
         return {
-            response: { message: "", status: 200 },
-            snack_message: "",
-            snackbar: false,
             item: {},
-            loading: true,
-
             roles: [],
             dialog: false,
             editedIndex: -1,
@@ -94,20 +72,16 @@ export default {
             ],
         };
     },
-    beforeMount(){
+    beforeMount() {
         this.roles = this.items;
     },
-    mounted() {
-        this.loading = false;
-        //console.log(this.roles);
-    },
+    mounted() {},
     methods: {
-        getPermisos(item){
-            return _.replace(_.toString(_.map(item, 'nombre')),',',', ');
+        getPermisos(item) {
+            return _.replace(_.toString(_.map(item, "nombre")), ",", ", ");
         },
         editItem(item) {
             this.setMyHistoryUrl();
-
             this.$inertia.get(route("roles.edit", { role: item.id }));
         },
         openDialog(item) {
@@ -115,38 +89,17 @@ export default {
             this.item = item;
         },
         destroyReg() {
-            //this.dialog = false;
-
-            // this.$inertia.delete(route("users.destroy", {user: this.item.id}), {
-            //     onSuccess: () => {
-            //          this.items.splice(this.editedIndex, 1);
-            //         },
-            //     onError: () => {
-            //         return Promise.all([
-            //             this.doThing('errir'),
-            //             ])},
-            //     onFinish: () => this.input_loading = false,
-            // });
-            // this.input_loading = false;
-            this.editedIndex = this.items.indexOf(this.item);
-
-            // console.log("destory");
-
-            axios.post("/dashboard/admin/users/" + this.item.id, {
-                    _method: "delete",
-                })
+            this.editedIndex = this.paginator.data.indexOf(this.item);
+            axios
+                .delete(route("roles.destroy", { user: this.item.id }))
                 .then((res) => {
-                    this.items.splice(this.editedIndex, 1);
-                    this.response = res.data;
-                    this.snackbar = true;
+                    this.paginator.data.splice(this.editedIndex, 1);
+                    this.$toast.success(res.data.message);
                 })
                 .catch((err) => {
-                    this.response = err.response.data;
-                    this.snackbar = true;
+                    this.$toast.error(err.response.data.message);
                 })
-                .finally(()=> {
-
-                });
+                .finally(() => {});
         },
     },
 };

@@ -65,7 +65,7 @@ export default {
         id: {
             type: Number,
             default: 0,
-        }
+        },
     },
     components: {
         MyDialog,
@@ -97,28 +97,16 @@ export default {
             this.dialog = true;
         },
         destroyReg() {
-            this.$inertia.delete(route("users.destroy", {user: this.id}), {
-                onError: () => {
-                    this.response = this.$page.props.errors;
-                    this.snackbar = true;
-                }
-            });
-
-            // axios
-            //     .post("/admin/users/" + this.id, {
-            //         _method: "delete",
-            //     })
-            //     .then((res) => {
-            //         this.response = res.data;
-            //         this.snackbar = true;
-            //     })
-            //     .catch((err) => {
-            //         this.response = err.response.data;
-            //         this.snackbar = true;
-            //     })
-            //     .finally(() => {
-            //         this.goBackUrl();
-            //     });
+            axios
+                .delete(route("users.destroy", { user: this.id }))
+                .then((res) => {
+                    this.$toast.success(res.data.message);
+                    this.$inertia.get(route("users.index"));
+                })
+                .catch((err) => {
+                    this.$toast.error(err.response.data.message);
+                })
+                .finally(() => {});
         },
         goBack() {
             this.goBackUrl();

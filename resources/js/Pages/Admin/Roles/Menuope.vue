@@ -31,32 +31,27 @@
         </v-tooltip>
         <v-tooltip bottom v-if="id > 0">
             <template v-slot:activator="{ on }">
-                <v-btn class="mr-1"
-                     v-on="on" x-small @click="goIndex">
+                <v-btn class="mr-1" v-on="on" x-small @click="goIndex">
                     Lista
                 </v-btn>
             </template>
             <span>Volver a la lista de resultados</span>
         </v-tooltip>
 
-        <v-btn class="mr-1" x-small @click="goBack">
-            Volver
-        </v-btn>
-
-
+        <v-btn class="mr-1" x-small @click="goBack"> Volver </v-btn>
     </div>
 </template>
 <script>
 import MyDialog from "@/Shared/MyDialog";
 export default {
-    props:{
+    props: {
         id: {
             type: Number,
             default: 0,
         },
     },
     components: {
-        MyDialog
+        MyDialog,
     },
     data() {
         return {
@@ -69,38 +64,28 @@ export default {
         },
     },
     methods: {
-        goCreate() {
-
-        },
+        goCreate() {},
         goIndex() {
-            this.$inertia.get(route('users.index'));
+            this.$inertia.get(route("users.index"));
         },
-        openDialog(){
+        openDialog() {
             this.dialog = true;
         },
         destroyReg() {
-
-            axios.post("/dashboard/admin/users/" + this.id, {
-                    _method: "delete",
-                })
+            this.editedIndex = this.paginator.data.indexOf(this.item);
+            axios
+                .delete(route("roles.destroy", { user: this.item.id }))
                 .then((res) => {
-                    this.response = res.data;
-                    this.snackbar = true;
+                    this.paginator.data.splice(this.editedIndex, 1);
+                    this.$toast.success(res.data.message);
                 })
                 .catch((err) => {
-                    this.response = err.response.data;
-                    this.snackbar = true;
+                    this.$toast.error(err.response.data.message);
                 })
-                .finally(()=> {
-                    this.$inertia.get(route('users.index'));
-                });
+                .finally(() => {});
         },
         goBack() {
-
-
             this.goBackUrl();
-
-
         },
     },
 };

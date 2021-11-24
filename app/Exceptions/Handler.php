@@ -47,11 +47,8 @@ class Handler extends ExceptionHandler
 
         $this->renderable(function (HttpException $e, $request) {
 
-            return redirect()->back()->withErrors([
-                'message' => $e->getMessage(),
-            ]);
 
-            //if ($request->wantsJson())
+            if ($request->wantsJson())
                 return response()->json([
                             'message' =>  $e->getMessage(),
                             'statusCode'  => $e->getStatusCode(),
@@ -62,6 +59,10 @@ class Handler extends ExceptionHandler
                     [
                         'statusCode' => $e->getStatusCode(),
                         'message' => __($e->getMessage()),
+                    ]);
+            else
+                    return redirect()->back()->withErrors([
+                        'message' => $e->getMessage(),
                     ]);
         });
 

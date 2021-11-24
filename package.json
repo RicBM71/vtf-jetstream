@@ -30,6 +30,7 @@
         "moment": "^2.29.1",
         "nprogress": "^0.2.0",
         "vee-validate": "^2.2.15",
+        "vue-toastification": "^1.7.14",
         "vuetify": "^2.5.10"
     }
 }

@@ -33,7 +33,9 @@ export default {
 
         };
     },
-    mounted() {},
+    mounted() {
+
+    },
     methods: {
         goUsers() {
 

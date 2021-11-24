@@ -45,6 +45,28 @@ const opts = {
 
 export default new Vuetify(opts);
 
+import Toast, { TYPE } from "vue-toastification";
+
+const options = {
+    toastDefaults: {
+        // ToastOptions object for each type of toast
+        [TYPE.ERROR]: {
+            position: "top-center",
+            timeout: 5000,
+            closeOnClick: true,
+        },
+        [TYPE.SUCCESS]: {
+            position: "top-center",
+            timeout: 3000,
+            hideProgressBar: true,
+        }
+    }
+};
+// Import the CSS or use your own!
+import "vue-toastification/dist/index.css";
+
+Vue.use(Toast, options);
+
 const app = document.getElementById('app');
 
 import auth from "@/Mixins/Auth";

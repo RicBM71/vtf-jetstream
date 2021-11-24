@@ -98,17 +98,9 @@ class UsersController extends Controller
 
         $user->delete();
 
-        // $users = User::paginate(10);
+        //return Redirect::route('users.index');
 
-        // return Inertia::render('Admin/Users/UsersIndex', [
-        //     'paginator' => $users
-        // ]);
-
-        //return Inertia::location(route('users.index'));
-        return Redirect::route('users.index');
-
-
-        //return response(['message'=>'Usuario Borrado','status'=>200]);
+        return response(['message'=>"Usuario ($user->username) Borrado",'status'=>200]);
 
     }
 

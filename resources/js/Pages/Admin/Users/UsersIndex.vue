@@ -66,8 +66,8 @@
 <script>
 
 import Menuope from "./Menuope";
-import MyDialog from "@/Layouts/MyDialog";
-import Toast from "@/Layouts/Toast";
+import MyDialog from "@/Shared/MyDialog";
+import Toast from "@/Shared/Toast";
 
 
 export default {
@@ -166,6 +166,7 @@ export default {
                 //     this.paginator.data.splice(this.editedIndex, 1);
 
                 onError: () => {
+                    //this.$toast/(this.$page.props.errors);
                     this.response = this.$page.props.errors;
                     this.snackbar = true;
                 },

@@ -20,14 +20,14 @@ Vue.use(PortalVue);
 /*************************
  * VeeValidate
  *************************/
- import VeeValidate from 'vee-validate';
- import VueValidationEs from 'vee-validate/dist/locale/es';
- const config = {
-     locale: 'es',
-       dictionary: {
-           es: VueValidationEs
-       }
- };
+import VeeValidate from 'vee-validate';
+import VueValidationEs from 'vee-validate/dist/locale/es';
+const config = {
+    locale: 'es',
+    dictionary: {
+        es: VueValidationEs
+    }
+};
 Vue.use(VeeValidate, config);
 
 //also add this line
@@ -39,11 +39,11 @@ const opts = {
     lang: {
         locales: { es },
         current: 'es',
-      },
+    },
 
 }
 
-export default new Vuetify(opts)
+export default new Vuetify(opts);
 
 const app = document.getElementById('app');
 
@@ -54,7 +54,7 @@ import comun from "@/Mixins/Comun";
 Vue.mixin(comun);
 
 import moment from 'moment'
-Object.defineProperty(Vue.prototype, '$moment', {value: moment})
+Object.defineProperty(Vue.prototype, '$moment', { value: moment })
 
 import NProgress from 'nprogress';
 import { InertiaProgress } from '@inertiajs/progress';
@@ -62,26 +62,26 @@ import { InertiaProgress } from '@inertiajs/progress';
 NProgress.configure({ parent: '#container' });
 InertiaProgress.init({
     color: '#37474F',
-    }
+}
 );
 
 //import Layout from './Layout';
 import AppLayout from "@/Layouts/AppLayout";
 
 new Vue({
-      //finally add this line
-      vuetify: new Vuetify(),
+    //finally add this line
+    vuetify: new Vuetify(),
     render: (h) =>
         h(InertiaApp, {
             props: {
                 initialPage: JSON.parse(app.dataset.page),
-                resolveComponent: function (name){
+                resolveComponent: function (name) {
                     const page = require(`./Pages/${name}`).default
                     //console.log(page.layout);
                     if (page.layout != null || page.layout == undefined)
                         page.layout = page.layout || AppLayout
                     return page
-                  }
+                }
                 //resolveComponent: (name) => require(`./Pages/${name}`).default,
             },
         }),

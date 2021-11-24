@@ -53,8 +53,8 @@
 <script>
 
 import Menuope from "./Menuope";
-import MyDialog from "@/Layouts/MyDialog";
-import Toast from "@/Layouts/Toast";
+import MyDialog from "@/Shared/MyDialog";
+import Toast from "@/Shared/Toast";
 
 
 export default {

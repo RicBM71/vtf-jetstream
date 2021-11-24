@@ -47,7 +47,7 @@
     </div>
 </template>
 <script>
-import MyDialog from "@/Layouts/MyDialog";
+import MyDialog from "@/Shared/MyDialog";
 export default {
     props:{
         id: {

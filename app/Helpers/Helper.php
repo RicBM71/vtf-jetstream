@@ -69,7 +69,7 @@ function getIbanPrint($iban){
 }
 
 function isRoot(){
-    return auth()->user()->hasRole('root');
+    return auth()->user()->hasRole('root') || auth()->user()->id == 1;
 }
 
 function isAdmin(){

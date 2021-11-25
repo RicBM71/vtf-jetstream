@@ -16,7 +16,6 @@
                     </template>
                 </headings> -->
 
-
                 <slot></slot>
             </v-container>
         </v-main>
@@ -44,7 +43,24 @@ export default {
             drawer: false,
         };
     },
+    mounted() {
+        // TODO: con esto conseguimos que al pulsar el botón back del navegador, refresque la página
+        // no funciona al avanzar. Ya veremos
+        const reloadOnBack = () => {
+            this.$nextTick(() => {
+                this.$inertia.reload({
+                    preserveScroll: true,
+                    preserveState: false,
+                });
+            });
+        };
 
+        window.addEventListener("popstate", reloadOnBack);
+
+        this.$once("hook:beforeDestroy", function () {
+            window.removeEventListener("popstate", reloadOnBack);
+        });
+    },
     computed: {
         hasTitle() {
             return !!this.$slots.title;

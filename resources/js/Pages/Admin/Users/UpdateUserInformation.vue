@@ -106,7 +106,7 @@
                 <v-row>
                     <v-col cols="12" md="2">
                         <v-switch
-                        class="mt-2"
+                            class="mt-2"
                             dense
                             v-model="form.blocked"
                             label="Bloqueado"
@@ -133,7 +133,6 @@
                             Guardar
                         </v-btn>
                     </v-col>
-
                 </v-row>
             </v-card-text>
         </v-form>
@@ -141,15 +140,8 @@
 </template>
 
 <script>
-import FormCard from "../../../Components/FormCard";
-
 export default {
-    components: {
-        FormCard,
-    },
-
     props: ["user"],
-
     data() {
         return {
             form: this.$inertia.form({
@@ -165,22 +157,29 @@ export default {
             loading_photo: false,
         };
     },
-
-    computed: {
-        computedHuella() {
-            return (
-                this.user.username_umod +
-                this.$moment(this.user.updated_at).format("D/MM/YYYY H:mm:ss") +
-                " # Creado: " +
-                this.$moment(this.user.created_at).format("D/MM/YYYY")
-            );
+    mounted() {},
+    watch: {
+        msgSuccess(val) {
+            if (val != null) {
+                this.$toast.success(`${val}`);
+                this.$page.props.flash.success = null;
+            }
         },
-        computedUpdatedAt(){
+    },
+    computed: {
+        // computedHuella() {
+        //     return (
+        //         this.user.username_umod +
+        //         " " +
+        //         this.$moment(this.user.updated_at).format("D/MM/YYYY H:mm:ss")
+        //     );
+        // },
+        computedUpdatedAt() {
             return this.getFechaHora(this.user.updated_at);
         },
-        computedCreatedAt(){
+        computedCreatedAt() {
             return this.getFechaHora(this.user.created_at);
-        }
+        },
     },
 
     methods: {
@@ -192,7 +191,6 @@ export default {
 
             this.$validator.validateAll().then((result) => {
                 if (result) {
-
                     this.form.put(route("users.update", { user: this.user }), {
                         errorBag: "updateProfileInformation",
                         preserveScroll: true,
@@ -235,10 +233,10 @@ export default {
                 onFinish: () => (this.loading_photo = false),
             });
         },
-        roles(){
-             this.setMyHistoryUrl();
-            this.$inertia.get(route('roles.index'));
-        }
+        roles() {
+            this.setMyHistoryUrl();
+            this.$inertia.get(route("roles.index"));
+        },
     },
 };
 </script>

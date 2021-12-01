@@ -16,7 +16,7 @@
             </template>
             <span>Crear un nuevo registro</span>
         </v-tooltip>
-        <v-tooltip bottom v-if="id > 0">
+        <v-tooltip bottom v-if="showConId">
             <template v-slot:activator="{ on }">
                 <v-btn
                     :disabled="!hasRole('root')"
@@ -40,7 +40,7 @@
             </template>
             <span>Roles</span>
         </v-tooltip>
-        <v-tooltip bottom v-if="id > 0">
+        <v-tooltip bottom v-if="showConId">
             <template v-slot:activator="{ on }">
                 <v-btn class="mr-1" v-on="on" icon small @click="goIndex">
                     <v-icon color="primary">mdi-format-list-bulleted</v-icon>
@@ -66,17 +66,22 @@ export default {
             type: Number,
             default: 0,
         },
+        dialog: {
+            type: Boolean,
+            default: false,
+        },
     },
     components: {
         MyDialog,
     },
     data() {
-        return {
-            dialog: false,
-        };
+        return {};
     },
     mounted() {},
     computed: {
+        showConId() {
+            return this.id > 0 && this.dialog == false;
+        },
         computedAdd() {
             return true;
         },
@@ -100,7 +105,7 @@ export default {
             axios
                 .delete(route("users.destroy", { user: this.id }))
                 .then((res) => {
-                    this.$toast.success(res.data.message);
+                    this.$toast.warning(res.data.message);
                     this.$inertia.get(route("users.index"));
                 })
                 .catch((err) => {

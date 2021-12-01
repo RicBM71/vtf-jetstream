@@ -12,9 +12,10 @@ use App\Http\Requests\Admin\UserUpdateRequest;
 
 class UsersController extends Controller
 {
-    public function index(){
+    public function index()
+    {
 
-        $this->authorize('view', New User);
+        $this->authorize('view', new User);
 
         $users = User::permitidos()->paginate(10)->withQueryString(); // L18 - Laracast, conservar search
 
@@ -25,9 +26,10 @@ class UsersController extends Controller
         ]);
     }
 
-    public function create(){
+    public function create()
+    {
 
-        $this->authorize('update', New User);
+        $this->authorize('update', new User);
 
         return Inertia::render('Admin/Users/UserCreate');
     }
@@ -45,18 +47,19 @@ class UsersController extends Controller
         $user = User::create($input);
 
         return Redirect::route('users.edit', $user->id);
-
     }
 
-    public function show(User $user){
+    public function show(User $user)
+    {
         return Redirect::route('users.edit', $user->id);
     }
 
-    public function edit(User $user){
+    public function edit(User $user)
+    {
 
         $this->authorize('update', $user);
 
-        if ($user->id == 1 && !isRoot()){
+        if ($user->id == 1 && !isRoot()) {
             return abort(403, 'No dispones de los permisos necesarios');
         }
 
@@ -84,7 +87,9 @@ class UsersController extends Controller
         //     'usuario' => $user,
         // ]);
 
-        return Redirect::route('users.edit', $user->id);
+        return Redirect::back()->with('success', "Usuario {$user->username} actualizado!");
+
+        //return Redirect::route('users.edit', $user->id);
 
         // if (config('app.env')=='local')
         //     return Inertia::location('/'); //CORS
@@ -92,7 +97,8 @@ class UsersController extends Controller
     }
 
 
-    public function destroy(User $user){
+    public function destroy(User $user)
+    {
 
         $this->authorize('delete', $user);
 
@@ -100,9 +106,6 @@ class UsersController extends Controller
 
         //return Redirect::route('users.index');
 
-        return response(['message'=>"Usuario ($user->username) Borrado",'status'=>200]);
-
+        return response(['message' => "Usuario ($user->username) Borrado", 'status' => 200]);
     }
-
-
 }

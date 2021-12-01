@@ -3,9 +3,7 @@
         <v-toolbar dense elevation="1">
             <h2>{{ usuario.username }}</h2>
             <v-spacer></v-spacer>
-            <menuope
-                :id="usuario.id"
-            ></menuope>
+            <menuope :id="usuario.id"></menuope>
         </v-toolbar>
 
         <v-container>
@@ -31,7 +29,6 @@
     </div>
 </template>
 <script>
-
 import Menuope from "./Menuope";
 import UpdateUserInformation from "./UpdateUserInformation";
 import UserRoles from "./UserRoles";
@@ -43,8 +40,7 @@ export default {
         UserRoles,
     },
     data() {
-        return {
-        };
+        return {};
     },
     props: {
         usuario: {

@@ -46,20 +46,18 @@ export default {
     mounted() {
         // TODO: con esto conseguimos que al pulsar el botón back del navegador, refresque la página
         // no funciona al avanzar. Ya veremos
-        const reloadOnBack = () => {
-            this.$nextTick(() => {
-                this.$inertia.reload({
-                    preserveScroll: true,
-                    preserveState: false,
-                });
-            });
-        };
-
-        window.addEventListener("popstate", reloadOnBack);
-
-        this.$once("hook:beforeDestroy", function () {
-            window.removeEventListener("popstate", reloadOnBack);
-        });
+        // const reloadOnBack = () => {
+        //     this.$nextTick(() => {
+        //         this.$inertia.reload({
+        //             preserveScroll: true,
+        //             preserveState: false,
+        //         });
+        //     });
+        // };
+        // window.addEventListener("popstate", reloadOnBack);
+        // this.$once("hook:beforeDestroy", function () {
+        //     window.removeEventListener("popstate", reloadOnBack);
+        // });
     },
     computed: {
         hasTitle() {

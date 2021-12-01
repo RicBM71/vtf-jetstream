@@ -55,6 +55,11 @@ const options = {
             timeout: 5000,
             closeOnClick: true,
         },
+        [TYPE.WARNING]: {
+            position: "top-center",
+            timeout: 5000,
+            closeOnClick: true,
+        },
         [TYPE.SUCCESS]: {
             position: "top-center",
             timeout: 3000,

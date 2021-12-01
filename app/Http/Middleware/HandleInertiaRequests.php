@@ -36,9 +36,12 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request)
     {
-        if (auth()->user() === null){
+
+        $k = $request->session()->get('success');
+
+        if (auth()->user() === null) {
             $roles = $permisos = [];
-        }else{
+        } else {
             /** @var \App\Models\User */
             $user = auth()->user();
 
@@ -50,6 +53,18 @@ class HandleInertiaRequests extends Middleware
             'appName'  => config('app.name'),
             'roles'    => $roles,
             'permisos' => $permisos,
+            'flash' => function () use ($request) {
+                return [
+                    'success' => $request->session()->get('success'),
+                    'error' => $request->session()->get('error'),
+                ];
+            },
         ]);
+
+        // return array_merge(parent::share($request), [
+        //     'appName'  => config('app.name'),
+        //     'roles'    => $roles,
+        //     'permisos' => $permisos,
+        // ]);
     }
 }

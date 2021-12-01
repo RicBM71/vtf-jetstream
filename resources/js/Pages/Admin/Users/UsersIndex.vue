@@ -1,10 +1,9 @@
 <template>
     <div>
-        <my-dialog :dialog.sync="dialog" @destroyReg="destroyReg"></my-dialog>
         <v-toolbar dense elevation="1">
             <h2>Usuarios</h2>
             <v-spacer></v-spacer>
-            <menuope></menuope>
+            <menuope :id="item.id" :dialog.sync="dialog"></menuope>
         </v-toolbar>
 
         <v-container>
@@ -54,7 +53,6 @@
 
 <script>
 import Menuope from "./Menuope";
-import MyDialog from "@/Shared/MyDialog";
 
 export default {
     layout: null,
@@ -66,11 +64,10 @@ export default {
     },
     components: {
         Menuope,
-        MyDialog,
     },
     data() {
         return {
-            item: {},
+            item: { id: 0 },
             current_page: 0,
             last_page: 0,
             dialog: false,
@@ -114,37 +111,11 @@ export default {
     methods: {
         editItem(item) {
             this.setMyHistoryUrl();
-
             this.$inertia.get(route("users.edit", { user: item.id }));
         },
         openDialog(item) {
             this.dialog = true;
             this.item = item;
-        },
-        destroyReg() {
-            // this.$inertia.delete(route("users.destroy", {user: this.item.id}), {
-            //     onSuccess: () => {
-            //         //this.$toast.success("Borrado!");
-            //     },
-            //     onError: () => {
-            //         this.$toast.error(this.$page.props.errors.message);
-            //     }
-            // });
-            // this.input_loading = false;
-
-            // console.log("destory");
-
-            this.editedIndex = this.paginator.data.indexOf(this.item);
-            axios
-                .delete(route("users.destroy", { user: this.item.id }))
-                .then((res) => {
-                    this.paginator.data.splice(this.editedIndex, 1);
-                    this.$toast.success(res.data.message);
-                })
-                .catch((err) => {
-                    this.$toast.error(err.response.data.message);
-                })
-                .finally(() => {});
         },
     },
 };

@@ -1,6 +1,5 @@
 <template>
     <div>
-
         <v-toolbar dense elevation="1">
             <h2>Crear Usuario</h2>
             <v-spacer></v-spacer>
@@ -17,10 +16,7 @@
                                     label="Nombre"
                                     dense
                                     v-model="form.name"
-                                    v-validate="'required|min:3'"
-                                    :error-messages="errors.collect('name')"
-                                    data-vv-name="name"
-                                    data-vv-as="name"
+                                    :error-messages="form.errors.name"
                                 ></v-text-field>
                             </v-col>
                             <v-col cols="12" md="2">
@@ -28,10 +24,7 @@
                                     label="Usuario"
                                     dense
                                     v-model="form.username"
-                                    v-validate="'required'"
-                                    :error-messages="errors.collect('username')"
-                                    data-vv-name="username"
-                                    data-vv-as="username"
+                                    :error-messages="form.errors.username"
                                 ></v-text-field>
                             </v-col>
                             <v-col cols="12" md="4">
@@ -39,10 +32,7 @@
                                     label="Email"
                                     dense
                                     v-model="form.email"
-                                    v-validate="'required|email'"
-                                    :error-messages="errors.collect('email')"
-                                    data-vv-name="email"
-                                    data-vv-as="email"
+                                    :error-messages="form.errors.email"
                                 ></v-text-field>
                             </v-col>
                             <v-col cols="12" md="2">
@@ -63,53 +53,32 @@
     </div>
 </template>
 <script>
-
 import Menuope from "./Menuope";
 export default {
     components: {
-        Menuope,
+        Menuope
     },
     data() {
         return {
             form: this.$inertia.form({
-                _method: "POST",
                 name: null,
                 username: null,
-                email: null,
+                email: null
             }),
-
-            photoPreview: null,
-            loading: false,
+            loading: false
         };
     },
-    mounted(){
-
-
-    },
+    mounted() {},
     methods: {
         store() {
             this.loading = true;
-
-            this.$validator.validateAll().then((result) => {
-                if (result) {
-                    this.form.post(route("users.store", { user: this.user }), {
-                        preserveScroll: true,
-                        onFinish: () => {
-                            const msg_valid = this.form.errors;
-                            for (const prop in msg_valid) {
-                                this.errors.add({
-                                    field: prop,
-                                    msg: `${msg_valid[prop]}`,
-                                });
-                            }
-                            this.loading = false;
-                        },
-                    });
-                } else {
+            this.form.post(route("users.store"), {
+                preserveScroll: true,
+                onFinish: () => {
                     this.loading = false;
                 }
             });
-        },
-    },
+        }
+    }
 };
 </script>

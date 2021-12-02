@@ -41,13 +41,13 @@
 <script>
 export default {
     props: {
-        drawer: Boolean,
+        drawer: Boolean
     },
     computed: {
         currentRoute() {
-            console.log(this.$inertia.page.url);
+            console.log(drawer);
             return !(this.$inertia.page.url == "/dashboard");
-        },
+        }
     },
     methods: {
         closeDrawer() {
@@ -76,10 +76,10 @@ export default {
                 route("logout"),
                 {},
                 {
-                    onFinish: () => (this.snackbar = false),
+                    onFinish: () => (this.snackbar = false)
                 }
             );
-        },
-    },
+        }
+    }
 };
 </script>

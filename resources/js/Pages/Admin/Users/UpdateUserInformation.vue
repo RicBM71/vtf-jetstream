@@ -67,10 +67,7 @@
                             label="Nombre"
                             dense
                             v-model="form.name"
-                            v-validate="'required|min:3'"
-                            :error-messages="errors.collect('name')"
-                            data-vv-name="name"
-                            data-vv-as="name"
+                            :error-messages="form.errors.name"
                         ></v-text-field>
                     </v-col>
                     <v-col cols="12" md="4">
@@ -78,6 +75,7 @@
                             label="Apellidos"
                             dense
                             v-model="form.lastname"
+                            :error-messages="form.errors.lastname"
                         ></v-text-field>
                     </v-col>
                     <v-col cols="12" md="2">
@@ -85,10 +83,7 @@
                             label="Usuario"
                             dense
                             v-model="form.username"
-                            v-validate="'required'"
-                            :error-messages="errors.collect('username')"
-                            data-vv-name="username"
-                            data-vv-as="username"
+                            :error-messages="form.errors.username"
                         ></v-text-field>
                     </v-col>
                     <v-col cols="12" md="4">
@@ -96,10 +91,7 @@
                             label="Email"
                             dense
                             v-model="form.email"
-                            v-validate="'required|email'"
-                            :error-messages="errors.collect('email')"
-                            data-vv-name="email"
-                            data-vv-as="email"
+                            :error-messages="form.errors.email"
                         ></v-text-field>
                     </v-col>
                 </v-row>
@@ -149,12 +141,12 @@ export default {
                 username: this.user.username,
                 lastname: this.user.lastname,
                 email: this.user.email,
-                photo: null,
+                photo: null
             }),
 
             photoPreview: null,
             loading: false,
-            loading_photo: false,
+            loading_photo: false
         };
     },
     mounted() {},
@@ -164,7 +156,7 @@ export default {
                 this.$toast.success(`${val}`);
                 this.$page.props.flash.success = null;
             }
-        },
+        }
     },
     computed: {
         // computedHuella() {
@@ -179,7 +171,7 @@ export default {
         },
         computedCreatedAt() {
             return this.getFechaHora(this.user.created_at);
-        },
+        }
     },
 
     methods: {
@@ -189,23 +181,9 @@ export default {
                 this.form.photo = this.$refs.photo.files[0];
             }
 
-            this.$validator.validateAll().then((result) => {
-                if (result) {
-                    this.form.put(route("users.update", { user: this.user }), {
-                        errorBag: "updateProfileInformation",
-                        preserveScroll: true,
-                        onFinish: () => {
-                            const msg_valid = this.form.errors;
-                            for (const prop in msg_valid) {
-                                this.errors.add({
-                                    field: prop,
-                                    msg: `${msg_valid[prop]}`,
-                                });
-                            }
-                            this.loading = false;
-                        },
-                    });
-                } else {
+            this.form.put(route("users.update", this.user.id), {
+                preserveScroll: true,
+                onFinish: () => {
                     this.loading = false;
                 }
             });
@@ -218,7 +196,7 @@ export default {
         updatePhotoPreview() {
             const reader = new FileReader();
 
-            reader.onload = (e) => {
+            reader.onload = e => {
                 this.photoPreview = e.target.result;
             };
 
@@ -230,13 +208,13 @@ export default {
             this.$inertia.delete(route("photo.destroy", { user: this.user }), {
                 preserveScroll: true,
                 onSuccess: () => (this.photoPreview = null),
-                onFinish: () => (this.loading_photo = false),
+                onFinish: () => (this.loading_photo = false)
             });
         },
         roles() {
             this.setMyHistoryUrl();
             this.$inertia.get(route("roles.index"));
-        },
-    },
+        }
+    }
 };
 </script>

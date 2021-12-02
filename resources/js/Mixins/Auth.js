@@ -10,6 +10,7 @@ module.exports = {
     },
     computed: {
         currentUser() {
+            
             return this.$page.props.user;
         },
         appName() {

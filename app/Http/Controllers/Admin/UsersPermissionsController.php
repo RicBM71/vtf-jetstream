@@ -24,6 +24,10 @@ class UsersPermissionsController extends Controller
 
         if ($request->wantsJson()){
             $user->syncPermissions($request->input('permisos')); // esto es del paquete laravel permisions
+
+            return [
+                'permisos_usr' => $user->getDirectPermissions()->pluck('name')
+            ];
         }
     }
 

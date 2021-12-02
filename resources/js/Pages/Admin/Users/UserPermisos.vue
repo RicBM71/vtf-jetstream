@@ -83,7 +83,7 @@ export default {
     },
     methods: {
         editable(item) {
-            if (this.permisos_heredados.length == 0) return false;
+            //if (this.permisos_heredados.length == 0) return false;
 
             return this.permisos_heredados.findIndex(
                 element => element === item.name
@@ -98,6 +98,7 @@ export default {
                     permisos: this.permisos_usr
                 })
                 .then(res => {
+                    this.permisos_usr = res.data.permisos_usr;
                     this.$toast.success("Permisos asignados!");
                 })
                 .catch(err => {

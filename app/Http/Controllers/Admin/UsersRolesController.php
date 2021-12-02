@@ -46,7 +46,7 @@ class UsersRolesController extends Controller
 
             return [
                 'permisos_heredados'=> $user->getPermissionsViaRoles()->unique('name')->sortBy('nombre')->values()->pluck('name'),
-                'permisos_usr' => $user->getAllPermissions()->pluck('name')
+                'permisos_usr' => $user->getDirectPermissions()->pluck('name')
             ];
         }
     }

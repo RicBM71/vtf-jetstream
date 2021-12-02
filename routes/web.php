@@ -42,10 +42,10 @@ Route::group([
         Route::resource('users', App\Http\Controllers\Admin\UsersController::class);
         Route::delete('users/{user}/photo/delete', [App\Http\Controllers\Admin\UsersPhotoController::class, 'destroy'])->name('photo.destroy');
 
-        Route::get('users/{user}/roles', [App\Http\Controllers\Admin\UsersRolesController::class, 'show']);
+        Route::get('users/{user}/roles', [App\Http\Controllers\Admin\UsersRolesController::class, 'show'])->name('user.roles.show');
         Route::put('users/{user}/roles', [App\Http\Controllers\Admin\UsersRolesController::class, 'update'])->name('user.roles.update');
-        Route::get('users/{user}/permission', [App\Http\Controllers\Admin\UsersPermissionsController::class, 'show']);
-        Route::put('users/{user}/permission', [App\Http\Controllers\Admin\UsersPermissionsController::class, 'update']);
+        Route::get('users/{user}/permission', [App\Http\Controllers\Admin\UsersPermissionsController::class, 'show'])->name('user.permissions.show');
+        Route::put('users/{user}/permission', [App\Http\Controllers\Admin\UsersPermissionsController::class, 'update'])->name('user.permissions.update');
 
         Route::resource('roles', App\Http\Controllers\Admin\RolesController::class);
 

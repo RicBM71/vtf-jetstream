@@ -13,8 +13,7 @@
                             :value="role"
                             color="primary"
                         >
-                            </v-switch
-                        >
+                        </v-switch>
                     </v-col>
 
                     <v-col
@@ -52,24 +51,25 @@ export default {
             roles_usr: [],
             permisos_heredados: [],
             permisos_usr: [],
-            loading: false,
+            loading: false
         };
     },
     props: {
         user_id: {
             type: Number,
-            required: true,
-        },
+            required: true
+        }
     },
     mounted() {
-        axios.get("/admin/users/" + this.user_id + "/roles")
-            .then((res) => {
+        axios
+            .get(route("user.roles.show", this.user_id))
+            .then(res => {
                 this.roles = res.data.roles;
                 this.roles_usr = res.data.roles_usr;
                 this.permisos_heredados = res.data.permisos_heredados;
                 this.permisos_usr = res.data.permisos_usr;
             })
-            .catch((err) => {
+            .catch(err => {
                 console.log(err.response);
             });
     },
@@ -83,20 +83,22 @@ export default {
             //         onFinish: () => (this.loading = false),
             //     }
             // );
-            axios.put("/admin/users/" + this.user_id + "/roles", {
-                    roles: this.roles_usr,
+            axios
+                .put(route("user.roles.update", this.user_id), {
+                    roles: this.roles_usr
                 })
-                .then((res) => {
+                .then(res => {
                     this.permisos_heredados = res.data.permisos_heredados;
                     this.permisos_usr = res.data.permisos_usr;
+                    this.$toast.success("Roles y permisos asignados!");
                 })
-                .catch((err) => {
+                .catch(err => {
                     console.log(err.response);
                 })
                 .finally(() => {
                     this.loading = false;
                 });
-        },
-    },
+        }
+    }
 };
 </script>

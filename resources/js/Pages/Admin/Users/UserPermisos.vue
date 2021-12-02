@@ -15,10 +15,14 @@
                         v-model="permisos_usr"
                         :label="permiso.nombre"
                         :value="permiso.name"
-                        :disabled="desactivar(permiso)"
+                        v-if="editable(permiso)"
                         color="primary"
                     >
                     </v-switch>
+
+                    <v-chip v-else text class="mt-4" outlined color="success">
+                        {{ permiso.nombre }}
+                    </v-chip>
                 </v-col>
                 <v-col
                     v-if="permisos.length > 0"
@@ -40,69 +44,69 @@ export default {
     props: {
         user_id: {
             type: Number,
-            required: true,
+            required: true
         },
         from_role_permisos_heredados: {
             type: Array,
-            required: true,
+            required: true
         },
         from_role_permisos_usr: {
             type: Array,
-            required: true,
-        },
+            required: true
+        }
     },
     data() {
         return {
             permisos: [],
             permisos_usr: [],
-            permisos_heredados:[],
-            loading: false,
+            permisos_heredados: [],
+            loading: false
         };
     },
-    watch:{
-        from_role_permisos_usr: function () {
+    watch: {
+        from_role_permisos_usr: function() {
             this.permisos_usr = this.from_role_permisos_usr;
         },
-        from_role_permisos_heredados: function () {
+        from_role_permisos_heredados: function() {
             this.permisos_heredados = this.from_role_permisos_heredados;
         }
     },
     mounted() {
         axios
-            .get("/admin/users/" + this.user_id + "/permission")
-            .then((res) => {
+            .get(route("user.permissions.show", this.user_id))
+            .then(res => {
                 this.permisos = res.data.permisos;
             })
-            .catch((err) => {
+            .catch(err => {
                 console.log(err.response);
             });
     },
     methods: {
-        desactivar(item) {
+        editable(item) {
             if (this.permisos_heredados.length == 0) return false;
+
             return this.permisos_heredados.findIndex(
-                (element) => element === item.name
+                element => element === item.name
             ) >= 0
-                ? true
-                : false;
+                ? false
+                : true;
         },
         setUserPermiso() {
             this.loading = true;
             axios
-                .put("/admin/users/" + this.user_id + "/permission", {
-                    permisos: this.permisos_usr,
+                .put(route("user.permissions.update", this.user_id), {
+                    permisos: this.permisos_usr
                 })
-                .then((res) => {
-                    // this.permisos_heredados = res.data.permisos_heredados;
-                    // this.permisos_usr = res.data.permisos_usr;
+                .then(res => {
+                    this.$toast.success("Permisos asignados!");
                 })
-                .catch((err) => {
+                .catch(err => {
                     console.log(err.response);
                 })
                 .finally(() => {
                     this.loading = false;
                 });
-        },
-    },
+        }
+    }
 };
 </script>

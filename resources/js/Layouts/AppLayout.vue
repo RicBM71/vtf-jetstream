@@ -1,8 +1,8 @@
 <template>
-    <v-app id="inspire">
+    <v-app>
         <navigation-drawer :drawer.sync="drawer"></navigation-drawer>
 
-        <auth-app-bar :drawer.sync="drawer"></auth-app-bar>
+        <auth-app-bar id="mainlayout" :drawer.sync="drawer"></auth-app-bar>
 
         <v-main class="grey lighten-4">
             <v-container id="container">
@@ -34,13 +34,13 @@ export default {
     components: {
         AuthAppBar,
         Headings,
-        NavigationDrawer,
+        NavigationDrawer
     },
 
     data() {
         return {
             showingNavigationDropdown: false,
-            drawer: false,
+            drawer: false
         };
     },
     mounted() {
@@ -66,21 +66,21 @@ export default {
 
         hasSubtitle() {
             return !!this.$slots.subtitle;
-        },
+        }
     },
 
     watch: {
         drawer(val) {
             return val;
-        },
+        }
     },
 
     methods: {
         logout() {
-            axios.post(route("logout").url()).then((response) => {
+            axios.post(route("logout").url()).then(response => {
                 window.location = "/";
             });
-        },
-    },
+        }
+    }
 };
 </script>

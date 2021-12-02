@@ -1,13 +1,16 @@
-require('./bootstrap');
+require("./bootstrap");
 
 // Import modules...
-import Vue from 'vue';
-import { App as InertiaApp, plugin as InertiaPlugin } from '@inertiajs/inertia-vue';
-import PortalVue from 'portal-vue';
+import Vue from "vue";
+import {
+    App as InertiaApp,
+    plugin as InertiaPlugin
+} from "@inertiajs/inertia-vue";
+import PortalVue from "portal-vue";
 //add these two line
-import Vuetify from 'vuetify'
+import Vuetify from "vuetify";
 //import Vuetify from 'vuetify/lib'
-import 'vuetify/dist/vuetify.min.css'
+import "vuetify/dist/vuetify.min.css";
 
 Vue.mixin({ methods: { route } });
 Vue.use(InertiaPlugin);
@@ -20,30 +23,34 @@ Vue.use(PortalVue);
 /*************************
  * VeeValidate
  *************************/
-import VeeValidate from 'vee-validate';
-import VueValidationEs from 'vee-validate/dist/locale/es';
+import VeeValidate from "vee-validate";
+import VueValidationEs from "vee-validate/dist/locale/es";
 const config = {
-    locale: 'es',
+    locale: "es",
     dictionary: {
         es: VueValidationEs
     }
 };
 Vue.use(VeeValidate, config);
+/******************************************** */
 
 //also add this line
 Vue.use(Vuetify);
 
-import es from 'vuetify/src/locale/es.ts'
+import es from "vuetify/src/locale/es.ts";
 
 const opts = {
     lang: {
         locales: { es },
-        current: 'es',
-    },
-
-}
+        current: "es"
+    }
+};
 
 export default new Vuetify(opts);
+
+/**
+ * Toast
+ */
 
 import Toast, { TYPE } from "vue-toastification";
 
@@ -53,17 +60,17 @@ const options = {
         [TYPE.ERROR]: {
             position: "top-center",
             timeout: 5000,
-            closeOnClick: true,
+            closeOnClick: true
         },
         [TYPE.WARNING]: {
             position: "top-center",
             timeout: 5000,
-            closeOnClick: true,
+            closeOnClick: true
         },
         [TYPE.SUCCESS]: {
             position: "top-center",
             timeout: 3000,
-            hideProgressBar: true,
+            hideProgressBar: true
         }
     }
 };
@@ -72,7 +79,9 @@ import "vue-toastification/dist/index.css";
 
 Vue.use(Toast, options);
 
-const app = document.getElementById('app');
+/************************************************* */
+
+const app = document.getElementById("app");
 
 import auth from "@/Mixins/Auth";
 Vue.mixin(auth);
@@ -80,17 +89,23 @@ Vue.mixin(auth);
 import comun from "@/Mixins/Comun";
 Vue.mixin(comun);
 
-import moment from 'moment'
-Object.defineProperty(Vue.prototype, '$moment', { value: moment })
+import moment from "moment";
+Object.defineProperty(Vue.prototype, "$moment", { value: moment });
 
-import NProgress from 'nprogress';
-import { InertiaProgress } from '@inertiajs/progress';
+/*******************
+ * NProgess
+ *
+ */
 
-NProgress.configure({ parent: '#container' });
+import NProgress from "nprogress";
+import { InertiaProgress } from "@inertiajs/progress";
+
+NProgress.configure({ parent: "#mainlayout" });
 InertiaProgress.init({
-    color: '#37474F',
-}
-);
+    color: "#FFFF00"
+});
+
+/***************************** */
 
 //import Layout from './Layout';
 import AppLayout from "@/Layouts/AppLayout";
@@ -98,18 +113,18 @@ import AppLayout from "@/Layouts/AppLayout";
 new Vue({
     //finally add this line
     vuetify: new Vuetify(),
-    render: (h) =>
+    render: h =>
         h(InertiaApp, {
             props: {
                 initialPage: JSON.parse(app.dataset.page),
-                resolveComponent: function (name) {
-                    const page = require(`./Pages/${name}`).default
+                resolveComponent: function(name) {
+                    const page = require(`./Pages/${name}`).default;
                     //console.log(page.layout);
                     if (page.layout != null || page.layout == undefined)
-                        page.layout = page.layout || AppLayout
-                    return page
+                        page.layout = page.layout || AppLayout;
+                    return page;
                 }
                 //resolveComponent: (name) => require(`./Pages/${name}`).default,
-            },
-        }),
+            }
+        })
 }).$mount(app);
